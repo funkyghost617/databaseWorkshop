@@ -38,6 +38,7 @@ main {
     width: 600px;
 }
 
-main p {
+main p,
+main ul {
     margin-top: 0px;
 }
