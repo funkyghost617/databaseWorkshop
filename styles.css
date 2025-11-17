@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
+
+body {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+nav {
+    width: 300px;
+    border-right: 2px solid black;
+    padding-right: 10px;
+    height: 100vh;
+}
+
+nav header {
+    text-align: center;
+    font-size: 1.8rem;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid grey;
+}
+
+nav p {
+    font-size: 1.4em;
+    padding-left: 5px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid grey;
+}
