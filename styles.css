@@ -10,7 +10,7 @@ body {
 }
 
 nav {
-    width: 300px;
+    width: 350px;
     border-right: 2px solid black;
     padding-right: 10px;
     height: 100vh;
@@ -22,14 +22,36 @@ nav header {
     padding-top: 10px;
     padding-bottom: 20px;
     border-bottom: 1px solid grey;
+    font-weight: bold;
+}
+
+nav header a {
+    text-decoration: none;
+    color: black;
 }
 
 nav p {
     font-size: 1.4em;
-    padding-left: 5px;
-    padding-bottom: 20px;
     border-bottom: 1px solid grey;
 }
+
+nav p a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 20px 10px;
+    margin-top: -22px;
+    background-image: linear-gradient(to right, #8855F7 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 0.3s ease-in-out;
+}
+
+nav p a:hover {
+    background-position: 0 0;
+}
+
+
 
 main {
     display: flex;
@@ -42,3 +64,4 @@ main p,
 main ul {
     margin-top: 0px;
 }
+
