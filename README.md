@@ -5,6 +5,7 @@ This project (yet unnamed) is planned to be an open-source and intuitive databas
 * track application materials
 * query applicant records
 * hopefully other features!
+
 The end goal of this project is to publish an open-source repository for colleges use on their own websites, as well as intuitive and accessible documentation for how to setup the database and file management systems.
 
 The latest version of the project is live at [this website](https://funkyghost617.github.io/databaseWorkshop).
