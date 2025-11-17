@@ -34,4 +34,10 @@ nav p {
 main {
     display: flex;
     flex-flow: column nowrap;
+    padding-left: 20px;
+    width: 600px;
+}
+
+main p {
+    margin-top: 0px;
 }
