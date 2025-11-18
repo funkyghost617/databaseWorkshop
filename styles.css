@@ -11,7 +11,7 @@ body {
 }
 
 nav {
-    width: 200px;
+    width: 25%;
     border-right: 2px solid black;
     padding-right: 10px;
     height: 100%;
@@ -20,7 +20,7 @@ nav {
 
 nav header {
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     padding-top: 10px;
     padding-bottom: 20px;
     border-bottom: 1px solid grey;
@@ -33,7 +33,7 @@ nav header a {
 }
 
 nav p a {
-    font-size: 1.3em;
+    font-size: 1em;
     border-bottom: 1px solid grey;
     text-decoration: none;
     color: black;
@@ -53,8 +53,8 @@ nav p a:hover {
 main {
     display: flex;
     flex-flow: column nowrap;
-    padding: 0 20px;
-    margin-left: 200px;
+    padding: 0 5%;
+    margin-left: 25%;
 }
 
 main p,
@@ -77,6 +77,7 @@ main ul {
 
     main {
         margin-left: 300px;
-        max-width: 600px;
+        max-width: 700px;
+        padding: 0 20px;
     }
 }
