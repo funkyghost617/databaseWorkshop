@@ -6,16 +6,15 @@
 
 body {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     height: 100vh;
 }
 
 nav {
-    width: 25%;
-    border-right: 2px solid black;
+    width: 100%;
+    border-bottom: 2px solid black;
     padding-right: 10px;
-    height: 100%;
-    position: fixed;
+    background-color: white;
 }
 
 nav header {
@@ -38,12 +37,12 @@ nav p a {
     text-decoration: none;
     color: black;
     display: block;
-    padding: 20px 10px;
+    padding: 10px 10px;
     margin-top: -16px;
     background-image: linear-gradient(to right, #8855F7 50%, white 50%);
     background-size: 200% 100%;
     background-position: 100% 0;
-    transition: background-position 0.3s ease-in-out;
+    transition: background-position 0.2s ease-in-out;
 }
 
 nav p a:hover {
@@ -51,10 +50,7 @@ nav p a:hover {
 }
 
 main {
-    display: flex;
-    flex-flow: column nowrap;
-    padding: 0 5%;
-    margin-left: 25%;
+    padding: 0 5% 5%;
 }
 
 main p,
@@ -64,7 +60,11 @@ main ul {
 
 @media (min-width: 768px) {
     nav {
+        position: fixed;
+        height: 100%;
         width: 300px;
+        border-bottom: none;
+        border-right: 2px solid black;
     }
     
     nav header {
@@ -73,6 +73,7 @@ main ul {
 
     nav p a {
         font-size: 1.4em;
+        padding: 20px 10px;
     }
 
     main {
