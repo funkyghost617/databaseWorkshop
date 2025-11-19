@@ -1,6 +1,6 @@
 const navbar = document.getElementById("navbar");
 
-navbar.innerHTML = `<header><a href="./students.html">database workshop</a></header>
+navbar.innerHTML = `<header><a href="./home.html">database workshop</a></header>
     <p><a href="./students.html">students</a></p>
     <p><a href="./events.html">events</a></p>
     <p><a href="./sub-events.html">sub-events</a></p>
