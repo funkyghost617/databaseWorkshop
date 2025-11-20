@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
@@ -71,3 +71,17 @@ guestBtn.addEventListener("click", (e) => {
         console.log("success!");
     });
 });
+
+//detect authentication changes
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        loginEmail.value = "";
+        loginPassword.value = "";
+        signupEmail.value = "";
+        signupPassword.value = "";
+        signupPasswordConfirm = "";
+    } else {
+        window.location.href = "../pages/home.html";
+    }
+});
+
