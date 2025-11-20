@@ -81,6 +81,7 @@ querySnapshot.forEach((student) => {
 //process raw csv text into new student documents
 const importCSVText = document.querySelector("#import-students-csv");
 const importCSVBtn = document.querySelector("#submit-import-students-csv");
+const successMessage = document.querySelector("#success-message");
 importCSVBtn.addEventListener("click", (e) => {
     e.preventDefault();
     let importArray = importCSVText.value.split("\n");
@@ -103,5 +104,7 @@ importCSVBtn.addEventListener("click", (e) => {
             "address_postcode": studentArray[13]
         });
     });
+    successMessage.textContent = `${importArray.length} students added to database!`;
     console.log(`${importArray.length} students added to database!`);
+    importCSVText.value = "";
 });
