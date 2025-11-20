@@ -8,7 +8,7 @@ This project (yet unnamed) is planned to be an open-source and intuitive databas
 
 The end goal of this project is to publish an open-source repository for colleges use on their own websites, as well as intuitive and accessible documentation for how to setup the database and file management systems.
 
-The latest version of the project is live at [this website](https://funkyghost617.github.io/databaseWorkshop).
+The latest version of the project is live at [this website](https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/).
 You can also take a look at this repository for any other project files or unfinished versions.
 
 Current project focus: configuring SQLite databases on [Turso](https://turso.tech/) and linking those databases to the project website with JavaScript.
