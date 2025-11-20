@@ -14,6 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+
 const navbar = document.getElementById("navbar");
 
 navbar.innerHTML = `<header><a href="./home.html">database workshop</a></header>
@@ -33,7 +34,4 @@ signoutBtn.addEventListener("click", (e) => {
 });
 
 //check for lack of authentication
-let user = auth.currentUser;
-if (!user) {
-    window.location.href = "../index.html";
-}
+console.log(auth.currentUser);

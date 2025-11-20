@@ -15,23 +15,24 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const studentsTable = document.querySelector("#students-table");
+const studentsTableBody = document.querySelector("#students-table-body");
 
 function renderStudent(doc) {
-    let li = document.createElement("li");
-    let studentID = document.createElement("span");
-    let firstName = document.createElement("span");
-    let lastName = document.createElement("span");
+    let student = document.createElement("tr");
+    let studentID = document.createElement("td");
+    let firstName = document.createElement("td");
+    let lastName = document.createElement("td");
 
-    li.setAttribute("data-id", doc.id);
+    student.setAttribute("data-id", doc.id);
     studentID.textContent = doc.data()["student_id"];
     firstName.textContent = doc.data()["first_name"];
     lastName.textContent = doc.data()["last_name"];
 
-    li.appendChild(studentID);
-    li.appendChild(firstName);
-    li.appendChild(lastName);
+    student.appendChild(studentID);
+    student.appendChild(firstName);
+    student.appendChild(lastName);
 
-    studentsTable.appendChild(li);
+    studentsTableBody.appendChild(student);
 };
 
 const querySnapshot = await getDocs(collection(db, "students"));

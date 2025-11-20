@@ -35,6 +35,8 @@ const signupEmail = document.querySelector("#new-email");
 const signupPassword = document.querySelector("#new-password");
 const signupPasswordConfirm = document.querySelector("#confirm-new-password");
 
+
+
 //signup new user
 const signupBtn = document.querySelector("#signup-btn");
 signupBtn.addEventListener("click", (e) => {
@@ -73,15 +75,22 @@ guestBtn.addEventListener("click", (e) => {
 });
 
 //detect authentication changes
+let user = auth.currentUser;
+if (!user) {
+    loginEmail.value = "";
+    loginPassword.value = "";
+    signupEmail.value = "";
+    signupPassword.value = "";
+    signupPasswordConfirm.value = "";
+} else {
+    window.location.href = "./pages/home.html";
+}
+
 onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        loginEmail.value = "";
-        loginPassword.value = "";
-        signupEmail.value = "";
-        signupPassword.value = "";
-        signupPasswordConfirm.value = "";
-    } else {
+    if (user) {
+        console.log("logged-in!");
         window.location.href = "./pages/home.html";
-    }
+    };
 });
+
 
