@@ -84,21 +84,21 @@ importCSVBtn.addEventListener("click", (e) => {
     importArray.forEach(student => {
         let studentArray = student.split(",");
         addDoc(collection(db, "students"), {
-            "student_id": student[0],
-            "first_name": student[1],
-            "last_name": student[2],
-            "primary_email": student[3],
-            "secondary_email": student[4],
-            "tertiary_email": student[5],
-            "application_term": student[6],
-            "date_of_birth": student[7],
-            "address_line1": student[8],
-            "address_line2": student[9],
-            "address_city": student[10],
-            "address_state": student[11],
-            "address_country": student[12],
-            "address_postcode": student[13]
+            "student_id": studentArray[0],
+            "first_name": studentArray[1],
+            "last_name": studentArray[2],
+            "primary_email": studentArray[3],
+            "secondary_email": studentArray[4],
+            "tertiary_email": studentArray[5],
+            "application_term": studentArray[6],
+            "date_of_birth": studentArray[7],
+            "address_line1": studentArray[8],
+            "address_line2": studentArray[9],
+            "address_city": studentArray[10],
+            "address_state": studentArray[11],
+            "address_country": studentArray[12],
+            "address_postcode": studentArray[13]
         });
     });
-    console.log(`${studentArray.length} students added to database!`);
+    console.log(`${importArray.length} students added to database!`);
 });
