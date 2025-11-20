@@ -1,5 +1,3 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
 // manage login and signup window switching
 const loginWindow = document.querySelector(".login-window");
 const signupWindow = document.querySelector(".signup-window");

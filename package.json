@@ -1,4 +1,22 @@
 {
+  "name": "databaseworkshop",
+  "version": "1.0.0",
+  "description": "This project (yet unnamed) is planned to be an open-source and intuitive database for college admissions offices to use for event management, email communications, and application review. Resources like [Slate](https://technolutions.com/), [Salesforce](https://www.salesforce.com/education/recruitment-admissions-software/), [Keap](https://keap.com/solutions/automation), and many others are powerful, but it would be super awesome if there was a free and open-source alternative which still had the capabilities that admissions offices need:\r * manage campus visits and provide a public-facing registration portal\r * schedule and send emails to prospective students and applicants\r * track application materials\r * query applicant records\r * hopefully other features!",
+  "homepage": "https://github.com/funkyghost617/databaseWorkshop#readme",
+  "bugs": {
+    "url": "https://github.com/funkyghost617/databaseWorkshop/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funkyghost617/databaseWorkshop.git"
+  },
+  "license": "ISC",
+  "author": "funkyghost617",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "firebase": "^12.6.0"
   }
