@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
@@ -28,10 +28,15 @@ const signoutBtn = document.querySelector("#sign-out-btn");
 signoutBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    signOut(auth).then(() => {
-        window.location.href = "../index.html";
-    });
+    signOut(auth);
 });
 
 //check for lack of authentication
 console.log(auth.currentUser);
+
+// return to login page on logout
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
+    }
+});
