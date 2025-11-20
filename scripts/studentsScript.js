@@ -1,6 +1,6 @@
+//initialize firestore connections
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
     authDomain: "databaseworkshop.firebaseapp.com",
@@ -10,13 +10,14 @@ const firebaseConfig = {
     appId: "1:115769503478:web:1e9c80f6a479035b3b86d7",
     measurementId: "G-71JJBGLQXX"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+//connect javascript to students.html
 const studentsTable = document.querySelector("#students-table");
 const studentsTableBody = document.querySelector("#students-table-body");
 
+//process each document in the students table from firebase
 function renderStudent(doc) {
     let student = document.createElement("tr");
     let studentID = document.createElement("td");
@@ -58,7 +59,6 @@ function renderStudent(doc) {
     student.appendChild(tertiaryEmail);
     student.appendChild(applicationTerm);
     student.appendChild(dateOfBirth);
-    student.appendChild(dateOfBirth);
     student.appendChild(addressLine1);
     student.appendChild(addressLine2);
     student.appendChild(addressCity);
@@ -69,8 +69,36 @@ function renderStudent(doc) {
     studentsTableBody.appendChild(student);
 };
 
+//get latest version of students table from firebase
 const querySnapshot = await getDocs(collection(db, "students"));
-
 querySnapshot.forEach((student) => {
     renderStudent(student);
+});
+
+//process raw csv text into new student documents
+const importCSVText = document.querySelector("#import-students-csv");
+const importCSVBtn = document.querySelector("#submit-import-students-csv");
+importCSVBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let importArray = importCSVText.value.split("\n");
+    importArray.forEach(student => {
+        let studentArray = student.split(",");
+        addDoc(collection(db, "students"), {
+            "student_id": student[0],
+            "first_name": student[1],
+            "last_name": student[2],
+            "primary_email": student[3],
+            "secondary_email": student[4],
+            "tertiary_email": student[5],
+            "application_term": student[6],
+            "date_of_birth": student[7],
+            "address_line1": student[8],
+            "address_line2": student[9],
+            "address_city": student[10],
+            "address_state": student[11],
+            "address_country": student[12],
+            "address_postcode": student[13]
+        });
+    });
+    console.log(`${studentArray.length} students added to database!`);
 });
