@@ -1,6 +1,6 @@
 //initialize firestore connections
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
     authDomain: "databaseworkshop.firebaseapp.com",
@@ -70,7 +70,10 @@ function renderStudent(doc) {
 };
 
 //get latest version of students table from firebase
-const querySnapshot = await getDocs(collection(db, "students"));
+const studentsRef = collection(db, "students");
+const q = query(studentsRef, orderBy("student_id", "asc"));
+const querySnapshot = await getDocs(q);
+
 querySnapshot.forEach((student) => {
     renderStudent(student);
 });
