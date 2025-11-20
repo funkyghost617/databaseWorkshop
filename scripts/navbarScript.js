@@ -31,3 +31,9 @@ signoutBtn.addEventListener("click", (e) => {
         window.location.href = "../index.html";
     });
 });
+
+//check for lack of authentication
+let user = auth.currentUser;
+if (!user) {
+    window.location.href = "../index.html";
+}

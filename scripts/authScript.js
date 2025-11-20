@@ -79,7 +79,7 @@ onAuthStateChanged(auth, (user) => {
         loginPassword.value = "";
         signupEmail.value = "";
         signupPassword.value = "";
-        signupPasswordConfirm = "";
+        signupPasswordConfirm.value = "";
     } else {
         window.location.href = "./pages/home.html";
     }
