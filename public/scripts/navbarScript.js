@@ -34,6 +34,7 @@ signoutBtn.addEventListener("click", (e) => {
 });
 
 //check for lack of authentication
+let user = auth.currentUser;
 if (!user) {
     window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app";
 };
