@@ -4,7 +4,7 @@ import { app } from "./firestoreScript.js";
 const auth = getAuth(app);
 
 const firebaseConfig = {
-    apiKey: "REMOVED",
+    apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
     authDomain: "databaseworkshop.firebaseapp.com",
     projectId: "databaseworkshop",
     storageBucket: "databaseworkshop.firebasestorage.app",
