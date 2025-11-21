@@ -7,7 +7,7 @@ import { getMessaging } from "https://www.gstatic.com/firebasejs/12.6.0/firebase
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
+    apiKey: "REMOVED",
     authDomain: "databaseworkshop.firebaseapp.com",
     projectId: "databaseworkshop",
     storageBucket: "databaseworkshop.firebasestorage.app",
