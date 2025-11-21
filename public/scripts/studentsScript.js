@@ -80,7 +80,7 @@ importCSVBtn.addEventListener("click", (e) => {
     importArray.forEach(student => {
         let studentArray = student.split(",");
         addDoc(collection(db, "students"), {
-            "student_id": studentArray[0],
+            "student_id": Number(studentArray[0]),
             "first_name": studentArray[1],
             "last_name": studentArray[2],
             "primary_email": studentArray[3],
