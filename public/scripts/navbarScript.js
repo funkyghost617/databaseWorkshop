@@ -4,8 +4,7 @@ import { app } from "./firebaseScript.js";
 const auth = getAuth(app);
 const navbar = document.getElementById("navbar");
 const body = document.querySelector("body");
-import loadScreen from "./loadScreenScript.js";
-body.appendChild(loadScreen);
+const loadScreen = document.querySelector(".loadScreen");
 
 //check for lack of authentication
 auth.onAuthStateChanged((user) => {
@@ -21,7 +20,7 @@ auth.onAuthStateChanged((user) => {
 navbar.innerHTML = `<header><a href="./home.html">database workshop</a></header>
     <p><a href="./students.html">students</a></p>
     <p><a href="./events.html">events</a></p>
-    <p><a href="./sub-events.html">sub-events</a></p>
+    <p><a href="./activities.html">activities</a></p>
     <p><a href="./registrations.html">registrations</a></p>
     <p><a href="#" id="sign-out-btn">sign out</a></p>`;
 

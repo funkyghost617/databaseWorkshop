@@ -1,4 +1,5 @@
 let loadScreen = document.createElement("div");
+loadScreen.classList.add("loadScreen");
 loadScreen.style.setProperty("display", "flex");
 loadScreen.style.setProperty("justify-content", "center");
 loadScreen.style.setProperty("align-items", "center");
@@ -17,5 +18,5 @@ loadingMessage.textContent = "loading....";
 
 loadCircle.appendChild(loadingMessage);
 loadScreen.appendChild(loadCircle);
-
-export default loadScreen;
+let body = document.querySelector("body");
+body.appendChild(loadScreen);
