@@ -2,8 +2,21 @@ import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/fi
 import { app } from "./firebaseScript.js";
 
 const auth = getAuth(app);
-
 const navbar = document.getElementById("navbar");
+const body = document.querySelector("body");
+import loadScreen from "./loadScreenScript.js";
+body.appendChild(loadScreen);
+
+//check for lack of authentication
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
+    } else {
+        console.log("you are logged in!");
+        console.log(user);
+        loadScreen.style.setProperty("display", "none");
+    }
+});
 
 navbar.innerHTML = `<header><a href="./home.html">database workshop</a></header>
     <p><a href="./students.html">students</a></p>
@@ -21,12 +34,3 @@ signoutBtn.addEventListener("click", (e) => {
     });
 });
 
-//check for lack of authentication
-auth.onAuthStateChanged((user) => {
-    if (!user) {
-        window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
-    } else {
-        console.log("you are logged in!");
-        console.log(user);
-    }
-});
