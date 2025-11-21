@@ -7,6 +7,7 @@ loadScreen.style.setProperty("position", "absolute");
 loadScreen.style.setProperty("width", "100%");
 loadScreen.style.setProperty("height", "100%");
 loadScreen.style.setProperty("background-color", "white");
+loadScreen.style.setProperty("z-index", "1");
 
 let loadCircle = document.createElement("div");
 loadCircle.style.setProperty("width", "200px");
