@@ -1,16 +1,8 @@
 //initialize firestore connections
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getFirestore, collection, doc, getDoc, getDocs, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-const firebaseConfig = {
-    apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
-    authDomain: "databaseworkshop.firebaseapp.com",
-    projectId: "databaseworkshop",
-    storageBucket: "databaseworkshop.firebasestorage.app",
-    messagingSenderId: "115769503478",
-    appId: "1:115769503478:web:1e9c80f6a479035b3b86d7",
-    measurementId: "G-71JJBGLQXX"
-};
-const app = initializeApp(firebaseConfig);
+import { app } from "./firebaseScript.js";
+
 const db = getFirestore(app);
 
 //connect javascript to students.html

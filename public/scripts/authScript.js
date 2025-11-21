@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { app, auth } from "./firestoreScript.js";
+import { app, auth } from "./firebaseScript.js";
 
 // manage login and signup window switching
 const loginWindow = document.querySelector(".login-window");
