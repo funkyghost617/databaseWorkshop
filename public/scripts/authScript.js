@@ -1,18 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
-    authDomain: "databaseworkshop.firebaseapp.com",
-    projectId: "databaseworkshop",
-    storageBucket: "databaseworkshop.firebasestorage.app",
-    messagingSenderId: "115769503478",
-    appId: "1:115769503478:web:1e9c80f6a479035b3b86d7",
-    measurementId: "G-71JJBGLQXX"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { app, auth } from "./firestoreScript.js";
 
 // manage login and signup window switching
 const loginWindow = document.querySelector(".login-window");
@@ -90,7 +77,11 @@ onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("logged-in!");
         window.location.href = "./pages/home.html";
+    } else {
+        loginEmail.value = "";
+        loginPassword.value = "";
+        signupEmail.value = "";
+        signupPassword.value = "";
+        signupPasswordConfirm.value = "";
     };
 });
-
-

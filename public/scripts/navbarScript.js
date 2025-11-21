@@ -1,5 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { app } from "./firestoreScript.js";
+
+const auth = getAuth(app);
 
 const firebaseConfig = {
     apiKey: "AIzaSyAW8lBFXWUg7tfYbvod3-khX1oGXrnshKk",
@@ -10,10 +12,6 @@ const firebaseConfig = {
     appId: "1:115769503478:web:1e9c80f6a479035b3b86d7",
     measurementId: "G-71JJBGLQXX"
 };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
 
 const navbar = document.getElementById("navbar");
 
@@ -34,7 +32,11 @@ signoutBtn.addEventListener("click", (e) => {
 });
 
 //check for lack of authentication
-let user = auth.currentUser;
-if (!user) {
-    window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app";
-};
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
+    } else {
+        console.log("you are logged in!");
+        console.log(user);
+    }
+});
