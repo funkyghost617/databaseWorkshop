@@ -52,9 +52,10 @@ tbody tr:nth-child(odd) {
     left: calc(50% - 250px);
     width: 500px;
     height: 700px;
-    background-color: red;
+    background-color: lavender;
     z-index: 1;
     border-radius: 5%;
+    border: 2px solid black;
     padding-left: 50px;
     display: none;
     flex-flow: column nowrap;
@@ -64,7 +65,7 @@ tbody tr:nth-child(odd) {
 #close-modal-btn {
     width: 25px;
     height: 25px;
-    background-color: green;
+    background-color: forestgreen;
     position: absolute;
     top: 15px;
     right: 15px;
@@ -92,7 +93,7 @@ tbody tr:nth-child(odd) {
 }
 
 #name-and-id {
-    margin-top: 70px;
+    margin-top: 40px;
     font-size: 2rem;
 }
 
