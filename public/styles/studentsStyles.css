@@ -5,3 +5,33 @@
 #submit-import-students-csv {
     background-color: lightseagreen;
 }
+
+#students-table-container {
+    max-height: 500px;
+    max-width: 800px;
+    overflow: auto;
+    border: 2px solid black;
+}
+
+#students-table-container table {
+    background-color: white;
+}
+
+#students-table-container thead {
+    background-color: white;
+}
+
+#students-table-container th {
+    position: sticky;
+    top: 2px;
+    background-color: white;
+    transform: translateY(-2px);
+}
+
+#students-table-container td {
+    background-color: lightblue;
+}
+
+thead:first-child {
+    width: 300px;
+}
