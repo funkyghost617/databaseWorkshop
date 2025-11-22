@@ -7,31 +7,101 @@
 }
 
 #students-table-container {
-    max-height: 500px;
-    max-width: 800px;
+    max-height: 900px;
+    max-width: 100%;
     overflow: auto;
     border: 2px solid black;
 }
 
-#students-table-container table {
+table {
     background-color: white;
+    border-collapse: collapse;
 }
 
-#students-table-container thead {
-    background-color: white;
+thead tr {
+    height: 3.5rem;
 }
 
-#students-table-container th {
+th {
     position: sticky;
     top: 2px;
-    background-color: white;
+    background-color: darkblue;
+    color: white;
     transform: translateY(-2px);
+    min-width: 100px;
+    max-width: 200px;
 }
 
-#students-table-container td {
+tbody tr {
+    height: 2.5rem;
+    background-color: lightcyan;
+    cursor: pointer;
+}
+
+td {
+    white-space: nowrap;
+}
+
+tbody tr:nth-child(odd) {
     background-color: lightblue;
 }
 
-thead:first-child {
-    width: 300px;
+#student-modal {
+    position: fixed;
+    top: calc(50% - 350px);
+    left: calc(50% - 250px);
+    width: 500px;
+    height: 700px;
+    background-color: red;
+    z-index: 1;
+    border-radius: 5%;
+    padding-left: 50px;
+    display: none;
+    flex-flow: column nowrap;
+    white-space: pre;
+}
+
+#close-modal-btn {
+    width: 25px;
+    height: 25px;
+    background-color: green;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 20%;
+}
+
+#close-modal-btn::before {
+    content: "";
+    position: absolute;
+    background-color: black;
+    width: 10%;
+    height: 100%;
+    transform: rotate(45deg);
+    left: 45%;
+}
+
+#close-modal-btn::after {
+    content: "";
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    height: 10%;
+    transform: rotate(45deg);
+    top: 45%;
+}
+
+#name-and-id {
+    margin-top: 70px;
+    font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+    #students-table-container {
+        max-width: calc(100% - 300px);
+    }
+
+    #student-modal {
+        left: calc(50% - 150px);
+    }
 }

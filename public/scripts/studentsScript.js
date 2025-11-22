@@ -70,6 +70,39 @@ querySnapshot.forEach((student) => {
     renderStudent(student);
 });
 
+//control current student selection modal
+const studentModal = document.querySelector("#student-modal");
+const closeStudentModal = document.querySelector("#close-modal-btn");
+closeStudentModal.addEventListener("click", () => {
+    studentModal.style.setProperty("display", "none");
+});
+
+const nameAndIDModal = document.querySelector("#name-and-id");
+const emailsModal = document.querySelector("#emails");
+const addressModal = document.querySelector("#address");
+const termAndDOBModal = document.querySelector("#term-and-dob");
+
+const dataRows = document.querySelectorAll("tbody tr");
+dataRows.forEach(row => {
+    row.addEventListener("click", () => {
+        nameAndIDModal.textContent = `${row.children[1].textContent} ${row.children[2].textContent}
+ID: ${row.children[0].textContent}`;
+        emailsModal.textContent = `${row.children[3].textContent}
+${row.children[4].textContent}
+${row.children[5].textContent}`;
+        addressModal.textContent = `${row.children[8].textContent}
+${row.children[9].textContent}
+${row.children[10].textContent}
+${row.children[11].textContent}
+${row.children[12].textContent}
+${row.children[13].textContent}`;
+        termAndDOBModal.textContent = `Application term: ${row.children[6].textContent}
+DOB: ${row.children[7].textContent}`;
+        studentModal.style.setProperty("display", "block");
+    })
+});
+
+
 //process raw csv text into new student documents
 const importCSVText = document.querySelector("#import-students-csv");
 const importCSVBtn = document.querySelector("#submit-import-students-csv");
