@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join("./", "public", "index.html"));
 });
 
-app.set("view engine", "ejs");
+/*app.set("view engine", "ejs");
 app.set("views", "./public/pages/views");
 
 app.get("./pages/students/:id", async (req, res) => {
@@ -23,7 +23,7 @@ app.get("./pages/students/:id", async (req, res) => {
     } else {
         res.sendFile(path.join("./", "public", "index.html"));
     }
-})
+})*/
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
