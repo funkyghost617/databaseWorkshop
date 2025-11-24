@@ -3,14 +3,20 @@ import express from "express";
 import path from "path";
 const app = express();
 const port = process.env.PORT || 3000;
+const __dirname = "./";
 
 // serve static files from github pages project
-app.use(express.static(path.join("./", "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // define a basic route for the root
 app.get("/", (req, res) => {
-    res.sendFile(path.join("./", "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+app.get("/pages/students/:id", (req, res) => {
+    res.sendFile("pages/studentRecord.html", { root: __dirname });
+    res.send(`Fetching details for student with ID ${req.id}`);
+})
 
 /*app.set("view engine", "ejs");
 app.set("views", "./public/pages/views");
