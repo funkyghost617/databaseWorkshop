@@ -12,8 +12,17 @@ app.get("/", (req, res) => {
     res.sendFile(path.join("./", "public", "index.html"));
 });
 
-app.get("/students/:id", async (req, res) => {
+app.set("view engine", "ejs");
+app.set("views", "./public/pages/views");
+
+app.get("./pages/students/:id", async (req, res) => {
     const studentID = req.params.id;
+    const record = await doc(db, "students", studentID);
+    if (record) {
+        res.render("studentRecord", { record: record });
+    } else {
+        res.sendFile(path.join("./", "public", "index.html"));
+    }
 })
 
 app.listen(port, () => {

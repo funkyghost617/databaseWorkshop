@@ -1,6 +1,6 @@
 //initialize firestore connections
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { app } from "./firebaseScript.js";
 
 const db = getFirestore(app);
@@ -98,10 +98,11 @@ ${row.children[12].textContent}
 ${row.children[13].textContent}`;
         termAndDOBModal.textContent = `Application term: ${row.children[6].textContent}
 DOB: ${row.children[7].textContent}`;
-        studentModal.style.setProperty("display", "block");
+        const docRef = row.getAttribute("data-id");
+        window.location.href = "./students/" + docRef;
+        //studentModal.style.setProperty("display", "block");
     })
 });
-
 
 //process raw csv text into new student documents
 const importCSVText = document.querySelector("#import-students-csv");
@@ -133,3 +134,4 @@ importCSVBtn.addEventListener("click", (e) => {
     console.log(`${importArray.length} students added to database!`);
     importCSVText.value = "";
 });
+
