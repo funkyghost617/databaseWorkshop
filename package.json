@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/funkyghost617/databaseWorkshop#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "firebase": "^12.6.0"
   }
 }
