@@ -29,7 +29,7 @@ signoutBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
     signOut(auth).then(() => {
-        window.location.href = "http://localhost:3000";
+        window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
     });
 });
 
