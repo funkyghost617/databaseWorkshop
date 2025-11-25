@@ -14,8 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/pages/students/:id", (req, res) => {
-    res.sendFile("pages/studentRecord.html", { root: __dirname });
-    res.send(`Fetching details for student with ID ${req.id}`);
+    res.sendFile("public/pages/views/studentRecord.html", { root: __dirname });
 })
 
 /*app.set("view engine", "ejs");

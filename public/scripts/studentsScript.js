@@ -81,6 +81,7 @@ const nameAndIDModal = document.querySelector("#name-and-id");
 const emailsModal = document.querySelector("#emails");
 const addressModal = document.querySelector("#address");
 const termAndDOBModal = document.querySelector("#term-and-dob");
+const recordLinkModal = document.querySelector("#link-to-record");
 
 const dataRows = document.querySelectorAll("tbody tr");
 dataRows.forEach(row => {
@@ -99,8 +100,8 @@ ${row.children[13].textContent}`;
         termAndDOBModal.textContent = `Application term: ${row.children[6].textContent}
 DOB: ${row.children[7].textContent}`;
         const docRef = row.getAttribute("data-id");
-        window.location.href = "./students/" + docRef;
-        //studentModal.style.setProperty("display", "block");
+        recordLinkModal.setAttribute("href", "./students/" + docRef);
+        studentModal.style.setProperty("display", "block");
     })
 });
 
