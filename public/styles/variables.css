@@ -1,7 +1,9 @@
 :root {
-    --primary-color: #000;
-    --secondary-color: #000;
-    --tertiary-color: #000;
-    --quaternary-color: #000;
+    --primary-color: #EF233C;
+    --secondary-color: #1B5299;
+    --tertiary-color: #ECA72C;
+    --quaternary-color: #00A676;
     --quintenary-color: #000;
 }
+
+/* current palette = primaryClassroomPalette.png */
