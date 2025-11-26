@@ -11,4 +11,4 @@ The end goal of this project is to publish an open-source repository for college
 The latest version of the project is live at [this website](https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/).
 You can also take a look at this repository for any other project files or unfinished versions.
 
-Current project focus: configuring SQLite databases on [Turso](https://turso.tech/) and linking those databases to the project website with JavaScript.
+Current project focus: configuring NoSQL databases on [Firebase](https://firebase.google.com/) and linking those databases to the project website with JavaScript.
