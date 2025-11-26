@@ -30,7 +30,7 @@ main {
     background-color: var(--primary-color);
     align-items: center;
     flex-flow: column nowrap;
-    padding-top: 150px;
+    padding-top: 50px;
     position: relative;
 }
 
@@ -86,7 +86,7 @@ button[type="button"] {
 
 span {
     position: absolute;
-    left: calc(50% - 190px);
+    left: max(calc(50% - 190px), 8%);
     transform: translateY(29px);
     transition: transform 0.1s ease;
 }
