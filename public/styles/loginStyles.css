@@ -1,3 +1,5 @@
+@import "./variables.css";
+
 * {
     box-sizing: border-box;
     font-family: "Rubik", sans-serif;
@@ -5,7 +7,10 @@
 
 body {
     margin: 0;
-    background-color: #8855F7;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 main {
@@ -19,11 +24,13 @@ main {
 .login-window,
 .signup-window {
     width: 100%;
-    height: 70%;
+    height: 100%;
     display: flex;
-    background-color: #8855F7;
+    background-color: var(--primary-color);
     align-items: center;
     flex-flow: column nowrap;
+    padding-top: 150px;
+    position: relative;
 }
 
 .hidden {
@@ -31,17 +38,21 @@ main {
 }
 
 h1 {
-    margin-top: 5rem;
     font-size: 2.5rem;
 }
 
 #login-btn {
-    margin-top: 4.8rem;
+    margin-top: 8rem;
+}
+
+#signup-btn {
+    margin-top: 3.65rem;
 }
 
 label {
     margin-bottom: 10px;
-    width: 60%;
+    width: 400px;
+    max-width: 90%;
     font-size: 1rem;
 }
 
@@ -50,21 +61,61 @@ input {
     width: 100%;
     height: 2.5rem;
     font-size: 1.2rem;
+    margin-top: 1.2rem;
 }
 
 button[type="submit"] {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.3rem;
     cursor: pointer;
     height: 2rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    background-color: var(--quaternary-color);
+    border-radius: 5px;
 }
 
 button[type="button"] {
     text-decoration: none;
     border: none;
-    background-color: red;
+    background-color: var(--tertiary-color);
     cursor: pointer;
     margin-top: 1.5rem;
+}
+
+span {
+    position: absolute;
+    left: calc(50% - 190px);
+    transform: translateY(29px);
+    transition: transform 0.1s ease;
+}
+
+label:has(input:focus) span,
+label:has(input:not(:placeholder-shown)) span {
+    transform: translate(-8px, -4px);
+}
+
+@media (min-width: 768px) {
+    main {
+        width: 768px;
+    }
+
+    .login-window,
+    .signup-window {
+        height: 600px;
+        padding-top: 0;
+        border-radius: 20px;
+    }
+    
+    label {
+        width: 600px;
+    }
+
+    #login-btn {
+        margin-top: 7.95rem;
+    }
+
+    span {
+        left: calc(50% - 290px);
+    }
 }
