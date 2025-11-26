@@ -10,13 +10,15 @@ body {
     display: flex;
     flex-flow: column nowrap;
     height: 100vh;
+    padding: 0px;
+    margin: 0px;
 }
 
 nav {
     width: 100%;
     border-bottom: 2px solid black;
-    padding-right: 10px;
-    background-color: white;
+    padding: 10px 10px 0px;
+    background-color: var(--primary-color);
 }
 
 nav header {
@@ -24,31 +26,31 @@ nav header {
     font-size: 1.2rem;
     padding-top: 10px;
     padding-bottom: 20px;
-    border-bottom: 1px solid grey;
+    border-bottom: 3px solid var(--secondary-color);
     font-weight: bold;
 }
 
 nav header a {
     text-decoration: none;
-    color: black;
+    color: var(--quintenary-color);
 }
 
 nav p a {
     font-size: 1em;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--secondary-color);
     text-decoration: none;
-    color: black;
+    color: var(--quintenary-color);
     display: block;
     padding: 10px 10px;
     margin-top: -16px;
-    background-color: white;
+    background-color: var(--primary-color);
     background-size: 200% 100%;
     background-position: 100% 0;
     transition: background-color 0.2s ease-in-out;
-}
+}  
 
 nav p a:hover {
-    background-color: #8855F7;
+    background-color: var(--tertiary-color);
 }
 
 main {
@@ -77,7 +79,7 @@ main ul {
     height: 100px;
     border-radius: 50%;
     border: 15px solid lightgrey;
-    border-top: 15px solid lightseagreen;
+    border-top: 15px solid var(--tertiary-color);
     animation: spin 0.5s linear infinite;
 }
 

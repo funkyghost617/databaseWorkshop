@@ -3,6 +3,7 @@
 * {
     box-sizing: border-box;
     font-family: "Rubik", sans-serif;
+    color: var(--quintenary-color);
 }
 
 body {
@@ -42,11 +43,11 @@ h1 {
 }
 
 #login-btn {
-    margin-top: 8rem;
+    margin-top: 5rem;
 }
 
 #signup-btn {
-    margin-top: 3.65rem;
+    margin-top: 0.65rem;
 }
 
 label {
@@ -95,6 +96,12 @@ label:has(input:not(:placeholder-shown)) span {
     transform: translate(-8px, -4px);
 }
 
+#login-error,
+#signup-error {
+    font-style: italic;
+    height: 1rem;
+}
+
 @media (min-width: 768px) {
     main {
         width: 768px;
@@ -112,7 +119,7 @@ label:has(input:not(:placeholder-shown)) span {
     }
 
     #login-btn {
-        margin-top: 7.95rem;
+        margin-top: 4.95rem;
     }
 
     span {

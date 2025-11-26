@@ -16,7 +16,7 @@
     <body>
         <main>
             <div class="login-window">
-                <p>website title</p>
+                <p class="website-title">database workshop</p>
                 <h1>Login</h1>
                 <label for="email"><span>Email</span>
                     <input id="email" type="email" placeholder=" " />
@@ -24,12 +24,13 @@
                 <label for="password"><span>Password</span>
                     <input id="password" type="password" placeholder=" " />
                 </label>
+                <p id="login-error"></p>
                 <button type="submit" id="login-btn">Login</button>
                 <button type="button" id="to-signup-window">Create an account</button>
                 <button type="button" id="login-as-guest">Login as guest</button>
             </div>
             <div class="signup-window hidden">
-                <p>website title</p>
+                <p class="website-title">database workshop</p>
                 <h1>Sign up</h1>
                 <label for="new-email"><span>Email</span>
                     <input id="new-email" type="email" placeholder=" " />
@@ -40,6 +41,7 @@
                 <label for="confirm-new-password"><span>Confirm password</span>
                     <input id="confirm-new-password" type="password" placeholder=" " />
                 </label>
+                <p id="signup-error"></p>
                 <button type="submit" id="signup-btn">Sign up</button>
                 <button type="button" id="to-login-window">Use an existing account</button>
             </div>

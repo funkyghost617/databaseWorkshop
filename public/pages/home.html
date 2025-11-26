@@ -6,6 +6,7 @@
         <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
         <title>Home | Database Workshop</title>
         <link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="../styles/homeStyles.css" />
 
         <!-- //fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,14 +24,23 @@
             <p>If you have any questions or suggestions, please reach out to me! viplawnboy@gmail.com</p>
             <h2>Navigating this website</h2>
             <p>The pages on the left side of the screen each lead to different databases filled with data I've created. Try playing around with the embedded databases!</p>
-            <h2>Connection to Turso</h2>
-            <p>The current focus of the project is to connect SQLite databases on Turso to this website. I am not yet sure how to do this; however, it seems possible for Turso to host the databases themselves for little to no cost, and those databases can be linked to this website with JavaScript. The goal of this stage is to make the data in Turso viewable, queryable, and editable from this website using an intuitive interface.</p>
+            <h2>Connection to Firebase</h2>
+            <p>The current focus of the project is to connect NoSQL databases on Firebase to this website. So far, only the students page displays a database being hosted on Firebase, but the structure from that page will be helpful in figuring out the other categories for the website. The goal of this stage is to make the data in Firebase viewable, queryable, and editable from this website using an intuitive interface.</p>
             <h2>Project to-do list</h2>
             <ul>
                 <li>shared email inbox</li>
                 <li>query design interface</li>
                 <li>public-facing registration portal</li>
             </ul>
+            <h2>Current color palette</h2>
+            <ul id="color-palette">
+                <li>Primary: <span id="primary-color"></span></li>
+                <li>Secondary: <span id="secondary-color"></span></li>
+                <li>Tertiary: <span id="tertiary-color"></span></li>
+                <li>Quaternary: <span id="quaternary-color"></span></li>
+                <li>Quintenary: <span id="quintenary-color"></span></li>
+            </ul>
+            <p>I would love any thoughts you might have on the color palette! The main priority when picking the final colors for the project is accessibility (clarity, simplicity, color-blind functionality), but thoughts you might think are "purely aesthetic" are still very valuable. Accessibility can also just mean something being pleasing to look at! The same is true for every part of the visual layout of the website.</p>
         </main>
         <script src="../scripts/navbarScript.js" type="module"></script>
     </body>
