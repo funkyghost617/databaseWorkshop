@@ -27,7 +27,7 @@ thead tr {
 th {
     position: sticky;
     top: 2px;
-    background-color: darkblue;
+    background-color: var(--primary-color);
     color: white;
     transform: translateY(-2px);
     min-width: 100px;
@@ -50,15 +50,15 @@ tbody tr:nth-child(odd) {
 
 #student-modal {
     position: fixed;
-    top: calc(50% - 350px);
-    left: calc(50% - 250px);
-    width: 500px;
-    height: 700px;
-    background-color: lavender;
+    width: 70vw;
+    height: 80vh;
+    top: 50vh;
+    left: 15vw;
+    background-color: var(--tertiary-color);
     z-index: 1;
     border-radius: 5%;
     border: 2px solid black;
-    padding-left: 50px;
+    padding: 0px 3vw;
     display: none;
     flex-flow: column nowrap;
     white-space: pre;
@@ -67,7 +67,7 @@ tbody tr:nth-child(odd) {
 #close-modal-btn {
     width: 25px;
     height: 25px;
-    background-color: forestgreen;
+    background-color: var(--quaternary-color);
     position: absolute;
     top: 15px;
     right: 15px;
@@ -95,16 +95,16 @@ tbody tr:nth-child(odd) {
 }
 
 #name-and-id {
-    margin-top: 40px;
+    margin-top: 1vh;
     font-size: 2rem;
 }
 
 @media (min-width: 768px) {
-    #students-table-container {
-        max-width: calc(100% - 300px);
-    }
-
     #student-modal {
-        left: calc(50% - 150px);
+        left: calc(300px + 10%);
+        top: 10vh;
+        width: 50%;
+        max-width: 400px;
+        height: 650px;
     }
 }
