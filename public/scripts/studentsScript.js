@@ -1,5 +1,5 @@
 // initialize firestore connections
-import { collection, doc, getDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { collection, doc, getDoc, deleteDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { db }  from "./firebaseScript.js";
 
 // create references to students table and table body
