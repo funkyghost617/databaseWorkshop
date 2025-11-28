@@ -21,9 +21,9 @@ function renderActivity(act) {
     let activityLocation = document.createElement("td");
     let activityType = document.createElement("td");
     const eventRef = doc(db, "events", act.data()["parent_event_id"]);
-    const event = getDoc(eventRef);
+    const eventSnap = getDoc(eventRef);
+    //activityDate.textContent = eventSnap.data()["event_date"];
     parentEventID.textContent = act.data()["parent_event_id"];
-    //activityDate.textContent = event.data()["event_date"];
     activityName.textContent = act.data()["activity_name"];
     activityTimeStart.textContent = act.data()["activity_time_start"];
     activityTimeEnd.textContent = act.data()["activity_time_end"];
