@@ -10,7 +10,7 @@ const activitiesTableBody = document.querySelector("#activities-table-body");
     -- this array is used to create the table elements based on the query results submitted by the user
 */
 // process each document which results from the firebase query
-function renderActivity(act) {
+async function renderActivity(act) {
     let activity = document.createElement("tr");
     activity.setAttribute("data-id", act.id);
     let parentEventID = document.createElement("td");
@@ -21,8 +21,7 @@ function renderActivity(act) {
     let activityLocation = document.createElement("td");
     let activityType = document.createElement("td");
     const eventRef = doc(db, "events", act.data()["parent_event_id"]);
-    const eventSnap = getDoc(eventRef);
-    //activityDate.textContent = eventSnap.data()["event_date"];
+    await getDoc(eventRef).then(response => activityDate.textContent = response.data()["event_date"]);
     parentEventID.textContent = act.data()["parent_event_id"];
     activityName.textContent = act.data()["activity_name"];
     activityTimeStart.textContent = act.data()["activity_time_start"];
