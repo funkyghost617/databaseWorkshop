@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Events | Database Workshop</title>
         <link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="../styles/eventsStyles.css" />
         <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
 
         <!-- //fonts -->
@@ -13,12 +14,44 @@
         <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
     </head>
     <body>
-        <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
         <nav id="navbar"></nav>
         <main>
-            <p>this is the events page</p>
+            <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
+            
+            <div id="event-modal">
+                <div id="close-modal-btn"></div>
+                <h3 id="name-and-id"></h3>
+                <p id="emails"></p>
+                <p id="address"></p>
+                <p id="term-and-dob"></p>
+                <p><a id="link-to-record">Go to event page</a></p>
+            </div>
+            
+            <br />
+            <div id="events-table-container">
+                <table id="events-table">
+                    <thead>
+                        <th>Event Name</th>
+                        <th>Event Date</th>
+                        <th>Event Time Start</th>
+                        <th>Event Time End</th>
+                        <th>Event Location</th>
+                        <th>Event Type</th>
+                    </thead>
+                    <tbody id="events-table-body"></tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+            <br />
+            <p>paste raw csv below to add to events table</p>
+            <textarea rows="20" cols="100" id="import-events-csv"></textarea>
+            <button type="button" id="submit-import-events-csv">submit new events</button>
+            <br />
+            <p id="success-message"></p>
         </main>
         
+        
         <script src="../scripts/navbarScript.js" type="module"></script>
+        <script src="../scripts/eventsScript.js" type="module"></script>
     </body>
 </html>

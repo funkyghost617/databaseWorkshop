@@ -23,7 +23,7 @@ function renderEvent(doc) {
         rowElements[i].textContent = doc.data()[eventAttributes[i]];
         event.appendChild(rowElements[i]);
     };
-    eventsTableBody.appendChild(student);
+    eventsTableBody.appendChild(event);
 };
 
 // query full students table from firebase, then run renderStudent for each resulting document
@@ -31,7 +31,7 @@ const eventsRef = collection(db, "events");
 const q = query(eventsRef, orderBy("event_date", "asc"));
 const querySnapshot = await getDocs(q);
 querySnapshot.forEach((event) => {
-    renderStudent(event);
+    renderEvent(event);
 });
 
 // control display of current student modal
@@ -80,7 +80,7 @@ importCSVBtn.addEventListener("click", (e) => {
     let importArray = importCSVText.value.split("\n");
     importArray.forEach(event => {
         let eventArray = event.split(",");
-        addDoc(collection(db, "students"), {
+        addDoc(collection(db, "events"), {
             "event_name": eventArray[0],
             "event_date": eventArray[1],
             "event_time_start": eventArray[2],
