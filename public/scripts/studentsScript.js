@@ -1,88 +1,54 @@
-//initialize firestore connections
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-import { app } from "./firebaseScript.js";
+// initialize firestore connections
+import { collection, doc, getDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { db }  from "./firebaseScript.js";
 
-const db = getFirestore(app);
-
-//connect javascript to students.html
+// create references to students table and table body
 const studentsTable = document.querySelector("#students-table");
 const studentsTableBody = document.querySelector("#students-table-body");
 
-//process each document in the students table from firebase
+/* create array of strings corresponding to the property names of student documents in firebase
+    -- this array is used to create the table elements based on the query results submitted by the user
+*/
+const studentAttributes = ["student_id", "first_name", "last_name", "primary_email", "secondary_email", "tertiary_email", "application_term", "date_of_birth", "address_line1", "address_line2", "address_city", "", "address_state", "address_country", "address_postcode"];
+
+// process each document which results from the firebase query
 function renderStudent(doc) {
     let student = document.createElement("tr");
-    let studentID = document.createElement("td");
-    let firstName = document.createElement("td");
-    let lastName = document.createElement("td");
-    let primaryEmail = document.createElement("td");
-    let secondaryEmail = document.createElement("td");
-    let tertiaryEmail = document.createElement("td");
-    let applicationTerm = document.createElement("td");
-    let dateOfBirth = document.createElement("td");
-    let addressLine1 = document.createElement("td");
-    let addressLine2 = document.createElement("td");
-    let addressCity = document.createElement("td");
-    let addressState = document.createElement("td");
-    let addressCountry = document.createElement("td");
-    let addressPostcode = document.createElement("td");
-
     student.setAttribute("data-id", doc.id);
-    studentID.textContent = doc.data()["student_id"];
-    firstName.textContent = doc.data()["first_name"];
-    lastName.textContent = doc.data()["last_name"];
-    primaryEmail.textContent = doc.data()["primary_email"];
-    secondaryEmail.textContent = doc.data()["secondary_email"];
-    tertiaryEmail.textContent = doc.data()["tertiary_email"];
-    applicationTerm.textContent = doc.data()["application_term"];
-    dateOfBirth.textContent = doc.data()["date_of_birth"];
-    addressLine1.textContent = doc.data()["address_line1"];
-    addressLine2.textContent = doc.data()["address_line2"];
-    addressCity.textContent = doc.data()["address_city"];
-    addressState.textContent = doc.data()["address_state"];
-    addressCountry.textContent = doc.data()["address_country"];
-    addressPostcode.textContent = doc.data()["address_postcode"];
-
-    student.appendChild(studentID);
-    student.appendChild(firstName);
-    student.appendChild(lastName);
-    student.appendChild(primaryEmail);
-    student.appendChild(secondaryEmail);
-    student.appendChild(tertiaryEmail);
-    student.appendChild(applicationTerm);
-    student.appendChild(dateOfBirth);
-    student.appendChild(addressLine1);
-    student.appendChild(addressLine2);
-    student.appendChild(addressCity);
-    student.appendChild(addressState);
-    student.appendChild(addressCountry);
-    student.appendChild(addressPostcode);
-
+    let rowElements = [];
+    studentAttributes.forEach(element => {
+        rowElements.push(document.createElement("td"));
+    })
+    for (let i = 0; i < rowElements.length; i++) {
+        rowElements[i].textContent = doc.data()[studentAttributes[i]];
+        student.appendChild(rowElements[i]);
+    };
     studentsTableBody.appendChild(student);
 };
 
-//get latest version of students table from firebase
+// query full students table from firebase, then run renderStudent for each resulting document
 const studentsRef = collection(db, "students");
 const q = query(studentsRef, orderBy("student_id", "asc"));
 const querySnapshot = await getDocs(q);
-
 querySnapshot.forEach((student) => {
     renderStudent(student);
 });
 
-//control current student selection modal
+// control display of current student modal
 const studentModal = document.querySelector("#student-modal");
 const closeStudentModal = document.querySelector("#close-modal-btn");
 closeStudentModal.addEventListener("click", () => {
     studentModal.style.setProperty("display", "none");
 });
 
+// create references to text elements within modal window
 const nameAndIDModal = document.querySelector("#name-and-id");
 const emailsModal = document.querySelector("#emails");
 const addressModal = document.querySelector("#address");
 const termAndDOBModal = document.querySelector("#term-and-dob");
 const recordLinkModal = document.querySelector("#link-to-record");
 
+// create click event listeners on each visible row to populate modal window elements with relevant data
 const dataRows = document.querySelectorAll("tbody tr");
 dataRows.forEach(row => {
     row.addEventListener("click", () => {
@@ -105,7 +71,7 @@ DOB: ${row.children[7].textContent}`;
     })
 });
 
-//process raw csv text into new student documents
+// process raw csv text into new student documents
 const importCSVText = document.querySelector("#import-students-csv");
 const importCSVBtn = document.querySelector("#submit-import-students-csv");
 const successMessage = document.querySelector("#success-message");
@@ -135,4 +101,3 @@ importCSVBtn.addEventListener("click", (e) => {
     console.log(`${importArray.length} students added to database!`);
     importCSVText.value = "";
 });
-
