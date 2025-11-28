@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Sub-events | Database Workshop</title>
         <link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="../styles/activitiesStyles.css" />
         <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
 
         <!-- //fonts -->
@@ -13,12 +14,45 @@
         <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
     </head>
     <body>
-        <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
         <nav id="navbar"></nav>
         <main>
-            <p>this is the activities page</p>
+            <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
+            
+            <div id="activity-modal">
+                <div id="close-modal-btn"></div>
+                <h3 id="name-and-id"></h3>
+                <p id="emails"></p>
+                <p id="address"></p>
+                <p id="term-and-dob"></p>
+                <p><a id="link-to-record">Go to activity page</a></p>
+            </div>
+            
+            <br />
+            <div id="activities-table-container">
+                <table id="activities-table">
+                    <thead>
+                        <th>Parent Event ID</th>
+                        <th>Activity Date</th>
+                        <th>Activity Name</th>
+                        <th>Activity Time Start</th>
+                        <th>Activity Time End</th>
+                        <th>Activity Location</th>
+                        <th>Activity Type</th>
+                    </thead>
+                    <tbody id="activities-table-body"></tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+            <br />
+            <p>paste raw csv below to add to activities table</p>
+            <textarea rows="20" cols="100" id="import-activities-csv"></textarea>
+            <button type="button" id="submit-import-activities-csv">submit new events</button>
+            <br />
+            <p id="success-message"></p>
         </main>
         
+        
         <script src="../scripts/navbarScript.js" type="module"></script>
+        <script src="../scripts/activitiesScript.js" type="module"></script>
     </body>
 </html>

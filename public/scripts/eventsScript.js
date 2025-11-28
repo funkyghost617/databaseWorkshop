@@ -26,7 +26,7 @@ function renderEvent(doc) {
     eventsTableBody.appendChild(event);
 };
 
-// query full students table from firebase, then run renderStudent for each resulting document
+// query full events table from firebase, then run renderEvent for each resulting document
 const eventsRef = collection(db, "events");
 const q = query(eventsRef, orderBy("event_date", "asc"));
 const querySnapshot = await getDocs(q);
@@ -34,7 +34,7 @@ querySnapshot.forEach((event) => {
     renderEvent(event);
 });
 
-// control display of current student modal
+// control display of current event modal
 const eventModal = document.querySelector("#event-modal");
 const closeEventModal = document.querySelector("#close-modal-btn");
 closeEventModal.addEventListener("click", () => {
@@ -71,7 +71,7 @@ DOB: ${row.children[7].textContent}`;
     })
 });*/
 
-// process raw csv text into new student documents
+// process raw csv text into new event documents
 const importCSVText = document.querySelector("#import-events-csv");
 const importCSVBtn = document.querySelector("#submit-import-events-csv");
 const successMessage = document.querySelector("#success-message");
