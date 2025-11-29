@@ -55,6 +55,13 @@ submitBtn.addEventListener("click", (e) => {
         console.log("please select a student");
     } else {
         let newRegistration = { "student_id": selectStudent.value, "event_id": docID };
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        if (month.length < 2) month = `0${month}`;
+        const day = currentDate.getDate();
+        if (day.length < 2) day = `0${day}`;
+        newRegistration["registration_date"] = `${year}-${month}-${day}`;
         if (checkboxGroup.length != 0) {
             let activityNumber = 0;
             checkboxGroup.forEach((input) => {

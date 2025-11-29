@@ -31,7 +31,7 @@ registerLink.addEventListener("click", (e) => {
 
 const studentsTable = document.querySelector("#students-body");
 const nonePlaceholder = document.querySelector("#none-placeholder");
-const noneText = document.querySelector("#none-placeholder td");
+const noneText = document.querySelector("#none-placeholder:first-child");
 
 const registeredStudentsRef = query(collection(db, "registrations"), where("event_id", "==", docID));
 const registrationsSnapshot = await getDocs(registeredStudentsRef);
@@ -43,7 +43,10 @@ if (!registrationsSnapshot.empty) {
         const studentRef = doc(db, "students", regis.data()["student_id"]);
         const student = await getDoc(studentRef);
         studentName.textContent = `${student.data()["last_name"]}, ${student.data()["first_name"]}`;
+        const registrationDate = document.createElement("td");
+        registrationDate.textContent = regis.data()["registration_date"];
         studentRow.appendChild(studentName);
+        studentRow.appendChild(registrationDate);
         studentsTable.appendChild(studentRow);
     });
 } else {
