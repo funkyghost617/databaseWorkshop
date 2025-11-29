@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Student Record | Database Workshop</title>
+        <title>Register for Event | Database Workshop</title>
         <link rel="stylesheet" href="/styles/styles.css" />
         <link rel="icon" type="image/x-icon" href="/icons/smilingOpenMouthPurple.svg" />
 
@@ -16,12 +16,20 @@
         <nav id="navbar"></nav>
         <main>
             <script id="loadScreen" src="/scripts/loadScreenScript.js"></script>
-            <h1 id="student_id"></h1>
+            <h1 id="event_id"></h1>
+            <form id="registration-form">
+                <select id="select-student">
+                    <option value="NO_SELECTION"></option>
+                </select>
+            </form>
+            <button type="button" id="submit-registration">Submit registration</button>
+
+
         </main>
     
     
-        <script src="/scripts/navbarRecordScript.js" type="module"></script>
-        <script src="/scripts/studentRecordScript.js" type="module"></script>
+        <script src="/scripts/navbarRegisterScript.js" type="module"></script>
+        <script src="/scripts/eventRegisterScript.js" type="module"></script>
         <script>
             console.log(window.location.href);
         </script>

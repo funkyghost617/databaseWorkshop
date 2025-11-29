@@ -22,3 +22,9 @@ activitiesSnapshot.forEach((doc) => {
     activity.textContent = `${doc.data()["activity_name"]}, ${doc.data()["activity_time_start"]}-${doc.data()["activity_time_end"]}`;
     activitiesList.appendChild(activity);
 });
+
+const registerLink = document.querySelector("#register-link");
+registerLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = `./${currentEvent.id}/register`;
+})
