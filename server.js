@@ -15,7 +15,11 @@ app.get("/", (req, res) => {
 
 app.get("/pages/students/:id", (req, res) => {
     res.sendFile("public/pages/views/studentRecord.html", { root: __dirname });
-})
+});
+
+app.get("/pages/events/:id", (req, res) => {
+    res.sendFile("public/pages/views/eventPage.html", { root: __dirname });
+});
 
 /*app.set("view engine", "ejs");
 app.set("views", "./public/pages/views");

@@ -65,8 +65,8 @@ ${row.children[12].textContent}
 ${row.children[13].textContent}`;
         termAndDOBModal.textContent = `Application term: ${row.children[6].textContent}
 DOB: ${row.children[7].textContent}`;
-        const docRef = row.getAttribute("data-id");
-        recordLinkModal.setAttribute("href", "./students/" + docRef);
+        const docID = row.getAttribute("data-id");
+        recordLinkModal.setAttribute("href", "./students/" + docID);
         studentModal.style.setProperty("display", "block");
     })
 });

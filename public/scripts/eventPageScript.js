@@ -7,9 +7,9 @@ console.log(hrefArray);
 const docID = hrefArray[hrefArray.length-1];
 console.log(docID);
 
-const docRef = doc(db, "students", docID);
-const currentStudent = await getDoc(docRef);
-console.log(currentStudent);
+const docRef = doc(db, "events", docID);
+const currentEvent = await getDoc(docRef);
+console.log(currentEvent);
 
-const idContainer = document.querySelector("#student_id");
-idContainer.textContent = currentStudent.data()["student_id"];
+const idContainer = document.querySelector("#event_id");
+idContainer.textContent = currentEvent.id;

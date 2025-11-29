@@ -42,34 +42,27 @@ closeEventModal.addEventListener("click", () => {
 });
 
 // create references to text elements within modal window
-/*const nameAndIDModal = document.querySelector("#name-and-id");
-const emailsModal = document.querySelector("#emails");
-const addressModal = document.querySelector("#address");
-const termAndDOBModal = document.querySelector("#term-and-dob");
+const nameAndIDModal = document.querySelector("#name-and-id");
+const timeModal = document.querySelector("#time");
+const locationModal = document.querySelector("#location");
+const typeModal = document.querySelector("#type");
 const recordLinkModal = document.querySelector("#link-to-record");
 
 // create click event listeners on each visible row to populate modal window elements with relevant data
 const dataRows = document.querySelectorAll("tbody tr");
 dataRows.forEach(row => {
     row.addEventListener("click", () => {
-        nameAndIDModal.textContent = `${row.children[1].textContent} ${row.children[2].textContent}
-ID: ${row.children[0].textContent}`;
-        emailsModal.textContent = `${row.children[3].textContent}
-${row.children[4].textContent}
-${row.children[5].textContent}`;
-        addressModal.textContent = `${row.children[8].textContent}
-${row.children[9].textContent}
-${row.children[10].textContent}
-${row.children[11].textContent}
-${row.children[12].textContent}
-${row.children[13].textContent}`;
-        termAndDOBModal.textContent = `Application term: ${row.children[6].textContent}
-DOB: ${row.children[7].textContent}`;
-        const docRef = row.getAttribute("data-id");
-        recordLinkModal.setAttribute("href", "./students/" + docRef);
-        studentModal.style.setProperty("display", "block");
+        nameAndIDModal.textContent = `${row.children[0].textContent}
+Event ID: ${row.getAttribute("data-id")}`;
+        timeModal.textContent = `Time start: ${row.children[2].textContent}
+Time end: ${row.children[3].textContent}`;
+        locationModal.textContent = `Location: ${row.children[4].textContent}`;
+        typeModal.textContent = `Event type: ${row.children[5].textContent}`;
+        const docID = row.getAttribute("data-id");
+        recordLinkModal.setAttribute("href", "./events/" + docID);
+        eventModal.style.setProperty("display", "block");
     })
-});*/
+});
 
 // process raw csv text into new event documents
 const importCSVText = document.querySelector("#import-events-csv");
