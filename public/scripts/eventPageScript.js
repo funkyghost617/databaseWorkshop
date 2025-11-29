@@ -28,3 +28,24 @@ registerLink.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.href = `./${currentEvent.id}/register`;
 })
+
+const studentsTable = document.querySelector("#students-body");
+const nonePlaceholder = document.querySelector("#none-placeholder");
+const noneText = document.querySelector("#none-placeholder td");
+
+const registeredStudentsRef = query(collection(db, "registrations"), where("event_id", "==", docID));
+const registrationsSnapshot = await getDocs(registeredStudentsRef);
+if (!registrationsSnapshot.empty) {
+    nonePlaceholder.remove();
+    registrationsSnapshot.forEach(async (regis) => {
+        const studentRow = document.createElement("tr");
+        const studentName = document.createElement("td");
+        const studentRef = doc(db, "students", regis.data()["student_id"]);
+        const student = await getDoc(studentRef);
+        studentName.textContent = `${student.data()["last_name"]}, ${student.data()["first_name"]}`;
+        studentRow.appendChild(studentName);
+        studentsTable.appendChild(studentRow);
+    });
+} else {
+    noneText.textContent = `No students currently registered`;
+};

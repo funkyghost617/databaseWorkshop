@@ -14,12 +14,19 @@
     </head>
     <body>
         <nav id="navbar"></nav>
-        <main>
+        <main id="main">
             <script id="loadScreen" src="/scripts/loadScreenScript.js"></script>
             <h1 id="event_id"></h1>
             <ul id="relevant-activities"><span>Relevant activities: </span></ul>
-
             <p id="register-link">Register existing student for this event</p>
+            <h2>Registered students:</h2>
+            <table>
+                <thead>
+                    <th>Name:</th>
+                </thead>
+                <tbody id="students-body">
+                    <tr id="none-placeholder"><td></td></tr>
+                </tbody>
         </main>
     
     
