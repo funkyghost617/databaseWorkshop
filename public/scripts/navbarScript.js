@@ -33,4 +33,3 @@ signoutBtn.addEventListener("click", (e) => {
         window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
     });
 });
-

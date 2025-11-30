@@ -4,9 +4,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
-        <title>Home | Database Workshop</title>
+        <title>Account | Database Workshop</title>
         <link rel="stylesheet" href="../styles/styles.css" />
-        <link rel="stylesheet" href="../styles/homeStyles.css" />
 
         <!-- //fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,30 +17,15 @@
         <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
         <nav id="navbar"></nav>
         <main>
-            <h1>Welcome to my database project!</h1>
-            <p>This project (yet unnamed) is planned to be an open-source and intuitive database for college admissions offices to use for event management, email communications, and application review.</p>
-            <p>View the project files and documentation at <a href="https://github.com/funkyghost617/databaseWorkshop" target="_blank">this website</a></p>
-            <p>If you have any questions or suggestions, please reach out to me! viplawnboy@gmail.com</p>
-            <h2>Navigating this website</h2>
-            <p>The pages on the left side of the screen each lead to different databases filled with data I've created. Try playing around with the embedded databases!</p>
-            <h2>Connection to Firebase</h2>
-            <p>The current focus of the project is to connect NoSQL databases on Firebase to this website. So far, only the students page displays a database being hosted on Firebase, but the structure from that page will be helpful in figuring out the other categories for the website. The goal of this stage is to make the data in Firebase viewable, queryable, and editable from this website using an intuitive interface.</p>
-            <h2>Project to-do list</h2>
-            <ul>
-                <li>shared email inbox</li>
-                <li>query design interface</li>
-                <li>public-facing registration portal</li>
-            </ul>
-            <h2>Current color palette</h2>
-            <ul id="color-palette">
-                <li>Primary: <span id="primary-color"></span></li>
-                <li>Secondary: <span id="secondary-color"></span></li>
-                <li>Tertiary: <span id="tertiary-color"></span></li>
-                <li>Quaternary: <span id="quaternary-color"></span></li>
-                <li>Quintenary: <span id="quintenary-color"></span></li>
-            </ul>
-            <p>I would love any thoughts you might have on the color palette! The main priority when picking the final colors for the project is accessibility (clarity, simplicity, color-blind functionality), but thoughts you might think are "purely aesthetic" are still very valuable. Accessibility can also just mean something being pleasing to look at! The same is true for every part of the visual layout of the website.</p>
+            <h1>Account info</h1>
+            <p>Name: <span id="name"></span></p>
+            <p>Email: <span id="email"></span></p>
+            <p>Email verified? <span id="email-verified"></span></p>
+            <p>Change display name here: </p>
+            <input type="text" id="name-textbox" />
+            <button type="button" id="submit-name">submit</button>
         </main>
         <script src="../scripts/navbarScript.js" type="module"></script>
+        <script src="../scripts/accountScript.js" type="module"></script>
     </body>
 </html>
