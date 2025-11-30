@@ -22,6 +22,7 @@ navbar.innerHTML = `<header><a href="../home.html">database workshop</a></header
     <p><a href="../events.html">events</a></p>
     <p><a href="../activities.html">activities</a></p>
     <p><a href="../registrations.html">registrations</a></p>
+    <p><a href="../account.html>account</a></p>
     <p><a href="#" id="sign-out-btn">sign out</a></p>`;
 
 const signoutBtn = document.querySelector("#sign-out-btn");
