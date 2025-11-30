@@ -11,8 +11,8 @@ const docRef = doc(db, "events", docID);
 const currentEvent = await getDoc(docRef);
 console.log(currentEvent);
 
-const idContainer = document.querySelector("#event_id");
-idContainer.textContent = currentEvent.id;
+const idContainer = document.querySelector("#event_name_date_id");
+idContainer.textContent = `${currentEvent.data()["event_name"]} ${currentEvent.data()["event_date"]} (${docID})`;
 
 const activitiesList = document.querySelector("#relevant-activities");
 const relevantActivities = query(collection(db, "activities"), where("parent_event_id", "==", currentEvent.id), orderBy("activity_time_start", "asc"), limit(5));
