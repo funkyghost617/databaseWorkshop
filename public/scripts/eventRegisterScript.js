@@ -15,6 +15,7 @@ mainHeader.textContent = `Registering for ${currentEvent.data()["event_name"]} o
 Event ID: ${docID}`;
 
 const registrationForm = document.querySelector("#registration-form");
+const processMsg = document.querySelector("#process-message");
 
 const selectStudent = document.querySelector("#select-student");
 const studentList = collection(db, "students");
@@ -54,6 +55,7 @@ submitBtn.addEventListener("click", (e) => {
     if (selectStudent.value == "NO_SELECTION") {
         console.log("please select a student");
     } else {
+        processMsg.textContent = "processing...";
         let newRegistration = { "student_id": selectStudent.value, "event_id": docID };
         const currentDate = new Date();
         const year = currentDate.getFullYear();
@@ -74,8 +76,14 @@ submitBtn.addEventListener("click", (e) => {
     }
 })
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
 async function addRegistration(regis) {
     await addDoc(collection(db, "registrations"), regis);
     console.log("registration added!");
+    processMsg.innerHTML = `Registration added! If you are not redirected within a few seconds, click <a href="./../${docID}">here</a>`;
+    await delay(2000);
     window.location.href = `./../${docID}`;
 };
