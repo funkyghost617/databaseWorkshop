@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
+        <title>Query | Database Workshop</title>
+        <link rel="stylesheet" href="../styles/styles.css" />
+
+        <!-- //fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+
+    </head>
+    <body>
+        <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
+        <nav id="navbar"></nav>
+        <main>
+            <h1>Query page</h1>
+            <p>Which table would you like to query from?</p>
+            <select id="table-select">
+                <option value="NO_SELECTION" selected></option>
+                <option value="students">students</option>
+                <option value="events">events</option>
+                <option value="activities">activities</option>
+                <option value="registrations">registrations</option>
+            </select>
+            <button id="add-condition" type="button" disabled>add query condition</button>
+        </main>
+        <script src="../scripts/navbarScript.js" type="module"></script>
+        <script src="../scripts/queryScript.js" type="module"></script>
+    </body>
+</html>
