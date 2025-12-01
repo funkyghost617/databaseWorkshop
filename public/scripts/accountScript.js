@@ -1,11 +1,26 @@
-import { getAuth, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getAuth, signOut, onAuthStateChanged, updateProfile, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 import { app } from "./firebaseScript.js";
 
 const auth = getAuth(app);
 
-auth.onAuthStateChanged(userRes => {
-    let user = auth.currentUser;
+const verifyEmailMsg = document.querySelector("#verify-email-message");
+
+auth.onAuthStateChanged(user => {
     populatePage(user);
+    if (!user.emailVerified) {
+        verifyEmailMsg.innerHTML = `Because your email is not yet verified, you won't be able to access any other pages. To send a verification link to your email, <span id="verify-email-link">click here.</span>`;
+        const emailLink = document.querySelector("#verify-email-link");
+        emailLink.addEventListener("click", async (e) => {
+            e.preventDefault();
+            sendEmailVerification(user).then(() => {
+                const verifySuccess = document.createElement("p");
+                verifySuccess.textContent = "email sent!";
+                verifyEmailMsg.insertAdjacentElement("afterend", verifySuccess);
+            })
+        })
+    } else {
+        verifyEmailMsg.remove();
+    }
 })
 
 const nameContainer = document.querySelector("#name");

@@ -10,6 +10,8 @@ const loadScreen = document.querySelector(".loadScreen");
 auth.onAuthStateChanged((user) => {
     if (!user) {
         window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
+    } else if (!user.emailVerified) {
+        window.location.href = "./../../account.html";
     } else {
         console.log("you are logged in!");
         console.log(user);
