@@ -49,6 +49,13 @@ async function displayConditions() {
     plainTextSelector.addEventListener("change", async (e) => {
         const plainTextSelection = await getDoc(doc(db, "queries", plainTextSelector.value));
         if (plainTextSelection.data()["parameter3"] == "askDate") {
+            userInput.type = "date";
+            userInput.hidden = false;
+        } else if (plainTextSelection.data()["parameter3"] == "askString") {
+            userInput.type = "text";
+            userInput.hidden = false;
+        } else if (plainTextSelection.data()["parameter3"] == "askNum") {
+            userInput.type = "number";
             userInput.hidden = false;
         } else {
             userInput.hidden = true;
@@ -74,13 +81,9 @@ async function displayConditions() {
     });
 }
 
-async function queueCondition(queryDoc) {
-    let queryObject = {
-        id: queryDoc.id,
-        "parameter1": queryDoc.data()["parameter1"],
-        "parameter2": queryDoc.data()["parameter2"],
-        "parameter3": queryDoc.data()["parameter3"],
-    };
+async function queueCondition(queryDoc, inputParam = null) {
+    let queryObject = { id: queryDoc.id };
+    if (inputParam != null) { queryObject["inputParam"] = inputParam; }
     queryQueue.push(queryObject);
 }
 
@@ -91,11 +94,15 @@ async function createCompoundQuery(currentQueue) {
     compoundQuery["created-by"] = navbar.getAttribute("data-uid");
     compoundQuery["main-table"] = mainTable;
     let queryArray = [];
+    let userInputArray = [];
     for (const [index, q] in currentQueue.entries()) {
         queryArray.push(q.id);
+        if (q["inputParam"] != undefined) {
+            userInputArray.push(q["inputParam"]);
+        };
     }
     compoundQuery["query-array"] = queryArray;
-    await addDoc(collection(db, "compound-queries"), compoundQuery);
+    await addDoc(collection(db, "queries", "compound_queries", "saved_queries"), compoundQuery);
     console.log("compound query saved to collection!");
 }
 
