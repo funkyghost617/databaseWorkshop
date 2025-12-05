@@ -6,6 +6,7 @@
         <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
         <title>Query | Database Workshop</title>
         <link rel="stylesheet" href="../styles/styles.css" />
+        <link rel="stylesheet" href="../styles/queryStyles.css" />
 
         <!-- //fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,7 +19,8 @@
         <nav id="navbar"></nav>
         <main>
             <h1>Query page</h1>
-            <p>Which table would you like to query from?</p>
+            <button id="reset-query-builder" type="button">reset query builder</button>
+            <p>I would like a list of: </p>
             <select id="table-select">
                 <option value="NO_SELECTION" selected></option>
                 <option value="students">students</option>
@@ -26,7 +28,10 @@
                 <option value="activities">activities</option>
                 <option value="registrations">registrations</option>
             </select>
-            <button id="add-condition" type="button" disabled>add query condition</button>
+            <button id="create-query" type="button">create query</button>
+            <div id="conditions"></div>
+            <button id="add-condition" type="button" hidden>add query condition</button>
+
         </main>
         <script src="../scripts/navbarScript.js" type="module"></script>
         <script src="../scripts/queryScript.js" type="module"></script>
