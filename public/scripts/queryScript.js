@@ -1,6 +1,8 @@
 // initialize firestore connections
 import { collection, doc, getDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-import { db }  from "./firebaseScript.js";
+import { auth, db }  from "./firebaseScript.js";
+
+const navbar = document.querySelector("#navbar");
 
 const studentQueries = await getDocs(query(collection(db, "queries"), orderBy("studentOrder", "asc")));
 const eventQueries = await getDocs(query(collection(db, "queries"), orderBy("eventOrder", "asc")));
@@ -21,7 +23,6 @@ function resetQueryBuilder() {
 }
 
 async function displayConditions() {
-    console.log(mainTable);
     const condition = document.createElement("div");
     conditions.appendChild(condition);
     const plainTextSelector = document.createElement("select");
@@ -67,7 +68,8 @@ async function displayConditions() {
             queueCondition(await getDoc(doc(db, "queries", plainTextSelector.value)));
         } else {
             condition.remove();
-            queryQueue = queryQueue.filter(obj => obj.id != plainTextSelector.value);
+            const removalIndex = queryQueue.findIndex(item => item.id == plainTextSelector.value);
+            queryQueue.splice(removalIndex, 1);
         }
     });
 }
@@ -79,8 +81,22 @@ async function queueCondition(queryDoc) {
         "parameter2": queryDoc.data()["parameter2"],
         "parameter3": queryDoc.data()["parameter3"],
     };
-
     queryQueue.push(queryObject);
+}
+
+async function createCompoundQuery(currentQueue) {
+    let compoundQuery = {};
+    const currentDate = new Date();
+    compoundQuery["date-created"] = currentDate.toISOString().split("T")[0];
+    compoundQuery["created-by"] = navbar.getAttribute("data-uid");
+    compoundQuery["main-table"] = mainTable;
+    let queryArray = [];
+    for (const [index, q] in currentQueue.entries()) {
+        queryArray.push(q.id);
+    }
+    compoundQuery["query-array"] = queryArray;
+    await addDoc(collection(db, "compound-queries"), compoundQuery);
+    console.log("compound query saved to collection!");
 }
 
 let mainTable = "";

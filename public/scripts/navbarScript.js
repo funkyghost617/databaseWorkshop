@@ -14,7 +14,7 @@ auth.onAuthStateChanged((user) => {
         window.location.href = "./account.html";
     } else {
         console.log("you are logged in!");
-        console.log(user);
+        navbar.setAttribute("data-uid", user.uid);
         loadScreen.style.setProperty("display", "none");
     }
 });
