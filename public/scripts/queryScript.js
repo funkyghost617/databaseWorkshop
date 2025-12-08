@@ -36,6 +36,8 @@ async function displayConditions() {
     } else {
         currentQueries = regisQueries;
     }
+    const blankSelection = document.createElement("option");
+    plainTextSelector.appendChild(blankSelection);
     currentQueries.forEach((queryDoc) => {
         const queryOption = document.createElement("option");
         queryOption.value = queryDoc.id;
@@ -85,6 +87,7 @@ async function queueCondition(queryDoc, inputParam = null) {
     let queryObject = { id: queryDoc.id };
     if (inputParam != null) { queryObject["inputParam"] = inputParam; }
     queryQueue.push(queryObject);
+    console.log(queryQueue);
 }
 
 async function createCompoundQuery(currentQueue) {
@@ -95,13 +98,14 @@ async function createCompoundQuery(currentQueue) {
     compoundQuery["main-table"] = mainTable;
     let queryArray = [];
     let userInputArray = [];
-    for (const [index, q] in currentQueue.entries()) {
-        queryArray.push(q.id);
-        if (q["inputParam"] != undefined) {
-            userInputArray.push(q["inputParam"]);
+    currentQueue.forEach((item) => {
+        queryArray.push(item.id);
+        if (item["inputParam"] != undefined) {
+            userInputArray.push(item["inputParam"]);
         };
-    }
+    });
     compoundQuery["query-array"] = queryArray;
+    if (userInputArray.length > 0) { compoundQuery["user-input"] = userInputArray };
     await addDoc(collection(db, "queries", "compound_queries", "saved_queries"), compoundQuery);
     console.log("compound query saved to collection!");
 }
@@ -173,14 +177,14 @@ addConditionBtn.addEventListener("click", (e) => {
 })
 
 const createQueryBtn = document.querySelector("#create-query");
-createQueryBtn.addEventListener("click", (e) => {
+createQueryBtn.addEventListener("click", async (e) => {
     e.preventDefault();
     if (conditions.childElementCount == 0) {
         alert("cannot create query without any conditions");
     } else {
         let confirmation = confirm("are you sure you want to create a query with these conditions?");
         if (confirmation) {
-            alert("query created");
+            createCompoundQuery(queryQueue).then(alert("query created"));
         }
     }
 })
