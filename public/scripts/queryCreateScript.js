@@ -74,7 +74,7 @@ async function displayConditions() {
             userInput.disabled = true;
             saveConditionBtn.textContent = "delete condition";
             saveConditionBtn.setAttribute("class", "delete");
-            queueCondition(await getDoc(doc(db, "queries", plainTextSelector.value)));
+            queueCondition(await getDoc(doc(db, "queries", plainTextSelector.value)), userInput.value);
         } else {
             condition.remove();
             const removalIndex = queryQueue.findIndex(item => item.id == plainTextSelector.value);
@@ -83,9 +83,9 @@ async function displayConditions() {
     });
 }
 
-async function queueCondition(queryDoc, inputParam = null) {
+async function queueCondition(queryDoc, inputParam) {
     let queryObject = { id: queryDoc.id };
-    if (inputParam != null) { queryObject["inputParam"] = inputParam; }
+    if (inputParam != "") { queryObject["inputParam"] = inputParam; }
     queryQueue.push(queryObject);
     console.log(queryQueue);
 }

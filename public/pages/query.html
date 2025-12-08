@@ -19,20 +19,9 @@
         <nav id="navbar"></nav>
         <main>
             <h1>Query page</h1>
-            <button id="reset-query-builder" type="button">reset query builder</button>
-            <p>I would like a list of: </p>
-            <select id="table-select">
-                <option value="NO_SELECTION" selected></option>
-                <option value="students">students</option>
-                <option value="events">events</option>
-                <option value="activities">activities</option>
-                <option value="registrations">registrations</option>
-            </select>
-            <button id="create-query" type="button">create query</button>
-            <div id="conditions"></div>
-            <button id="add-condition" type="button" hidden>add query condition</button>
+            <p><a href="./query/create">create a new query</a></p>
+            <p><a href="./query/run">run an existing query</a></p>
         </main>
         <script src="../scripts/navbarScript.js" type="module"></script>
-        <script src="../scripts/queryScript.js" type="module"></script>
     </body>
 </html>

@@ -24,6 +24,14 @@ app.get("/pages/events/:id/register", (req, res) => {
     res.sendFile("public/pages/views/eventRegister.html", { root: __dirname });
 });
 
+app.get("/pages/query/create", (req, res) => {
+    res.sendFile("public/pages/subpages/queryCreate.html", { root: __dirname });
+});
+
+app.get("/pages/query/run", (req, res) => {
+    res.sendFile("public/pages/subpages/queryRun.html", { root: __dirname });
+});
+
 /*app.set("view engine", "ejs");
 app.set("views", "./public/pages/views");
 
