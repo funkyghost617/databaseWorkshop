@@ -93,6 +93,7 @@ async function queueCondition(queryDoc, inputParam) {
 async function createCompoundQuery(currentQueue) {
     let compoundQuery = {};
     const currentDate = new Date();
+    compoundQuery["query_name"] = `untitled query`;
     compoundQuery["date-created"] = currentDate.toISOString().split("T")[0];
     compoundQuery["created-by"] = navbar.getAttribute("data-uid");
     compoundQuery["main-table"] = mainTable;
