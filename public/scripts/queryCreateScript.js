@@ -16,15 +16,15 @@ function resetQueryBuilder() {
     conditions.innerHTML = "";
     tableSelect.value = "NO_SELECTION";
     tableSelect.disabled = false;
-    addConditionBtn.hidden = true;
     mainTable = "";
     currentQueries = "";
     queryQueue = [];
+    addCondSetBtn.hidden = true;
 }
 
-async function displayConditions() {
+async function displayConditions(parentBtn) {
     const condition = document.createElement("div");
-    conditions.appendChild(condition);
+    parentBtn.insertAdjacentElement("beforebegin", condition);
     const plainTextSelector = document.createElement("select");
     condition.appendChild(plainTextSelector);
     if (mainTable == "students") {
@@ -45,13 +45,26 @@ async function displayConditions() {
         plainTextSelector.appendChild(queryOption);
     });
     const userInput = document.createElement("input");
-    userInput.type = "date";
     userInput.hidden = true;
     plainTextSelector.insertAdjacentElement("afterend", userInput);
     plainTextSelector.addEventListener("change", async (e) => {
         const plainTextSelection = await getDoc(doc(db, "queries", plainTextSelector.value));
         if (plainTextSelection.data()["parameter3"] == "askDate") {
+            const dateType = document.createElement("select");
+            const relativeOption = document.createElement("option");
+            relativeOption.textContent = "relative";
+            const absoluteOption = document.createElement("option");
+            absoluteOption.textContent = "absolute";
+            dateType.append(relativeOption, absoluteOption);
+            plainTextSelector.insertAdjacentElement("afterend", dateType);
             userInput.type = "date";
+            dateType.addEventListener("change", (e) => {
+                if (dateType.value == "absolute") {
+                    userInput.type = "date";
+                } else {
+                    userInput.type = "number";
+                }
+            })
             userInput.hidden = false;
         } else if (plainTextSelection.data()["parameter3"] == "askString") {
             userInput.type = "text";
@@ -115,6 +128,9 @@ let mainTable = "";
 let currentQueries = "";
 let queryQueue = [];
 
+// manage population of conditions div
+const conditions = document.querySelector("#conditions");
+
 const main = document.querySelector("main");
 const tableSelect = document.querySelector("#table-select");
 tableSelect.value = "NO_SELECTION";
@@ -123,10 +139,30 @@ tableSelect.addEventListener("change", async (e) => {
     if (tableSelect.value != "NO_SELECTION") {
         tableSelect.disabled = true;
         mainTable = tableSelect.value;
-        displayConditions();
-        addConditionBtn.hidden = false;
+        createConditionSet();
+        addCondSetBtn.hidden = false;
     }
 })
+
+const addCondSetBtn = document.querySelector("#add-condition-set");
+addCondSetBtn.addEventListener("click", (e) => {
+    createConditionSet();
+})
+
+
+function createConditionSet() {
+    const conditionSet = document.createElement("div");
+    conditions.appendChild(conditionSet);
+    const addConditionBtn = document.createElement("button");
+    conditionSet.appendChild(addConditionBtn);
+    addConditionBtn.type = "button";
+    addConditionBtn.textContent = "add condition";
+    addConditionBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        displayConditions(addConditionBtn);
+    })
+    displayConditions(addConditionBtn);
+}
 
 
 async function processQuery(snap, col) {
@@ -168,14 +204,6 @@ async function processQuery(snap, col) {
         })
     }
 };
-
-
-// manage population of conditions div
-const conditions = document.querySelector("#conditions");
-const addConditionBtn = document.querySelector("#add-condition");
-addConditionBtn.addEventListener("click", (e) => {
-    displayConditions();
-})
 
 const createQueryBtn = document.querySelector("#create-query");
 createQueryBtn.addEventListener("click", async (e) => {
