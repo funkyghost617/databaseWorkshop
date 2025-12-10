@@ -32,6 +32,10 @@ app.get("/pages/query/run", (req, res) => {
     res.sendFile("public/pages/subpages/queryRun.html", { root: __dirname });
 });
 
+app.get("pages/query/run/:id", (req, res) => {
+    res.sendFile("public/pages/views/queryDoc.html", { root: __dirname });
+});
+
 /*app.set("view engine", "ejs");
 app.set("views", "./public/pages/views");
 

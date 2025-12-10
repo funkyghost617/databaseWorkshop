@@ -19,13 +19,13 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-navbar.innerHTML = `<header><a href="./home.html">database workshop</a></header>
-    <p><a href="./students.html">students</a></p>
-    <p><a href="./events.html">events</a></p>
-    <p><a href="./activities.html">activities</a></p>
-    <p><a href="./registrations.html">registrations</a></p>
-    <p><a href="./query.html">query</a></p>
-    <p><a href="./account.html">account</a></p>
+navbar.innerHTML = `<header><a href="/pages/home.html">database workshop</a></header>
+    <p><a href="/pages/students.html">students</a></p>
+    <p><a href="/pages/events.html">events</a></p>
+    <p><a href="/pages/activities.html">activities</a></p>
+    <p><a href="/pages/registrations.html">registrations</a></p>
+    <p><a href="/pages/query.html">query</a></p>
+    <p><a href="/pages/account.html">account</a></p>
     <p><a href="#" id="sign-out-btn">sign out</a></p>`;
 
 const signoutBtn = document.querySelector("#sign-out-btn");
@@ -33,6 +33,6 @@ signoutBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
     signOut(auth).then(() => {
-        window.location.href = "https://funkyghost617backend--databaseworkshop.us-central1.hosted.app/";
+        window.location.href = "/";
     });
 });
