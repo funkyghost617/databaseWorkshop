@@ -19,7 +19,7 @@ function resetQueryBuilder() {
     mainTable = "";
     currentQueries = "";
     queryQueue = [];
-    addCondSetBtn.hidden = true;
+    //addCondSetBtn.hidden = true;
 }
 
 async function displayConditions(parentBtn) {
@@ -55,7 +55,7 @@ async function displayConditions(parentBtn) {
             relativeOption.textContent = "relative";
             const absoluteOption = document.createElement("option");
             absoluteOption.textContent = "absolute";
-            dateType.append(relativeOption, absoluteOption);
+            dateType.append(absoluteOption, relativeOption);
             plainTextSelector.insertAdjacentElement("afterend", dateType);
             userInput.type = "date";
             dateType.addEventListener("change", (e) => {
@@ -85,6 +85,9 @@ async function displayConditions(parentBtn) {
         if (saveConditionBtn.getAttribute("class") == "save") {
             plainTextSelector.disabled = true;
             userInput.disabled = true;
+            if (userInput.type == "date") {
+                userInput.previousElementSibling.disabled = true;
+            }
             saveConditionBtn.textContent = "delete condition";
             saveConditionBtn.setAttribute("class", "delete");
             queueCondition(await getDoc(doc(db, "queries", plainTextSelector.value)), userInput.value);
@@ -140,14 +143,14 @@ tableSelect.addEventListener("change", async (e) => {
         tableSelect.disabled = true;
         mainTable = tableSelect.value;
         createConditionSet();
-        addCondSetBtn.hidden = false;
+        //addCondSetBtn.hidden = false;
     }
 })
 
-const addCondSetBtn = document.querySelector("#add-condition-set");
+/*const addCondSetBtn = document.querySelector("#add-condition-set");
 addCondSetBtn.addEventListener("click", (e) => {
     createConditionSet();
-})
+})*/
 
 
 function createConditionSet() {
