@@ -8,6 +8,8 @@ const studentQueries = await getDocs(query(collection(db, "queries"), orderBy("s
 const eventQueries = await getDocs(query(collection(db, "queries"), orderBy("eventOrder", "asc")));
 const activityQueries = await getDocs(query(collection(db, "queries"), orderBy("activityOrder", "asc")));
 const regisQueries = await getDocs(query(collection(db, "queries"), orderBy("regisOrder", "asc")));
+const tableSelect = document.querySelector("#table-select");
+tableSelect.disabled = false;
 
 // manage page reset (clear conditions and other user input, clear internal query queue)
 const resetBtn = document.querySelector("#reset-query-builder");
@@ -19,6 +21,7 @@ function resetQueryBuilder() {
     mainTable = "";
     currentQueries = "";
     queryQueue = [];
+    whereText.hidden = true;
     //addCondSetBtn.hidden = true;
 }
 
@@ -134,8 +137,7 @@ let queryQueue = [];
 // manage population of conditions div
 const conditions = document.querySelector("#conditions");
 
-const main = document.querySelector("main");
-const tableSelect = document.querySelector("#table-select");
+const whereText = document.querySelector("#where-text");
 tableSelect.value = "NO_SELECTION";
 tableSelect.addEventListener("change", async (e) => {
     e.preventDefault();
@@ -143,6 +145,7 @@ tableSelect.addEventListener("change", async (e) => {
         tableSelect.disabled = true;
         mainTable = tableSelect.value;
         createConditionSet();
+        whereText.hidden = false;
         //addCondSetBtn.hidden = false;
     }
 })
@@ -156,10 +159,20 @@ addCondSetBtn.addEventListener("click", (e) => {
 function createConditionSet() {
     const conditionSet = document.createElement("div");
     conditions.appendChild(conditionSet);
+    const conditionSetLabel = document.createElement("p");
+    conditionSetLabel.textContent = `condition set ${document.querySelectorAll("#conditions > div").length}`;
+    conditionSet.insertAdjacentElement("beforebegin", conditionSetLabel);
     const addConditionBtn = document.createElement("button");
     conditionSet.appendChild(addConditionBtn);
     addConditionBtn.type = "button";
-    addConditionBtn.textContent = "add condition";
+    addConditionBtn.classList.add("add-condition-btn");
+    const addCondImg = document.createElement("img");
+    addCondImg.src = "../../icons/plusSign.svg";
+    addCondImg.width = "30";
+    addConditionBtn.appendChild(addCondImg);
+    const addCondSpan = document.createElement("span");
+    addCondSpan.textContent = "add a condition";
+    addConditionBtn.appendChild(addCondSpan);
     addConditionBtn.addEventListener("click", (e) => {
         e.preventDefault();
         displayConditions(addConditionBtn);

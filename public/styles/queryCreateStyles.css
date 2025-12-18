@@ -1,5 +1,9 @@
 @import "./variables.css";
 
+* {
+    box-sizing: border-box;
+}
+
 #reset-query-builder {
     color: var(--quintenary-color);
     background-color: var(--tertiary-color);
@@ -7,15 +11,84 @@
 
 #builder-container {
     border: 2px solid black;
+    padding: 10px;
 }
 
-#builder-container select {
+#table-select-container select {
     border-radius: 0;
+    background-color: white;
     border: 1px solid lightgrey;
     transition: background-color 0.1s ease-in-out;
 }
 
-#builder-container select:hover,
-#builder-container select:open {
-    background-color: var(--secondary-color);
+#table-select-container select:hover,
+#table-select-container select:open {
+    background-color: lightblue;
+}
+
+#table-select-container {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 2rem;
+    gap: 5px;
+    border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+#table-select-container p {
+    position: relative;
+    top: 5px;
+}
+
+#table-select-container select {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#where-text {
+    margin: 0;
+}
+
+#conditions select {
+    border-radius: 0;
+    background-color: white;
+    border: 1px solid lightgrey;
+    transition: background-color 0.1s ease-in-out;
+}
+
+#conditions select:hover,
+#conditions select:open {
+    background-color: lightcoral;
+}
+
+#conditions {
+    margin-left: 45px;
+    margin-top: 8px;
+    background-clip: padding-box;
+    background: lightpink;
+}
+
+#conditions > p {
+    margin-bottom: 5px;
+}
+
+.add-condition-btn {
+    border: none;
+    background-color: transparent;
+}
+
+.add-condition-btn img {
+    transition: transform 0.2s ease-out;
+}
+
+.add-condition-btn img:hover {
+    transform: rotate(90deg);
+}
+
+.add-condition-btn span {
+    display: none;
+}
+
+.add-condition-btn img:hover + span {
+    display: inline;
 }

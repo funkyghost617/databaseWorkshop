@@ -22,14 +22,17 @@
             <button id="create-query" type="button">create query</button>
             <button id="reset-query-builder" type="button">reset query builder</button>
             <div id="builder-container">
-                <p>I would like a list of: </p>
-                <select id="table-select">
-                    <option value="NO_SELECTION" selected></option>
-                    <option value="students">students</option>
-                    <option value="events">events</option>
-                    <option value="activities">activities</option>
-                    <option value="registrations">registrations</option>
-                </select>
+                <div id="table-select-container">
+                    <p>I would like a list of: </p>
+                    <select id="table-select" disabled>
+                        <option value="NO_SELECTION" selected></option>
+                        <option value="students">students</option>
+                        <option value="events">events</option>
+                        <option value="activities">activities</option>
+                        <option value="registrations">registrations</option>
+                    </select>
+                </div>
+                <p id="where-text" style="text-indent: 30px;" hidden>where:</p>
                 <div id="conditions"></div>
                 <!--<button type="button" id="add-condition-set" hidden>add condition set</button>-->
             </div>
