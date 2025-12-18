@@ -1,0 +1,21 @@
+@import "./variables.css";
+
+#reset-query-builder {
+    color: var(--quintenary-color);
+    background-color: var(--tertiary-color);
+}
+
+#builder-container {
+    border: 2px solid black;
+}
+
+#builder-container select {
+    border-radius: 0;
+    border: 1px solid lightgrey;
+    transition: background-color 0.1s ease-in-out;
+}
+
+#builder-container select:hover,
+#builder-container select:open {
+    background-color: var(--secondary-color);
+}
