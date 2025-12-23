@@ -51,7 +51,7 @@ async function displayConditions(parentBtn) {
     userInput.hidden = true;
     plainTextSelector.insertAdjacentElement("afterend", userInput);
     plainTextSelector.addEventListener("change", async (e) => {
-        const plainTextSelection = await getDoc(doc(db, "queries", plainTextSelector.value));
+        const plainTextSelection = await getDoc(doc(db, "queries", plainTextSelector.value)); //this line currently causes an error when the selection is changed from a valid query to "NO_SELECTION", as firebase tries to query something with an undefined ID
         if (plainTextSelection.data()["parameter3"] == "askDate") {
             const dateType = document.createElement("select");
             const relativeOption = document.createElement("option");
@@ -68,6 +68,11 @@ async function displayConditions(parentBtn) {
                     userInput.type = "number";
                 }
             })
+            plainTextSelector.addEventListener("change", (e) => {
+                e.preventDefault();
+                dateType.remove();
+                userInput.hidden = true;
+            });
             userInput.hidden = false;
         } else if (plainTextSelection.data()["parameter3"] == "askString") {
             userInput.type = "text";

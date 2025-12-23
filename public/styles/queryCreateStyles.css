@@ -54,6 +54,8 @@
     background-color: white;
     border: 1px solid lightgrey;
     transition: background-color 0.1s ease-in-out;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 #conditions select:hover,
@@ -66,6 +68,7 @@
     margin-top: 8px;
     background-clip: padding-box;
     background: lightpink;
+    padding: 10px;
 }
 
 #conditions > p {
@@ -75,20 +78,23 @@
 .add-condition-btn {
     border: none;
     background-color: transparent;
+    display: flex;
+    align-items: center;
 }
 
 .add-condition-btn img {
     transition: transform 0.2s ease-out;
 }
 
-.add-condition-btn img:hover {
-    transform: rotate(90deg);
+.add-condition-btn:hover img {
+    transform: translateX(100px) rotate(90deg);
 }
 
 .add-condition-btn span {
     display: none;
+    margin-left: -30px;
 }
 
-.add-condition-btn img:hover + span {
+.add-condition-btn:hover span {
     display: inline;
 }
