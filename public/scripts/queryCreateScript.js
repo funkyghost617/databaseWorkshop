@@ -22,7 +22,6 @@ function resetQueryBuilder() {
     currentQueries = "";
     queryQueue = [];
     whereText.hidden = true;
-    //addCondSetBtn.hidden = true;
 }
 
 async function displayConditions(parentBtn) {
@@ -149,24 +148,45 @@ tableSelect.addEventListener("change", async (e) => {
     if (tableSelect.value != "NO_SELECTION") {
         tableSelect.disabled = true;
         mainTable = tableSelect.value;
+        const addCondSetBtn = document.createElement("button");
+        addCondSetBtn.setAttribute("id", "add-cond-set-btn");
+        addCondSetBtn.textContent = "add condition set";
+        conditions.appendChild(addCondSetBtn);
+        addCondSetBtn.addEventListener("click", (e) => {
+            createConditionSet();
+        })
         createConditionSet();
         whereText.hidden = false;
-        //addCondSetBtn.hidden = false;
     }
 })
 
-/*const addCondSetBtn = document.querySelector("#add-condition-set");
-addCondSetBtn.addEventListener("click", (e) => {
-    createConditionSet();
-})*/
+
 
 
 function createConditionSet() {
     const conditionSet = document.createElement("div");
-    conditions.appendChild(conditionSet);
+    const addCondSetBtn = document.querySelector("#add-cond-set-btn");
+    addCondSetBtn.insertAdjacentElement("beforebegin", conditionSet);
     const conditionSetLabel = document.createElement("p");
-    conditionSetLabel.textContent = `condition set ${document.querySelectorAll("#conditions > div").length}`;
+    const conditionSetLabelText = document.createElement("span");
+    conditionSetLabelText.textContent = `condition set ${document.querySelectorAll("#conditions > div").length}`;
+    conditionSetLabel.appendChild(conditionSetLabelText);
     conditionSet.insertAdjacentElement("beforebegin", conditionSetLabel);
+    /*const deleteCondSetBtn = document.createElement("button");
+    deleteCondSetBtn.textContent = "delete condition set";
+    deleteCondSetBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (document.querySelectorAll("#conditions > p").length == 1) {
+            alert("cannot have a query with no conditions");
+        } else {
+            conditionSetLabel.remove();
+            conditionSet.remove();
+            for (let i = 0; i < document.querySelectorAll("#conditions > p span").length; i++) {
+                document.querySelectorAll("#conditions > p span")[i].textContent = `condition set ${i + 1}`;
+            }
+        }
+    });
+    conditionSetLabel.insertAdjacentElement("beforeend", deleteCondSetBtn);*/ //commented out bc current condition deletion process does not remove conditions from internal queue   
     const addConditionBtn = document.createElement("button");
     conditionSet.appendChild(addConditionBtn);
     addConditionBtn.type = "button";

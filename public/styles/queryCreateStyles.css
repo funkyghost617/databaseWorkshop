@@ -71,6 +71,10 @@
     padding: 10px;
 }
 
+#conditions > div {
+    border: 2px solid black;
+}
+
 #conditions > p {
     margin-bottom: 5px;
 }
@@ -80,6 +84,7 @@
     background-color: transparent;
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .add-condition-btn img {
@@ -87,12 +92,12 @@
 }
 
 .add-condition-btn:hover img {
-    transform: translateX(100px) rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .add-condition-btn span {
     display: none;
-    margin-left: -30px;
+    margin-left: 10px;
 }
 
 .add-condition-btn:hover span {
