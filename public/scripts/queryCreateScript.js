@@ -2,17 +2,18 @@
 import { collection, doc, getDoc, getDocs, addDoc, query, orderBy, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { auth, db }  from "./firebaseScript.js";
 
-// all query options are loaded before the builder interface is shown
+/* all query options are loaded before the builder interface is shown
+    -- the first group of promises load the applicable lists of queries for each table
+    -- builderContainer (the element containing all the creation elements) is unhidden after the query lists are loaded
+*/
 const studentQueries = await getDocs(query(collection(db, "queries"), orderBy("studentOrder", "asc")));
 const eventQueries = await getDocs(query(collection(db, "queries"), orderBy("eventOrder", "asc")));
 const activityQueries = await getDocs(query(collection(db, "queries"), orderBy("activityOrder", "asc")));
 const regisQueries = await getDocs(query(collection(db, "queries"), orderBy("regisOrder", "asc")));
 const builderContainer = document.querySelector("#builder-container");
 builderContainer.hidden = false;
-const tableSelect = document.querySelector("#table-select");
-tableSelect.disabled = false;
 
-// manage page reset (clear conditions and other user input, clear internal query queue)
+// manage page reset (clear conditions and other user input)
 const resetBtn = document.querySelector("#reset-query-builder");
 resetBtn.addEventListener("click", (e) => resetQueryBuilder());
 function resetQueryBuilder() {
@@ -24,12 +25,12 @@ function resetQueryBuilder() {
     whereText.hidden = true;
 }
 
-let mainTable = "";
-let currentQueries = "";
+const tableSelect = document.querySelector("#table-select");    // selects the table being queried ("students", "events", etc)
+let mainTable = "";                                             // saves the value of tableSelect as a string      
+let currentQueries = "";                                        // connects value of mainTable to list of queries loaded at runtime
 
-// manage population of conditions div
+// manage population of conditions
 const conditions = document.querySelector("#conditions");
-
 const whereText = document.querySelector("#where-text");
 tableSelect.value = "NO_SELECTION";
 tableSelect.addEventListener("change", async (e) => {
