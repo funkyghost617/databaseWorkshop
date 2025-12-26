@@ -8,6 +8,8 @@ const studentQueries = await getDocs(query(collection(db, "queries"), orderBy("s
 const eventQueries = await getDocs(query(collection(db, "queries"), orderBy("eventOrder", "asc")));
 const activityQueries = await getDocs(query(collection(db, "queries"), orderBy("activityOrder", "asc")));
 const regisQueries = await getDocs(query(collection(db, "queries"), orderBy("regisOrder", "asc")));
+const builderContainer = document.querySelector("#builder-container");
+builderContainer.hidden = false;
 const tableSelect = document.querySelector("#table-select");
 tableSelect.disabled = false;
 
@@ -20,7 +22,6 @@ function resetQueryBuilder() {
     tableSelect.disabled = false;
     mainTable = "";
     currentQueries = "";
-    queryQueue = [];
     whereText.hidden = true;
 }
 
@@ -50,7 +51,13 @@ async function displayConditions(parentBtn) {
     userInput.hidden = true;
     plainTextSelector.insertAdjacentElement("afterend", userInput);
     plainTextSelector.addEventListener("change", async (e) => {
-        const plainTextSelection = await getDoc(doc(db, "queries", plainTextSelector.value)); //this line currently causes an error when the selection is changed from a valid query to "NO_SELECTION", as firebase tries to query something with an undefined ID
+        plainTextSelector.setAttribute("query-doc-id", plainTextSelector.value);
+        userInput.value = "";
+        plainTextSelector.setAttribute("user-input-value", userInput.value);
+        if (plainTextSelector.value == "") {
+            return;
+        }
+        const plainTextSelection = await getDoc(doc(db, "queries", plainTextSelector.value)); 
         if (plainTextSelection.data()["parameter3"] == "askDate") {
             const dateType = document.createElement("select");
             const relativeOption = document.createElement("option");
@@ -82,61 +89,42 @@ async function displayConditions(parentBtn) {
         } else {
             userInput.hidden = true;
         }
+        userInput.addEventListener("change", (e) => {
+            plainTextSelector.setAttribute("user-input-value", userInput.value);
+        })
     })
-    const saveConditionBtn = document.createElement("button");
-    saveConditionBtn.type = "button";
-    saveConditionBtn.setAttribute("class", "save");
-    saveConditionBtn.textContent = "save condition";
-    condition.appendChild(saveConditionBtn);
-    saveConditionBtn.addEventListener("click", async (e) => {
-        if (saveConditionBtn.getAttribute("class") == "save") {
-            plainTextSelector.disabled = true;
-            userInput.disabled = true;
-            if (userInput.type == "date") {
-                userInput.previousElementSibling.disabled = true;
-            }
-            saveConditionBtn.textContent = "delete condition";
-            saveConditionBtn.setAttribute("class", "delete");
-            queueCondition(await getDoc(doc(db, "queries", plainTextSelector.value)), userInput.value);
-        } else {
-            condition.remove();
-            const removalIndex = queryQueue.findIndex(item => item.id == plainTextSelector.value);
-            queryQueue.splice(removalIndex, 1);
-        }
-    });
 }
 
-async function queueCondition(queryDoc, inputParam) {
-    let queryObject = { id: queryDoc.id };
-    if (inputParam != "") { queryObject["inputParam"] = inputParam; }
-    queryQueue.push(queryObject);
-    console.log(queryQueue);
-}
-
-async function createCompoundQuery(currentQueue) {
+async function createCompoundQueryAlt() {
     let compoundQuery = {};
     const currentDate = new Date();
     compoundQuery["query_name"] = `untitled query`;
     compoundQuery["date-created"] = currentDate.toISOString().split("T")[0];
     compoundQuery["created-by"] = navbar.getAttribute("data-uid");
     compoundQuery["main-table"] = mainTable;
-    let queryArray = [];
-    let userInputArray = [];
-    currentQueue.forEach((item) => {
-        queryArray.push(item.id);
-        if (item["inputParam"] != undefined) {
-            userInputArray.push(item["inputParam"]);
-        };
-    });
-    compoundQuery["query-array"] = queryArray;
-    if (userInputArray.length > 0) { compoundQuery["user-input"] = userInputArray };
+    const conditionSets = document.querySelectorAll("#conditions > div");
+    let queryIDs = [];
+    let userInputs = [];
+    let disjunctionTracker = [];
+    for (let i = 1; i < conditionSets.length + 1; i++) {
+        const condSet = document.querySelectorAll(`#conditions > div:nth-child(${i * 2}) > div > select:first-child`);
+        condSet.forEach(condition => {
+            queryIDs.push(condition.getAttribute("query-doc-id"));
+            if (condition.getAttribute("user-input-value") != "") userInputs.push(condition.getAttribute("user-input-value"));
+        })
+        disjunctionTracker.push(condSet.length);
+    }
+    compoundQuery["query-array"] = queryIDs;
+    compoundQuery["user-input"] = userInputs;
+    if (disjunctionTracker.length > 1) {
+        compoundQuery["disjunction-tracker"] = disjunctionTracker;
+    }
     await addDoc(collection(db, "queries", "compound_queries", "saved_queries"), compoundQuery);
     console.log("compound query saved to collection!");
 }
 
 let mainTable = "";
 let currentQueries = "";
-let queryQueue = [];
 
 // manage population of conditions div
 const conditions = document.querySelector("#conditions");
@@ -254,7 +242,7 @@ createQueryBtn.addEventListener("click", async (e) => {
     } else {
         let confirmation = confirm("are you sure you want to create a query with these conditions?");
         if (confirmation) {
-            createCompoundQuery(queryQueue).then(alert("query created"));
+            createCompoundQueryAlt().then(alert("query created"));
         }
     }
 })
