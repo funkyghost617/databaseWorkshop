@@ -26,15 +26,26 @@ descPara.hidden = false;
 const tableCont = document.querySelector("#main-table");
 tableCont.textContent = currentQuery.data()["main-table"];
 const descList = document.querySelector("#query-desc");
+const queryArray = currentQuery.data()["query-array"];
+const userInputArray = currentQuery.data()["user-input"];
 let userInputIndex = 0;
-currentQuery.data()["query-array"].forEach(async (item) => {
-    const queryPart = await getDoc(doc(db, "queries", item));
+const disjunctionTracker = currentQuery.data()["disjunction-tracker"];
+let disjunctionCounter = 0;
+for (let i = 0; i < queryArray.length; i++) {
+    if (disjunctionTracker[0] == disjunctionCounter) {
+        disjunctionTracker.shift();
+        const orItem = document.createElement("li");
+        orItem.textContent = "OR";
+        disjunctionCounter = 0;
+        descList.appendChild(orItem);
+    }
+    const queryPart = await getDoc(doc(db, "queries", queryArray[i]));
     const plainText = queryPart.data()["plain_text"];
     const listItem = document.createElement("li");
     listItem.textContent = plainText;
     if (["askDate", "askString", "askNum"].includes(queryPart.data()["parameter3"])) {
-        listItem.textContent = listItem.textContent + currentQuery.data()["user-input"][userInputIndex];
-        userInputIndex++;
+        listItem.textContent = listItem.textContent + userInputArray[userInputIndex++];
     }
     descList.appendChild(listItem);
-})
+    disjunctionCounter++;
+}
