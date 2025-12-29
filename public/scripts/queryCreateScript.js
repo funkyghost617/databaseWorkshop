@@ -23,6 +23,7 @@ function resetQueryBuilder() {
     mainTable = "";
     currentQueries = "";
     whereText.hidden = true;
+    refreshCats();
 }
 
 const tableSelect = document.querySelector("#table-select");    // selects the table being queried ("students", "events", etc)
@@ -47,7 +48,8 @@ tableSelect.addEventListener("change", async (e) => {
         })
         createConditionSet();
         whereText.hidden = false;
-    }
+        refreshCats();
+    }  
 })
 
 function createConditionSet() {
@@ -186,4 +188,56 @@ async function createCompoundQuery() {
     }
     await addDoc(collection(db, "queries", "compound_queries", "saved_queries"), compoundQuery);
     console.log("compound query saved to collection!");
+}
+
+const displayCatsDiv = document.querySelector("#display-cats-div");
+function updateDisplayCats() {
+    if (mainTable == "") {
+        displayCatsDiv.innerHTML = "";
+        return;
+    } else if (document.querySelector("#display-cats-div > div").length != 1) {
+        const newCatsTable = document.createElement("div");
+        newCatsTable.setAttribute("id", "cats-div");
+        displayCatsDiv.appendChild(newCatsTable);
+    }
+    const catsTable = document.querySelector("#cats-div");
+    const currentSelections = document.querySelectorAll("#conditions > div > div > select:first-child");
+    currentSelections.forEach(condition => {
+        
+    });
+}
+
+let studentsCats;
+const studentsCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "students"));
+let eventsCats;
+const eventsCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "events"));
+let activitiesCats;
+const activitiesCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "activities"));
+let regisCats;
+const regisCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "registrations"));
+const catsArraySubheaders = ["Students", "Events", "Activities", "Registrations"];
+const catsArray = [studentsCats, eventsCats, activitiesCats, regisCats];
+const catsArrayQ = [studentsCatsQ, eventsCatsQ, activitiesCatsQ, regisCatsQ];
+function refreshCats() {
+    if (mainTable == "") {
+        displayCatsDiv.innerHTML = "";
+        return;
+    } else if (displayCatsDiv.innerHTML == "") {
+        for (let i = 0; i < catsArrayQ.length; i++) {
+            const cats = catsArrayQ[i].data()["cats"];
+            const catsPlainText = catsArrayQ[i].data()["cats-plain-text"];
+            const catsSection = document.createElement("div");
+            catsSection.setAttribute("table-name", catsArraySubheaders[i]);
+            for (let j = 0; j < cats.length; j++) {
+                const catLabel = document.createElement("label");
+                catLabel.setAttribute("for", cats[j]);
+                catLabel.textContent = catsPlainText[j];
+                const catCheckbox = document.createElement("input");
+                catCheckbox.setAttribute("type", "checkbox");
+                catLabel.appendChild(catCheckbox);
+                catsSection.appendChild(catLabel);
+            };
+            displayCatsDiv.appendChild(catsSection);
+        }
+    }
 }
