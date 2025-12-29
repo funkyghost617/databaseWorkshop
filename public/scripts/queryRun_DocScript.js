@@ -32,7 +32,7 @@ let userInputIndex = 0;
 const disjunctionTracker = currentQuery.data()["disjunction-tracker"];
 let disjunctionCounter = 0;
 for (let i = 0; i < queryArray.length; i++) {
-    if (disjunctionTracker[0] == disjunctionCounter) {
+    if (disjunctionTracker != undefined && disjunctionTracker[0] == disjunctionCounter) {
         disjunctionTracker.shift();
         const orItem = document.createElement("li");
         orItem.textContent = "OR";
@@ -49,3 +49,22 @@ for (let i = 0; i < queryArray.length; i++) {
     descList.appendChild(listItem);
     disjunctionCounter++;
 }
+
+const runBtn = document.querySelector("#run-btn");
+runBtn.hidden = false;
+runBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const resultsTable = document.createElement("table");
+    const resultsHeader = document.createElement("thead");
+    const queryCats = currentQuery.data()["display-categories"];
+    queryCats.forEach(cat => {
+        const headCell = document.createElement("th");
+        headCell.textContent = cat;
+        resultsHeader.appendChild(headCell);
+    });
+    resultsTable.appendChild(resultsHeader);
+
+    
+
+    runBtn.insertAdjacentElement("afterend", resultsTable);
+})
