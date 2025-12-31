@@ -106,6 +106,7 @@ async function displayConditions(parentBtn) {
     plainTextSelector.insertAdjacentElement("afterend", userInput);
     plainTextSelector.addEventListener("change", async (e) => {
         plainTextSelector.setAttribute("query-doc-id", plainTextSelector.value);
+        refreshCats();
         userInput.value = "";
         plainTextSelector.setAttribute("user-input-value", userInput.value);
         if (plainTextSelector.value == "") {
@@ -191,22 +192,6 @@ async function createCompoundQuery() {
 }
 
 const displayCatsDiv = document.querySelector("#display-cats-div");
-function updateDisplayCats() {
-    if (mainTable == "") {
-        displayCatsDiv.innerHTML = "";
-        return;
-    } else if (document.querySelector("#display-cats-div > div").length != 1) {
-        const newCatsTable = document.createElement("div");
-        newCatsTable.setAttribute("id", "cats-div");
-        displayCatsDiv.appendChild(newCatsTable);
-    }
-    const catsTable = document.querySelector("#cats-div");
-    const currentSelections = document.querySelectorAll("#conditions > div > div > select:first-child");
-    currentSelections.forEach(condition => {
-        
-    });
-}
-
 let studentsCats;
 const studentsCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "students"));
 let eventsCats;
@@ -215,7 +200,7 @@ let activitiesCats;
 const activitiesCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "activities"));
 let regisCats;
 const regisCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_categories", "registrations"));
-const catsArraySubheaders = ["Students", "Events", "Activities", "Registrations"];
+const catsArraySubheaders = ["students", "events", "activities", "registrations"];
 const catsArray = [studentsCats, eventsCats, activitiesCats, regisCats];
 const catsArrayQ = [studentsCatsQ, eventsCatsQ, activitiesCatsQ, regisCatsQ];
 function refreshCats() {
@@ -228,6 +213,7 @@ function refreshCats() {
             const catsPlainText = catsArrayQ[i].data()["cats-plain-text"];
             const catsSection = document.createElement("div");
             catsSection.setAttribute("table-name", catsArraySubheaders[i]);
+            catsSection.textContent = catsSection.getAttribute("table-name");
             for (let j = 0; j < cats.length; j++) {
                 const catLabel = document.createElement("label");
                 catLabel.setAttribute("for", cats[j]);
@@ -236,8 +222,34 @@ function refreshCats() {
                 catCheckbox.setAttribute("type", "checkbox");
                 catLabel.appendChild(catCheckbox);
                 catsSection.appendChild(catLabel);
+                catsSection.hidden = true;
             };
             displayCatsDiv.appendChild(catsSection);
         }
+    }
+    const displayCondSets = document.querySelectorAll("#display-cats-div > div");
+    displayCondSets.forEach(set => {
+        set.hidden = true;
+        if (set.getAttribute("table-name") == mainTable || mainTable == "registrations") {
+            set.hidden = false;
+        } 
+        if (set.getAttribute("table-name") == "events" && mainTable == "activities") {
+            set.hidden = false;
+        }
+    })
+    const conditionSets = document.querySelectorAll("#conditions > div");
+    for (let i = 1; i < conditionSets.length + 1; i++) {
+        const condSet = document.querySelectorAll(`#conditions > div:nth-child(${i * 2}) > div > select:first-child`);
+        condSet.forEach(condition => {
+            const selectedCond = condition.getAttribute("query-doc-id");
+            currentQueries.forEach(queryDoc => {
+                if (queryDoc.id == selectedCond) {
+                    if (queryDoc.data()["fetchFrom"] != undefined) {
+                        document.querySelector(`#display-cats-div [table-name="${queryDoc.data()["fetchFrom"]}"]`).hidden = false;
+                    }
+                    return;
+                }
+            })
+        })
     }
 }
