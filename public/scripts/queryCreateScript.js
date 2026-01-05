@@ -187,8 +187,24 @@ async function createCompoundQuery() {
     if (disjunctionTracker.length > 1) {
         compoundQuery["disjunction-tracker"] = disjunctionTracker;
     }
-    await addDoc(collection(db, "queries", "compound_queries", "saved_queries"), compoundQuery);
-    console.log("compound query saved to collection!");
+
+    let displayCatsArray = [];
+    const displayCondSets = document.querySelectorAll("#display-cats-div > div");
+    for (let i = 0; i < displayCondSets.length; i++) {
+        if (!displayCondSets[i].hidden) {
+            const displayConditions = document.querySelectorAll(`#display-cats-div > div:nth-child(${i + 1}) > label > input`);
+            displayConditions.forEach(inputEle => {
+                if (inputEle.checked) {
+                    displayCatsArray.push(`${catsArraySubheaders[i]} -- ${inputEle.getAttribute("id")}`);
+                }
+            })
+        }
+    }
+    compoundQuery["display-categories"] = displayCatsArray;
+    
+    const newQuery = await addDoc(collection(db, "queries", "compound_queries", "saved_queries"), compoundQuery);
+    console.log("compound query saved to collection! redirecting to query page");
+    window.location.href = `./run/${newQuery.id}`;
 }
 
 const displayCatsDiv = document.querySelector("#display-cats-div");
@@ -220,6 +236,7 @@ function refreshCats() {
                 catLabel.textContent = catsPlainText[j];
                 const catCheckbox = document.createElement("input");
                 catCheckbox.setAttribute("type", "checkbox");
+                catCheckbox.setAttribute("id", cats[j]);
                 catLabel.appendChild(catCheckbox);
                 catsSection.appendChild(catLabel);
                 catsSection.hidden = true;
