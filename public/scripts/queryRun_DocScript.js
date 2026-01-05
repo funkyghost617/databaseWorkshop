@@ -12,7 +12,7 @@ const currentQuery = await getDoc(docRef);
 console.log(currentQuery);
 
 const browserTitle = document.querySelector("title");
-browserTitle.textContent = `${currentQuery.data()["query_name"]}${browserTitle.textContent}`;
+browserTitle.textContent = `${currentQuery.data()["query-name"]}${browserTitle.textContent}`;
 console.log(currentQuery.data());
 
 const creatorDoc = await getDoc(doc(db, "users", currentQuery.data()["created-by"]));
