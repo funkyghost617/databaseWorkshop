@@ -103,3 +103,15 @@
 .add-condition-btn:hover span {
     display: inline;
 }
+
+#display-cats-div {
+    display: flex;
+}
+
+#display-cats-div div {
+    width: 25%;
+}
+
+#display-cats-div div label {
+    display: block;
+}
