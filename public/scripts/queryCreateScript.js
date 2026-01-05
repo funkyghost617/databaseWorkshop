@@ -166,7 +166,7 @@ createQueryBtn.addEventListener("click", async (e) => {
 async function createCompoundQuery() {
     let compoundQuery = {};
     const currentDate = new Date();
-    compoundQuery["query_name"] = `untitled query`;
+    compoundQuery["query-name"] = `untitled query`;
     compoundQuery["date-created"] = currentDate.toISOString().split("T")[0];
     compoundQuery["created-by"] = document.querySelector("#navbar").getAttribute("data-uid");
     compoundQuery["main-table"] = mainTable;

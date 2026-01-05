@@ -1,5 +1,5 @@
 //initialize firestore connections
-import { collection, doc, getDoc, getDocs, addDoc, query, orderBy, where, limit } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { collection, doc, getDoc, updateDoc, getDocs, addDoc, query, orderBy, where, limit } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 import { db } from "./firebaseScript.js";
 
 const hrefArray = window.location.href.split("/");
@@ -18,7 +18,25 @@ console.log(currentQuery.data());
 const creatorDoc = await getDoc(doc(db, "users", currentQuery.data()["created-by"]));
 
 const nameContainer = document.querySelector("#query-name");
-nameContainer.textContent = currentQuery.data()["query_name"];
+nameContainer.textContent = currentQuery.data()["query-name"];
+const changeNameBtn = document.createElement("button");
+changeNameBtn.setAttribute("type", "button");
+changeNameBtn.textContent = "change name";
+nameContainer.appendChild(changeNameBtn);
+const changeNameInput = document.createElement("input");
+changeNameInput.setAttribute("type", "text");
+changeNameInput.setAttribute("placeholder", "enter new name here...");
+changeNameInput.value = "";
+changeNameBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    nameContainer.appendChild(changeNameInput);
+    changeNameInput.addEventListener("keypress", async (e) => {
+        if (e.key == "Enter" && changeNameInput.value != "") {
+            await updateDoc(docRef, { "query-name": changeNameInput.value });
+            window.location.reload();
+        }
+    })
+})
 const creationInfoCont = document.querySelector("#creation-info");
 creationInfoCont.textContent = `Created on ${currentQuery.data()["date-created"]} by ${creatorDoc.data()["full_name"]}`;
 const descPara = document.querySelector("#desc-para");
@@ -59,7 +77,7 @@ runBtn.addEventListener("click", (e) => {
     const queryCats = currentQuery.data()["display-categories"];
     queryCats.forEach(cat => {
         const headCell = document.createElement("th");
-        headCell.textContent = cat;
+        headCell.textContent = cat.split(" -- ")[1];
         resultsHeader.appendChild(headCell);
     });
     resultsTable.appendChild(resultsHeader);

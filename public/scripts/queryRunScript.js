@@ -9,7 +9,7 @@ savedQueriesSnap.forEach(async (item) => {
     const queryRow = document.createElement("tr");
     queryRow.setAttribute("data-id", item.id);
     const queryName = document.createElement("td");
-    queryName.textContent = item.data()["query_name"];
+    queryName.textContent = item.data()["query-name"];
     const queryCreateDate = document.createElement("td");
     queryCreateDate.textContent = item.data()["date-created"];
     const queryCreator = document.createElement("td");
