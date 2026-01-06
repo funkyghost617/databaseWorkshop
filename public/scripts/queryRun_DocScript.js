@@ -47,7 +47,7 @@ const descList = document.querySelector("#query-desc");
 const queryArray = currentQuery.data()["query-array"];
 const userInputArray = currentQuery.data()["user-input"];
 let userInputIndex = 0;
-const disjunctionTracker = currentQuery.data()["disjunction-tracker"];
+let disjunctionTracker = currentQuery.data()["disjunction-tracker"];
 let disjunctionCounter = 0;
 for (let i = 0; i < queryArray.length; i++) {
     if (disjunctionTracker != undefined && disjunctionTracker[0] == disjunctionCounter) {
@@ -68,10 +68,13 @@ for (let i = 0; i < queryArray.length; i++) {
     disjunctionCounter++;
 }
 
+const specialParam3Values = ["DUPLICATES"];
+
 const runBtn = document.querySelector("#run-btn");
 runBtn.hidden = false;
-runBtn.addEventListener("click", (e) => {
+runBtn.addEventListener("click", async (e) => {
     e.preventDefault();
+    runBtn.hidden = true;
     const resultsTable = document.createElement("table");
     const resultsHeader = document.createElement("thead");
     const queryCats = currentQuery.data()["display-categories"];
@@ -82,6 +85,42 @@ runBtn.addEventListener("click", (e) => {
     });
     resultsTable.appendChild(resultsHeader);
 
+    userInputIndex = 0;
+    disjunctionCounter = 0;
+    disjunctionTracker = currentQuery.data()["disjunction-tracker"];
+    let queryResult = [];
+    for (let i = 0; i < queryArray.length; i++) {
+        if (disjunctionTracker != undefined && disjunctionTracker[0] == disjunctionCounter) {
+            disjunctionTracker.shift();
+            disjunctionCounter = 0;
+        }
+        const queryPart = await getDoc(doc(db, "queries", queryArray[i]));
+        const param1 = queryPart.data()["parameter1"];
+        const param2 = queryPart.data()["parameter2"];
+        if (!specialParam3Values.includes(queryPart.data()["parameter3"])) {
+            console.log("failure");
+        } else if (param2 == "in" && queryPart.data()["parameter3"] == "DUPLICATES") {
+            console.log("success");
+            const everything = await getDocs(query(collection(db, currentQuery.data()["main-table"])));
+            let allValues = [];
+            let dupeValues = [];
+            everything.forEach(Edoc => {
+                if (allValues.includes(Edoc.data()[param1])) {
+                    dupeValues.push(Edoc.data()[param1]);
+                } else {
+                    allValues.push(Edoc.data()[param1]);
+                }
+            })
+            
+            const dupes = await getDocs(query(collection(db, currentQuery.data()["main-table"]), where(param1, param2, dupeValues))); //error fixed!!
+
+            dupes.forEach(resultDoc => {
+                queryResult.push(resultDoc.data());
+            })
+        }
+        disjunctionCounter++;
+    }
+    console.log(queryResult);
     
 
     runBtn.insertAdjacentElement("afterend", resultsTable);
