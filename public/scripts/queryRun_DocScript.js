@@ -81,6 +81,7 @@ runBtn.addEventListener("click", async (e) => {
     queryCats.forEach(cat => {
         const headCell = document.createElement("th");
         headCell.textContent = cat.split(" -- ")[1];
+        headCell.setAttribute("table-and-cat", cat);
         resultsHeader.appendChild(headCell);
     });
     resultsTable.appendChild(resultsHeader);
@@ -112,7 +113,7 @@ runBtn.addEventListener("click", async (e) => {
                 }
             })
             
-            const dupes = await getDocs(query(collection(db, currentQuery.data()["main-table"]), where(param1, param2, dupeValues))); //error fixed!!
+            const dupes = await getDocs(query(collection(db, currentQuery.data()["main-table"]), where(param1, param2, dupeValues)));
 
             dupes.forEach(resultDoc => {
                 queryResult.push(resultDoc.data());
@@ -121,7 +122,22 @@ runBtn.addEventListener("click", async (e) => {
         disjunctionCounter++;
     }
     console.log(queryResult);
-    
-
+    const tableBody = document.createElement("tbody");
+    resultsTable.appendChild(tableBody);
+    for (let i = 0; i < queryResult.length; i++) {
+        const tableRow = document.createElement("tr");
+        for (let j = 0; j < queryCats.length; j++) {
+            const dataCell = document.createElement("td");
+            if (queryCats[j].split(" -- ")[0] == currentQuery.data()["main-table"]) {
+                dataCell.textContent = queryResult[i][queryCats[j].split(" -- ")[1]];
+            } else {
+                const relevantDoc = await getDoc(doc(db, queryCats[j].split(" -- ")[0], queryResult[i][`${queryCats[j].split(" -- ")[0].slice(0, -1)}_id`]));
+                dataCell.textContent = relevantDoc.data()[queryCats[j].split(" -- ")[1]];
+            }
+            tableRow.appendChild(dataCell);
+        }
+        
+        tableBody.appendChild(tableRow);
+    }
     runBtn.insertAdjacentElement("afterend", resultsTable);
 })
