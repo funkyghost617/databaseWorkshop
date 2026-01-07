@@ -113,17 +113,17 @@ console.log(allTables);
 
 const specialParam3Values = ["DUPLICATES","askDate", "askNum", "askString"];
 
-async function runQuerySet(results) {
+async function runQuerySet(results, setSize) {
     
     let queryResult = [];
     // start of first iteration
-    const queryPart = queryParts[0]
+    let queryPart = queryParts[queryArrayIndex++]
     const param1 = queryPart["parameter1"];
     const param2 = queryPart["parameter2"];
     if (!specialParam3Values.includes(queryPart["parameter3"])) {
         const everything = allTables.find((ele) => ele[0] == mainTable)[1];
         everything.forEach(Edoc => {
-            if (applyOperator(param2, Edoc.data()[param1], Edoc.data()[param3])) {
+            if (applyOperator(param2, Edoc.data()[param1], Edoc.data()[queryPart["parameter3"]])) {
                 queryResult.push(Edoc.data());
             }
         })
@@ -164,20 +164,58 @@ async function runQuerySet(results) {
         })
         userInputIndex++;
     }
-    disjunctionCounter++;
     // end of first iteration
-    let queryArrayIndex = 1;
-    while (queryArray[queryArrayIndex] != undefined) {
-        
-        
-
-        queryArrayIndex++;
+    for (let i = 0; i < setSize - 1; i++) {
+        let newResult = [];
+        queryPart = queryParts[queryArrayIndex++]
+        const param1 = queryPart["parameter1"];
+        const param2 = queryPart["parameter2"];
+        if (!specialParam3Values.includes(queryPart["parameter3"])) {
+            const everything = queryResult;
+            everything.forEach(Edoc => {
+                if (applyOperator(param2, Edoc[param1], Edoc[queryPart["parameter3"]])) {
+                    newResult.push(Edoc);
+                }
+            })
+        } else if (param2 == "in" && queryPart["parameter3"] == "DUPLICATES") {
+            const everything = queryResult;
+            let allValues = [];
+            let dupeValues = [];
+            everything.forEach(Edoc => {
+                if (applyOperator(param2, Edoc[param1], allValues)) {
+                    dupeValues.push(Edoc[param1]);
+                };
+                allValues.push(Edoc[param1]);
+            })
+            everything.forEach((ele) => {
+                if (applyOperator(param2, ele[param1], dupeValues)) {
+                    newResult.push(ele);
+                }
+            })
+        } else if (queryPart["parameter3"] == "askDate") {
+            const everything = queryResult;
+            everything.forEach(Edoc => {
+                if (applyOperator(param2, `${Edoc[param1]}T00:00:00Z`, `${userInputArray[userInputIndex]}T00:00:00Z`)) {
+                    newResult.push(Edoc);
+                }
+            })
+            userInputIndex++;
+        } else {
+            const everything = queryResult;
+            everything.forEach(Edoc => {
+                if (applyOperator(param2, Edoc[param1], userInputArray[userInputIndex])) {
+                    newResult.push(Edoc);
+                }
+            })
+            userInputIndex++;
+        }
+        queryResult = newResult;
     }
-    
     results.push(queryResult);
 
 }
 
+let queryArrayIndex = 0;
 const runBtn = document.querySelector("#run-btn");
 runBtn.hidden = false;
 runBtn.addEventListener("click", async (e) => {
@@ -194,22 +232,12 @@ runBtn.addEventListener("click", async (e) => {
     });
     resultsTable.appendChild(resultsHeader);
     userInputIndex = 0;
-    disjunctionCounter = 0;
     disjunctionTracker = currentQuery.data()["disjunction-tracker"];
 
     let queryResults = [];
-    runQuerySet(queryResults);
-
-    // start of loop
-    /*for (let i = 1; i < queryArray.length; i++) {
-        if (disjunctionTracker != undefined && disjunctionTracker[0] == disjunctionCounter) {
-            disjunctionTracker.shift();
-            disjunctionCounter = 0;
-            results.push(queryResult);
-            return;
+    for (let i = 0; i < disjunctionTracker.length; i++) {
+        runQuerySet(queryResults, disjunctionTracker[i]);
     }
-    }*/
-    // end of loop
 
     console.log(queryResults);
     const tableBody = document.createElement("tbody");

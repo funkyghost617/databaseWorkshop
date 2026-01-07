@@ -184,9 +184,7 @@ async function createCompoundQuery() {
     }
     compoundQuery["query-array"] = queryIDs;
     compoundQuery["user-input"] = userInputs;
-    if (disjunctionTracker.length > 1) {
-        compoundQuery["disjunction-tracker"] = disjunctionTracker;
-    }
+    compoundQuery["disjunction-tracker"] = disjunctionTracker;
 
     let displayCatsArray = [];
     const displayCondSets = document.querySelectorAll("#display-cats-div > div");
