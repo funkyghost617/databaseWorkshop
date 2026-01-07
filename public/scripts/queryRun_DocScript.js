@@ -212,7 +212,6 @@ async function runQuerySet(results, setSize) {
         queryResult = newResult;
     }
     results.push(queryResult);
-
 }
 
 let queryArrayIndex = 0;
@@ -238,32 +237,40 @@ runBtn.addEventListener("click", async (e) => {
     for (let i = 0; i < disjunctionTracker.length; i++) {
         runQuerySet(queryResults, disjunctionTracker[i]);
     }
-
     console.log(queryResults);
-    const tableBody = document.createElement("tbody");
-    resultsTable.appendChild(tableBody);
+
+    let finalResults = [];
     for (let h = 0; h < queryResults.length; h++) {
         for (let i = 0; i < queryResults[h].length; i++) {
-            const tableRow = document.createElement("tr");
-            for (let j = 0; j < queryCats.length; j++) {
-                const dataCell = document.createElement("td");
-                if (queryCats[j].split(" -- ")[0] == mainTable) {
-                    dataCell.textContent = queryResults[h][i][queryCats[j].split(" -- ")[1]];
-                } else {
-                    const relevantTable = allTables.find((ele) => ele[0] == queryCats[j].split(" -- ")[0])[1];
-                    let relevantDoc;
-                    relevantTable.forEach((ele) => {
-                        if (ele.id == queryResults[h][i][`${queryCats[j].split(" -- ")[0].slice(0, -1)}_id`]) {
-                            relevantDoc = ele.data();
-                            return;
-                        }
-                    })
-                    dataCell.textContent = relevantDoc[queryCats[j].split(" -- ")[1]];
-                }
-                tableRow.appendChild(dataCell);
+            if (!finalResults.includes(queryResults[h][i])) {
+                finalResults.push(queryResults[h][i]);
             }
-            tableBody.appendChild(tableRow);
         }
+    }
+    console.log(finalResults);
+
+    const tableBody = document.createElement("tbody");
+    resultsTable.appendChild(tableBody);
+    for (let i = 0; i < finalResults.length; i++) {
+        const tableRow = document.createElement("tr");
+        for (let j = 0; j < queryCats.length; j++) {
+            const dataCell = document.createElement("td");
+            if (queryCats[j].split(" -- ")[0] == mainTable) {
+                dataCell.textContent = finalResults[i][queryCats[j].split(" -- ")[1]];
+            } else {
+                const relevantTable = allTables.find((ele) => ele[0] == queryCats[j].split(" -- ")[0])[1];
+                let relevantDoc;
+                relevantTable.forEach((ele) => {
+                    if (ele.id == finalResults[i][`${queryCats[j].split(" -- ")[0].slice(0, -1)}_id`]) {
+                        relevantDoc = ele.data();
+                        return;
+                    }
+                })
+                dataCell.textContent = relevantDoc[queryCats[j].split(" -- ")[1]];
+            }
+            tableRow.appendChild(dataCell);
+        }
+        tableBody.appendChild(tableRow);
     }
     runBtn.insertAdjacentElement("afterend", resultsTable);
 })
