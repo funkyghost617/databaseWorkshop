@@ -115,3 +115,7 @@
 #display-cats-div div label {
     display: block;
 }
+
+.unfilled {
+    border: 10px solid red;
+}

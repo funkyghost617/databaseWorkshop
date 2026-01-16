@@ -105,6 +105,9 @@ async function displayConditions(parentBtn) {
     userInput.hidden = true;
     plainTextSelector.insertAdjacentElement("afterend", userInput);
     plainTextSelector.addEventListener("change", async (e) => {
+        if (plainTextSelector.getAttribute("query-doc-id") != null) {
+            plainTextSelector.classList.remove("unfilled");
+        }
         plainTextSelector.setAttribute("query-doc-id", plainTextSelector.value);
         refreshCats();
         userInput.value = "";
@@ -174,14 +177,25 @@ async function createCompoundQuery() {
     let queryIDs = [];
     let userInputs = [];
     let disjunctionTracker = [];
+    let areAnyUnfilled = false;
     for (let i = 1; i < conditionSets.length + 1; i++) {
         const condSet = document.querySelectorAll(`#conditions > div:nth-child(${i * 2}) > div > select:first-child`);
         condSet.forEach(condition => {
+            if (condition.getAttribute("query-doc-id") == null) {
+                condition.classList.add("unfilled");
+                areAnyUnfilled = true;
+                return;
+            }
             queryIDs.push(condition.getAttribute("query-doc-id"));
             if (condition.getAttribute("user-input-value") != "") userInputs.push(condition.getAttribute("user-input-value"));
         })
         disjunctionTracker.push(condSet.length);
     }
+    if (areAnyUnfilled) {
+        console.log("error: some boxes unfilled");
+        return;
+    }
+
     compoundQuery["query-array"] = queryIDs;
     compoundQuery["user-input"] = userInputs;
     compoundQuery["disjunction-tracker"] = disjunctionTracker;
