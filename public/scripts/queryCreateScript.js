@@ -60,6 +60,19 @@ function createConditionSet() {
     const conditionSetLabelText = document.createElement("span");
     conditionSetLabelText.textContent = `condition set ${document.querySelectorAll("#conditions > div").length}`;
     conditionSetLabel.appendChild(conditionSetLabelText);
+    const deleteCondSetBtn = document.createElement("button");
+    deleteCondSetBtn.type = "button";
+    deleteCondSetBtn.textContent = "D?";
+    deleteCondSetBtn.addEventListener("click", (e) => {
+        conditionSet.remove();
+        conditionSetLabel.remove();
+        const labelTexts = document.querySelectorAll("#conditions > p > span");
+        for (let i = 0; i < labelTexts.length ; i++) {
+            labelTexts[i].textContent = `condition set ${i + 1}`;
+        }
+    })
+    conditionSetLabel.appendChild(deleteCondSetBtn);
+
     conditionSet.insertAdjacentElement("beforebegin", conditionSetLabel);
     const addConditionBtn = document.createElement("button");
     conditionSet.appendChild(addConditionBtn);
@@ -82,8 +95,25 @@ function createConditionSet() {
 async function displayConditions(parentBtn) {
     const condition = document.createElement("div");
     parentBtn.insertAdjacentElement("beforebegin", condition);
+    
+    const deleteCondBtn = document.createElement("button");
+    deleteCondBtn.type = "button";
+    deleteCondBtn.textContent = "D?";
+    deleteCondBtn.addEventListener("click", (e) => {
+        const condSet = condition.parentElement;
+        if (condSet.children.length - 1 > 1) {
+            condition.remove();
+        } else {
+            alert("cannot delete only condition in set");
+        }
+    })
+    condition.appendChild(deleteCondBtn);
+    
     const plainTextSelector = document.createElement("select");
     condition.appendChild(plainTextSelector);
+
+    
+
     if (mainTable == "students") {
         currentQueries = studentQueries;
     } else if (mainTable == "events") {
@@ -105,8 +135,8 @@ async function displayConditions(parentBtn) {
     userInput.hidden = true;
     plainTextSelector.insertAdjacentElement("afterend", userInput);
     plainTextSelector.addEventListener("change", async (e) => {
-        if (plainTextSelector.getAttribute("query-doc-id") != null) {
-            plainTextSelector.classList.remove("unfilled");
+        if (plainTextSelector.getAttribute("query-doc-id") != "") {
+            plainTextSelector.parentElement.classList.remove("unfilled");
         }
         plainTextSelector.setAttribute("query-doc-id", plainTextSelector.value);
         refreshCats();
@@ -161,7 +191,9 @@ createQueryBtn.addEventListener("click", async (e) => {
     } else {
         let confirmation = confirm("are you sure you want to create a query with these conditions?");
         if (confirmation) {
-            createCompoundQuery().then(alert("query created"));
+            
+
+            createCompoundQuery();
         }
     }
 })
@@ -182,7 +214,7 @@ async function createCompoundQuery() {
         const condSet = document.querySelectorAll(`#conditions > div:nth-child(${i * 2}) > div > select:first-child`);
         condSet.forEach(condition => {
             if (condition.getAttribute("query-doc-id") == null) {
-                condition.classList.add("unfilled");
+                condition.parentElement.classList.add("unfilled");
                 areAnyUnfilled = true;
                 return;
             }
@@ -193,6 +225,7 @@ async function createCompoundQuery() {
     }
     if (areAnyUnfilled) {
         console.log("error: some boxes unfilled");
+        alert("query creation failed: empty conditions");
         return;
     }
 
