@@ -11,7 +11,6 @@ const eventQueries = await getDocs(query(collection(db, "queries"), orderBy("eve
 const activityQueries = await getDocs(query(collection(db, "queries"), orderBy("activityOrder", "asc")));
 const regisQueries = await getDocs(query(collection(db, "queries"), orderBy("regisOrder", "asc")));
 const builderContainer = document.querySelector("#builder-container");
-builderContainer.hidden = false;
 
 // manage page reset (clear conditions and other user input)
 const resetBtn = document.querySelector("#reset-query-builder");
@@ -264,6 +263,11 @@ const regisCatsQ = await getDoc(doc(db, "queries", "display_categories", "saved_
 const catsArraySubheaders = ["students", "events", "activities", "registrations"];
 const catsArray = [studentsCats, eventsCats, activitiesCats, regisCats];
 const catsArrayQ = [studentsCatsQ, eventsCatsQ, activitiesCatsQ, regisCatsQ];
+
+builderContainer.hidden = false;
+const loadingMessage = document.querySelector("#loading-message");
+loadingMessage.remove();
+
 function refreshCats() {
     if (mainTable == "") {
         displayCatsDiv.innerHTML = "";
