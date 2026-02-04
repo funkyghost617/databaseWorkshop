@@ -13,3 +13,12 @@
     height: 100%;
     background-color: pink;
 }
+
+tr {
+    transition: background-color 0.1s ease-in-out;
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+}
