@@ -298,7 +298,17 @@ runBtn.addEventListener("click", async (e) => {
             modalLink.appendChild(modalLinkA);
             modalContent.appendChild(modalLink);
             modalLinkA.textContent = "Go to record page";
-            modalLinkA.setAttribute("href", `/pages/${mainTable}/${tableRow.getAttribute("id")}`);
+            if (mainTable == "registrations") {
+                const relevantTable = allTables.find((ele) => ele[0] == "events")[1];
+                relevantTable.forEach((ele) => {
+                    if (ele.id == finalResults[i]["event_id"]) {
+                        modalLinkA.setAttribute("href", `/pages/events/${ele.id}`);
+                        return;
+                    }
+                })
+            } else {
+                modalLinkA.setAttribute("href", `/pages/${mainTable}/${tableRow.getAttribute("id")}`);
+            }
             for (let j = 0; j < queryCatsArray.length; j++) {
                 const dataPara = document.createElement("p");
                 dataPara.textContent = `${queryCatsArray[j]}: ${tableRow.querySelector(`td:nth-child(${j + 1})`).textContent}`;
