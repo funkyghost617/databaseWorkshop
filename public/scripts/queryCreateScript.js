@@ -210,7 +210,7 @@ async function createCompoundQuery() {
     let disjunctionTracker = [];
     let areAnyUnfilled = false;
     for (let i = 1; i < conditionSets.length + 1; i++) {
-        const condSet = document.querySelectorAll(`#conditions > div:nth-child(${i * 2}) > div > select:first-child`);
+        const condSet = document.querySelectorAll(`#conditions > div:nth-child(${i * 2}) > div > select:nth-child(2)`);
         condSet.forEach(condition => {
             if (condition.getAttribute("query-doc-id") == null) {
                 condition.parentElement.classList.add("unfilled");

@@ -124,7 +124,9 @@ async function runQuerySet(results, setSize) {
         const everything = allTables.find((ele) => ele[0] == mainTable)[1];
         everything.forEach(Edoc => {
             if (applyOperator(param2, Edoc.data()[param1], Edoc.data()[queryPart["parameter3"]])) {
-                queryResult.push(Edoc.data());
+                let elementObj = Edoc.data();
+                elementObj["id"] = Edoc.id;
+                queryResult.push(elementObj);
             }
         })
     } else if (param2 == "in" && queryPart["parameter3"] == "DUPLICATES") {
@@ -142,7 +144,9 @@ async function runQuerySet(results, setSize) {
         console.log(dupeValues);
         everything.forEach((ele) => {
             if (applyOperator(param2, ele.data()[param1], dupeValues)) {
-                queryResult.push(ele.data());
+                let elementObj = ele.data();
+                elementObj["id"] = ele.id;
+                queryResult.push(elementObj);
                 console.log(applyOperator(param2, ele.data()[param1], dupeValues));
             }
         })
@@ -151,7 +155,9 @@ async function runQuerySet(results, setSize) {
         console.log(everything.size);
         everything.forEach(Edoc => {
             if (applyOperator(param2, `${Edoc.data()[param1]}T00:00:00Z`, `${userInputArray[userInputIndex]}T00:00:00Z`)) {
-                queryResult.push(Edoc.data());
+                let elementObj = Edoc.data();
+                elementObj["id"] = Edoc.id;
+                queryResult.push(elementObj);
             }
         })
         userInputIndex++;
@@ -159,7 +165,9 @@ async function runQuerySet(results, setSize) {
         const everything = allTables.find((ele) => ele[0] == mainTable)[1];
         everything.forEach(Edoc => {
             if (applyOperator(param2, Edoc.data()[param1], userInputArray[userInputIndex])) {
-                queryResult.push(Edoc.data());
+                let elementObj = Edoc.data();
+                elementObj["id"] = Edoc.id;
+                queryResult.push(elementObj);
             }
         })
         userInputIndex++;
@@ -242,7 +250,13 @@ runBtn.addEventListener("click", async (e) => {
     let finalResults = [];
     for (let h = 0; h < queryResults.length; h++) {
         for (let i = 0; i < queryResults[h].length; i++) {
-            if (!finalResults.includes(queryResults[h][i])) {
+            let isInFinalArray = false;
+            for (let j = 0; j < finalResults.length; j++) {
+                if (finalResults[j]["id"] == queryResults[h][i]["id"]) {
+                    isInFinalArray = true;
+                }
+            }
+            if (!isInFinalArray) {
                 finalResults.push(queryResults[h][i]);
             }
         }
