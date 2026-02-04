@@ -231,9 +231,11 @@ runBtn.addEventListener("click", async (e) => {
     const resultsTable = document.createElement("table");
     const resultsHeader = document.createElement("thead");
     const queryCats = currentQuery.data()["display-categories"];
+    let queryCatsArray = [];
     queryCats.forEach(cat => {
         const headCell = document.createElement("th");
         headCell.textContent = cat.split(" -- ")[1];
+        queryCatsArray.push(cat.split(" -- ")[1]);
         headCell.setAttribute("table-and-cat", cat);
         resultsHeader.appendChild(headCell);
     });
@@ -284,7 +286,29 @@ runBtn.addEventListener("click", async (e) => {
             }
             tableRow.appendChild(dataCell);
         }
+        tableRow.setAttribute("id", finalResults[i]["id"]);
         tableBody.appendChild(tableRow);
+        tableRow.addEventListener("click", (e) => {
+            const modalWindow = document.createElement("div");
+            resultsTable.insertAdjacentElement("afterend", modalWindow);
+            modalWindow.classList.add("modal-window");
+            const modalContent = document.createElement("div");
+            const modalLink = document.createElement("p");
+            const modalLinkA = document.createElement("a");
+            modalLink.appendChild(modalLinkA);
+            modalContent.appendChild(modalLink);
+            modalLinkA.textContent = "Go to record page";
+            modalLinkA.setAttribute("href", `/pages/${mainTable}/${tableRow.getAttribute("id")}`);
+            for (let j = 0; j < queryCatsArray.length; j++) {
+                const dataPara = document.createElement("p");
+                dataPara.textContent = `${queryCatsArray[j]}: ${tableRow.querySelector(`td:nth-child(${j + 1})`).textContent}`;
+                modalContent.appendChild(dataPara);
+            }
+            modalWindow.appendChild(modalContent);
+            modalWindow.addEventListener("click", (e) => {
+                modalWindow.remove();
+            })
+        })
     }
     runBtn.insertAdjacentElement("afterend", resultsTable);
 })
