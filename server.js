@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // define a basic route for the root
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    sendFileAsync("public/index.html", res);
 });
 
 app.get("/pages/students/:id", (req, res) => {
@@ -44,6 +44,10 @@ app.get("/pages/accounts/:id", (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+app.use((req, res, next) => {
+    res.status(404).sendFile("public/pages/404.html", { root: __dirname });
+})
 
 async function sendFileAsync(filePath, res) {
     try {
