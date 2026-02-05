@@ -1,6 +1,7 @@
 // server.js
 import express from "express";
 import path from "path";
+import fs from "node:fs/promises";
 const app = express();
 const port = process.env.PORT || 3000;
 const __dirname = "./";
@@ -14,41 +15,41 @@ app.get("/", (req, res) => {
 });
 
 app.get("/pages/students/:id", (req, res) => {
-    res.sendFile("public/pages/views/studentRecord.html", { root: __dirname });
+    sendFileAsync("public/pages/views/studentRecord.html", res);
 });
 
 app.get("/pages/events/:id", (req, res) => {
-    res.sendFile("public/pages/views/eventPage.html", { root: __dirname });
+    sendFileAsync("public/pages/views/eventPage.html", res);
 });
 app.get("/pages/events/:id/register", (req, res) => {
-    res.sendFile("public/pages/views/eventRegister.html", { root: __dirname });
+    sendFileAsync("public/pages/views/eventRegister.html", res);
 });
 
 app.get("/pages/query/create", (req, res) => {
-    res.sendFile("public/pages/subpages/queryCreate.html", { root: __dirname });
+    sendFileAsync("public/pages/subpages/queryCreate.html", res);
 });
 
 app.get("/pages/query/run", (req, res) => {
-    res.sendFile("public/pages/subpages/queryRun.html", { root: __dirname });
+    sendFileAsync("public/pages/subpages/queryRun.html", res);
 });
 
 app.get("/pages/query/run/:id", (req, res) => {
-    res.sendFile("public/pages/views/queryDoc.html", { root: __dirname });
+    sendFileAsync("public/pages/views/queryDoc.html", res);
 });
 
-/*app.set("view engine", "ejs");
-app.set("views", "./public/pages/views");
-
-app.get("./pages/students/:id", async (req, res) => {
-    const studentID = req.params.id;
-    const record = await doc(db, "students", studentID);
-    if (record) {
-        res.render("studentRecord", { record: record });
-    } else {
-        res.sendFile(path.join("./", "public", "index.html"));
-    }
-})*/
+app.get("/pages/accounts/:id", (req, res) => {
+    sendFileAsync("public/pages/views/accountDoc.html", res);
+});
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+async function sendFileAsync(filePath, res) {
+    try {
+        const data = await fs.readFile(filePath);
+        res.sendFile(filePath, { root: __dirname });
+    } catch (error) {
+        res.sendFile("public/pages/404.html", { root: __dirname });
+    }
+}

@@ -40,3 +40,8 @@ tr:hover {
 #creation-info:has(#creator-name:hover) ~ #creator-modal {
     display: block;
 }
+
+#creator-name a {
+    text-decoration: none;
+    color: inherit;
+}

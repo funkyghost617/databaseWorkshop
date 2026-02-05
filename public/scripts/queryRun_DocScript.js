@@ -59,7 +59,7 @@ changeNameBtn.addEventListener("click", (e) => {
     })
 })
 const creationInfoCont = document.querySelector("#creation-info");
-creationInfoCont.innerHTML = `Created on ${currentQuery.data()["date-created"]} by <span id="creator-name">${creatorDoc.data()["full_name"]}</span>`;
+creationInfoCont.innerHTML = `Created on ${currentQuery.data()["date-created"]} by <span id="creator-name"><a href="/pages/accounts/${creatorDoc.id}">${creatorDoc.data()["full_name"]}</a></span>`;
 const creatorModal = document.querySelector("#creator-modal");
 const mainElement = document.querySelector("main");
 mainElement.addEventListener("mousemove", (e) => {
