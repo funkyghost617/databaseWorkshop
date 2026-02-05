@@ -59,7 +59,21 @@ changeNameBtn.addEventListener("click", (e) => {
     })
 })
 const creationInfoCont = document.querySelector("#creation-info");
-creationInfoCont.textContent = `Created on ${currentQuery.data()["date-created"]} by ${creatorDoc.data()["full_name"]}`;
+creationInfoCont.innerHTML = `Created on ${currentQuery.data()["date-created"]} by <span id="creator-name">${creatorDoc.data()["full_name"]}</span>`;
+const creatorModal = document.querySelector("#creator-modal");
+const mainElement = document.querySelector("main");
+mainElement.addEventListener("mousemove", (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    creatorModal.style.left = `${mouseX + 20}px`;
+    creatorModal.style.top = `${mouseY + 5}px`;
+})
+const creatorName = document.createElement("p");
+creatorName.textContent = creatorDoc.data()["full_name"];
+creatorModal.appendChild(creatorName);
+const creatorImg = document.createElement("img");
+creatorImg.setAttribute("src", `/images/${creatorDoc.id}.jpg`);
+creatorModal.appendChild(creatorImg);
 const descPara = document.querySelector("#desc-para");
 descPara.hidden = false;
 const tableCont = document.querySelector("#main-table");
