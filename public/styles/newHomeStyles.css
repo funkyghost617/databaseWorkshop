@@ -1,0 +1,98 @@
+@import "./variables.css";
+
+* {
+    box-sizing: border-box;
+    /*font-family: "Rubik", sans-serif;*/
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-optical-sizing: auto;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+}
+
+nav {
+    height: 15vh;
+}
+
+#old-navlinks {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+}
+
+.loadScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 10;
+}
+
+.loadScreen div {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 15px solid lightgrey;
+    border-top: 15px solid var(--tertiary-color);
+    animation: spin 0.5s linear infinite;
+}
+
+main {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100vw;
+    height: 100vh;
+}
+
+#navlinks {
+    width: 20%;
+    height: 100%;
+    background-color: var(--primary-color);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#navlinks > div {
+    height: 15%;
+    width: 90%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#navlinks > div:not(:first-child):hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+#navlinks > div:first-child {
+    height: 40%;
+}
+
+#calendar {
+    width: 50%;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+#calendar img {
+    width: 75%;
+}
+
+#today {
+    width: 30%;
+    height: 100%;
+    background-color: var(--tertiary-color);
+}

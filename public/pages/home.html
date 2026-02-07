@@ -5,8 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
         <title>Home | Database Workshop</title>
-        <link rel="stylesheet" href="../styles/styles.css" />
-        <link rel="stylesheet" href="../styles/homeStyles.css" />
+        <link rel="stylesheet" href="../styles/newHomeStyles.css" />
 
         <!-- //fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,30 +17,24 @@
         <script id="loadScreen" src="../scripts/loadScreenScript.js"></script>
         <nav id="navbar"></nav>
         <main>
-            <h1>Welcome to my database project!</h1>
-            <p>This project (yet unnamed) is planned to be an open-source and intuitive database for college admissions offices to use for event management, data management, email communications, and application review.</p>
-            <p>View the project files and documentation at <a href="https://github.com/funkyghost617/databaseWorkshop" target="_blank">this website</a></p>
-            <p>If you have any questions or suggestions, please reach out to me! viplawnboy@gmail.com</p>
-            <h2>Navigating this website</h2>
-            <p>The pages on the left side of the screen each lead to different databases filled with data I've created. Try playing around with the embedded databases!</p>
-            <h2>Query creation and execution</h2>
-            <p>The current focus of the project is to design a query creation interface that is intuitive and flexible for whatever sets of data someone might need. So far, the "create a query" page is functional, but it lacks form validation (ie it's possible to create a query with some of the variables set to "null", which makes the result unusable) and the ability to more directly edit the order of parameters (deleting parameters without needing to reset the entire form, changing the order of different condition sets, etc). The goal of this stage is to make the query system accessible to people without any experience with either Javascript or SQL, while still allowing for a direct SQL interface to be integrated for people who know SQL and would prefer to work with that syntax.</p>
-            <h2>Long-term project to-do list</h2>
-            <ul>
-                <li>shared email inbox</li>
-                <li>SQL query interface</li>
-                <li>public-facing registration portal</li>
-            </ul>
-            <h2>Current color palette</h2>
-            <ul id="color-palette">
-                <li>Primary: <span id="primary-color"></span></li>
-                <li>Secondary: <span id="secondary-color"></span></li>
-                <li>Tertiary: <span id="tertiary-color"></span></li>
-                <li>Quaternary: <span id="quaternary-color"></span></li>
-                <li>Quintenary: <span id="quintenary-color"></span></li>
-            </ul>
-            <p>I would love any thoughts you might have on the color palette! The main priority when picking the final colors for the project is accessibility (clarity, simplicity, color-blind functionality), but thoughts you might think are "purely aesthetic" are still very valuable. Accessibility can also just mean something being pleasing to look at! The same is true for every part of the visual layout of the website.</p>
+            <div id="navlinks">
+                <div id="welcome">
+                    <p>Welcome, <span id="username"></span>!</p>
+                    <img />
+                </div>
+                <div id="messaging"><p>Messaging</p></div>
+                <div id="query-mode"><p>Query mode</p></div>
+                <div id="admin"><p>Admin</p></div>
+                <div id="my-account"><p>My account</p></div>
+            </div>
+            <div id="calendar">
+                <img src="https://grabcalendar.com/wp-content/uploads/2025/05/September-2026-Calendar.jpg" />
+            </div>
+            <div id="today">
+                <div id="current-date"><p></p></div>
+                <ul id="todays-events"><li>loading today's events...</li></ul>
+            </div>
         </main>
-        <script src="../scripts/navbarScript.js" type="module"></script>
+        <script src="../scripts/navbarNEWHOMEScript.js" type="module"></script>
     </body>
 </html>

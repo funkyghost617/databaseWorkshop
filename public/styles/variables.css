@@ -1,9 +1,35 @@
-:root {
+/* primaryClassroomPalette.png */
+/* :root {
     --primary-color: #d44052;
     --secondary-color: #1B5299;
     --tertiary-color: #ECA72C;
     --quaternary-color: #00A676;
     --quintenary-color: #000;
-}
+} */
 
-/* current palette = primaryClassroomPalette.png */
+/* Palette2.png */
+/* :root {
+    --primary-color: #B0A1BA;
+    --secondary-color: #A5B5BF;
+    --tertiary-color: #ABC8C7;
+    --quaternary-color: #B8E2C8;
+    --quintenary-color: #000;
+} */
+
+/* Palette3.png */
+/* :root {
+    --primary-color: #7798AB;
+    --secondary-color: #C3DBC5;
+    --tertiary-color: #E8DCB9;
+    --quaternary-color: #f2cee6;
+    --quintenary-color: #000;
+} */
+
+/* Palette4.png */
+:root {
+    --primary-color: #729EA1;
+    --secondary-color: #B5BD89;
+    --tertiary-color: #EC9192;
+    --quaternary-color: #DB5375;
+    --quintenary-color: #000;
+}
