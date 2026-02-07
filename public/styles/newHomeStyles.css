@@ -46,6 +46,11 @@ nav {
     animation: spin 0.5s linear infinite;
 }
 
+@keyframes spin {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) } 
+}
+
 main {
     display: flex;
     flex-flow: row nowrap;
@@ -56,7 +61,8 @@ main {
 #navlinks {
     width: 20%;
     height: 100%;
-    background-color: var(--primary-color);
+    /*background-color: var(--primary-color); */
+    background-color: white;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -72,27 +78,77 @@ main {
     justify-content: center;
 }
 
-#navlinks > div:not(:first-child):hover {
-    background-color: white;
-    cursor: pointer;
-}
-
 #navlinks > div:first-child {
     height: 40%;
+    font-size: 1.5rem;
+}
+
+#navlinks > div:not(:first-child) {
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-radius: 30%;
+    margin-top: 15px;
+    background-color: var(--secondary-color);
+    transition: transform 0.1s ease-in-out;
+    user-select: none;
+}
+
+#navlinks > div:last-child {
+    margin-bottom: 15px;
+}
+
+#navlinks > div:not(:first-child):hover {
+    background-color: lightsteelblue;
+    cursor: pointer;
+    transform: translateY(-8px);
+}
+
+#navlinks > div:not(:first-child):active {
+    transform: translateY(2px);
 }
 
 #calendar {
-    width: 50%;
+    width: 55%;
     height: 100%;
     background-color: var(--secondary-color);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
 }
 
-#calendar img {
-    width: 75%;
+#calendar-labels {
+    display: flex;
+    flex-flow: row wrap;
+    border: solid 2px black;
+    width: 90%;
+    justify-content: space-between;
+}
+
+#day-names {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#active-calendar {
+    display: flex;
+    flex-flow: row wrap;
+    width: 90%;
+    height: 50%;
+}
+
+#active-calendar > div {
+    width: calc(100% / 7);
+    height: 20%;
 }
 
 #today {
-    width: 30%;
+    width: 25%;
     height: 100%;
-    background-color: var(--tertiary-color);
+    background-color: white;
+}
+
+#today > div:first-child {
+    font-size: 2rem;
 }

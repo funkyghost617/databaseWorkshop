@@ -24,7 +24,7 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-navbar.innerHTML = `<header><a href="/pages/home.html">CONCIERGE</a></header>
+navbar.innerHTML = `<header><a href="/pages/home.html">EVENTINEL</a></header>
     <button type="button" id="old-navlinks-btn">show old navlinks</button>
     <div id="old-navlinks">
         <p><a href="/pages/students.html">students</a></p>
@@ -96,10 +96,52 @@ async function loadTodaysEvents() {
         document.querySelector("#todays-events li:first-child").remove();
         todaysEventsDocs.forEach((event) => {
             const eventPoint = document.createElement("li");
+            eventPoint.setAttribute("event_id", event.id);
             eventPoint.textContent = `${event.data()["event_name"]}, ${event.data()["event_time_start"]}-${event.data()["event_time_end"]}`
             todaysEvents.appendChild(eventPoint);
+            const eventInfoList = document.createElement("ul");
+            const eventInfoPoint = document.createElement("li");
+            eventInfoPoint.textContent = "...";
+            eventInfoList.appendChild(eventInfoPoint);
+            eventPoint.appendChild(eventInfoList);
+            loadEventInfo(eventPoint, eventInfoPoint);
         })
     }
 }
 loadTodaysEvents();
 
+async function loadEventInfo(eventPoint, eventInfoPoint) {
+    const regisDocs = await getDocs(query(collection(db, "registrations"), where("event_id", "==", eventPoint.getAttribute("event_id"))));
+    eventInfoPoint.textContent = `${regisDocs.size} registrants`;
+}
+
+const dayNames = document.querySelector("#day-names");
+weekdays.forEach(day => {
+    const dayName = document.createElement("div");
+    dayName.textContent = day;
+    dayNames.appendChild(dayName);
+})
+
+const activeCalendar = document.querySelector("#active-calendar");
+populateCalendar();
+
+// month must be one-indexed in function call
+function getNumDays(year, month) {
+    return new Date(year, month, 0).getDate();
+}
+async function populateCalendar() {
+    const selectedMonth = currentDate.getMonth();   //need to change selectedMonth and selectedYear to pull from selection
+    const selectedYear = currentDate.getFullYear();
+    const startingDay = new Date(selectedYear, selectedMonth, 1).getDay();
+    for (let i = 0; i < startingDay; i++) {
+        const dayCell = document.createElement("div");
+        dayCell.textContent = "--";
+        activeCalendar.appendChild(dayCell);
+    }
+
+    for (let i = 0; i < getNumDays(selectedYear, selectedMonth + 1); i++) {
+        const dayCell = document.createElement("div");
+        dayCell.textContent = (i + 1).toString();
+        activeCalendar.appendChild(dayCell);
+    };
+}
