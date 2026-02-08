@@ -108,7 +108,7 @@ main {
 }
 
 #calendar {
-    width: 55%;
+    width: 65%;
     height: 100%;
     background-color: var(--secondary-color);
     display: flex;
@@ -135,16 +135,40 @@ main {
     display: flex;
     flex-flow: row wrap;
     width: 90%;
-    height: 50%;
+    height: 60%;
+    z-index: 1;
 }
 
 #active-calendar > div {
-    width: calc(100% / 7);
-    height: 20%;
+    display: flex;
+    flex-flow: column nowrap;
+    flex-shrink: 0;
 }
 
+.monthCell {
+    width: calc(100% / 7);
+    height: 20%;
+    border: solid 2px black;
+    z-index: 2;
+}
+
+.monthCell > div {
+    background-color: var(--tertiary-color);
+    height: 25%;
+}
+
+.monthCell > div:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+.selectedDay {
+    z-index: 3;
+}
+
+
 #today {
-    width: 25%;
+    width: 15%;
     height: 100%;
     background-color: white;
 }

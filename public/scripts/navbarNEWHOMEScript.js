@@ -89,7 +89,7 @@ const dateDisplay = document.querySelector("#current-date > p");
 dateDisplay.textContent = `${weekdays[currentDate.getDay()]}, ${months[currentDate.getMonth()]} ${today}${dateSuffix}`;
 const todaysEvents = document.querySelector("#todays-events");
 async function loadTodaysEvents() {
-    const todaysEventsDocs = await getDocs(query(collection(db, "events"), where("event_date", "==", "2026-02-24"), orderBy("event_time_start"))); //currentDate.toISOString().slice(0, 10)
+    const todaysEventsDocs = await getDocs(query(collection(db, "events"), where("event_date", "==", currentDate.toISOString().slice(0, 10)), orderBy("event_time_start"))); 
     if (todaysEventsDocs.size == 0) {
         document.querySelector("#todays-events li:first-child").textContent = "no events scheduled for today";
     } else {
@@ -123,25 +123,72 @@ weekdays.forEach(day => {
 })
 
 const activeCalendar = document.querySelector("#active-calendar");
+drawCalendar();
 populateCalendar();
 
 // month must be one-indexed in function call
 function getNumDays(year, month) {
     return new Date(year, month, 0).getDate();
 }
-async function populateCalendar() {
+async function drawCalendar() {
     const selectedMonth = currentDate.getMonth();   //need to change selectedMonth and selectedYear to pull from selection
     const selectedYear = currentDate.getFullYear();
     const startingDay = new Date(selectedYear, selectedMonth, 1).getDay();
     for (let i = 0; i < startingDay; i++) {
-        const dayCell = document.createElement("div");
-        dayCell.textContent = "--";
-        activeCalendar.appendChild(dayCell);
+        const monthCell = document.createElement("div");
+        activeCalendar.appendChild(monthCell);
     }
 
     for (let i = 0; i < getNumDays(selectedYear, selectedMonth + 1); i++) {
-        const dayCell = document.createElement("div");
-        dayCell.textContent = (i + 1).toString();
-        activeCalendar.appendChild(dayCell);
+        const monthCell = document.createElement("div");
+        monthCell.textContent = (i + 1).toString();
+        monthCell.setAttribute("day", (i + 1).toString());
+        monthCell.classList.add("monthCell");
+        activeCalendar.appendChild(monthCell);
     };
+}
+async function populateCalendar() {
+    let selectedMonth = String(currentDate.getMonth() + 1);   //need to change selectedMonth and selectedYear to pull from selection
+    const selectedYear = currentDate.getFullYear();
+    if (selectedMonth.length == 1) {
+        selectedMonth = `0${selectedMonth}`;
+    }
+    const monthCells = document.querySelectorAll(".monthCell");
+    monthCells.forEach(async (cell) => {
+        let day = cell.getAttribute("day");
+        if (day.length == 1) {
+            day = `0${day}`;
+        }
+        const cellEvents = await getDocs(query(collection(db, "events"), where("event_date", "==", `${selectedYear}-${selectedMonth}-${day}`), orderBy("event_time_start", "asc")));
+        cellEvents.forEach((event) => {
+            const eventBlock = document.createElement("div");
+            let eventTimeStart = event.data()["event_time_start"];
+            let eventTimeArray = eventTimeStart.split(":");
+            let displayHour = Number(eventTimeArray[0]) % 12 == 0 ? "12" : Number(eventTimeArray[0]) % 12;
+            let displayMin = eventTimeArray[1] == "00" ? "" : `:${eventTimeArray[1]}`;
+            let displayTime = `${displayHour}${displayMin}${Number(eventTimeArray[0]) > 11 ? "pm" : "am"}`;
+            eventBlock.textContent = `${displayTime}, ${event.data()["event_name"]}`;
+            cell.appendChild(eventBlock);
+            /*eventBlock.addEventListener("click", (e) => {
+                window.location.href = `/pages/events/${event.id}`;
+            })*/
+        })
+        if (cellEvents.size > 3) {
+            const overflowCells = document.querySelectorAll(`.monthCell[day="${cell.getAttribute("day")}"] > div:nth-child(n + 3)`);
+            overflowCells.forEach((cell) => {
+                cell.hidden = true;
+            })
+            const showMoreBlock = document.createElement("div");
+            showMoreBlock.textContent = "show more";
+            showMoreBlock.classList.add("showMoreBtn");
+            cell.appendChild(showMoreBlock);
+            showMoreBlock.addEventListener("click", (e) => {
+                showMoreBlock.hidden = true;
+                overflowCells.forEach((cell) => {
+                    cell.hidden = false;
+                })
+                cell.classList.add("selectedDay");
+            })
+        }
+    })
 }
