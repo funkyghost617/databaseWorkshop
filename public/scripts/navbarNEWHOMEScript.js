@@ -183,11 +183,19 @@ async function populateCalendar() {
             showMoreBlock.classList.add("showMoreBtn");
             cell.appendChild(showMoreBlock);
             showMoreBlock.addEventListener("click", (e) => {
-                showMoreBlock.hidden = true;
-                overflowCells.forEach((cell) => {
-                    cell.hidden = false;
-                })
-                cell.classList.add("selectedDay");
+                if (cell.classList.contains("selectedDay")) {
+                    showMoreBlock.textContent = "show more";
+                    cell.classList.remove("selectedDay");
+                    overflowCells.forEach((cell) => {
+                        cell.hidden = true;
+                    })
+                } else {
+                    showMoreBlock.textContent = "show less"
+                    cell.classList.add("selectedDay");
+                    overflowCells.forEach((cell) => {
+                        cell.hidden = false;
+                    })
+                }
             })
         }
     })
