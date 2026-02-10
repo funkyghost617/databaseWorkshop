@@ -26,10 +26,37 @@
 } */
 
 /* Palette4.png */
-:root {
+/*:root {
     --primary-color: #729EA1;
     --secondary-color: #B5BD89;
     --tertiary-color: #EC9192;
     --quaternary-color: #DB5375;
     --quintenary-color: #000;
+}*/
+
+/*https://www.color-hex.com/color-palette/1050335*/
+/*:root {
+    --primary-color: #0032db;
+    --secondary-color: #0689e4;
+    --tertiary-color: #71ab23;
+    --quaternary-color: #fbb905;
+    --quintenary-color: #d55e0f;
+}*/
+
+/*https://www.color-hex.com/color-palette/55027*/
+/*:root {
+    --primary-color: #f3c6f2;
+    --secondary-color: #efa6b6;
+    --tertiary-color: #bd98e0;
+    --quaternary-color: #8d90e2;
+    --quintenary-color: #7554ae;
+}*/
+
+/*https://www.color-hex.com/color-palette/5361*/
+:root {
+    --primary-color: #bae1ff;
+    --secondary-color: #ffdfba;
+    --tertiary-color: #ffffba;
+    --quaternary-color: #baffc9;
+    --quintenary-color: #ffb3ba;
 }

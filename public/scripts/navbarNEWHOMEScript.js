@@ -122,6 +122,34 @@ weekdays.forEach(day => {
     dayNames.appendChild(dayName);
 })
 
+const monthDisplay = document.querySelector("#month-display");
+const yearDisplay = document.querySelector("#year-display");
+monthDisplay.textContent = months[currentDate.getMonth()];
+yearDisplay.textContent = currentDate.getFullYear();
+
+const backwardScroll = document.querySelector("#backward");
+const forwardScroll = document.querySelector("#forward");
+backwardScroll.addEventListener("click", (e) => {
+    if (months.indexOf(monthDisplay.textContent) > 0) {
+        monthDisplay.textContent = months[(months.indexOf(monthDisplay.textContent) - 1)];
+    } else {
+        monthDisplay.textContent = "December";
+        yearDisplay.textContent = Number(yearDisplay.textContent) - 1;
+    }
+    drawCalendar();
+    populateCalendar();
+})
+forwardScroll.addEventListener("click", (e) => {
+    if (months.indexOf(monthDisplay.textContent) < 11) {
+        monthDisplay.textContent = months[(months.indexOf(monthDisplay.textContent) + 1)];
+    } else {
+        monthDisplay.textContent = "January";
+        yearDisplay.textContent = Number(yearDisplay.textContent) + 1;
+    }
+    drawCalendar();
+    populateCalendar();
+})
+
 const activeCalendar = document.querySelector("#active-calendar");
 drawCalendar();
 populateCalendar();
@@ -131,11 +159,14 @@ function getNumDays(year, month) {
     return new Date(year, month, 0).getDate();
 }
 async function drawCalendar() {
-    const selectedMonth = currentDate.getMonth();   //need to change selectedMonth and selectedYear to pull from selection
-    const selectedYear = currentDate.getFullYear();
+    activeCalendar.innerHTML = "";
+    const selectedMonth = months.indexOf(monthDisplay.textContent);
+    const selectedYear = yearDisplay.textContent;
     const startingDay = new Date(selectedYear, selectedMonth, 1).getDay();
     for (let i = 0; i < startingDay; i++) {
         const monthCell = document.createElement("div");
+        monthCell.classList.add("monthCell");
+        monthCell.textContent = "EMPTY CELL";
         activeCalendar.appendChild(monthCell);
     }
 
@@ -148,8 +179,8 @@ async function drawCalendar() {
     };
 }
 async function populateCalendar() {
-    let selectedMonth = String(currentDate.getMonth() + 1);   //need to change selectedMonth and selectedYear to pull from selection
-    const selectedYear = currentDate.getFullYear();
+    let selectedMonth = String(months.indexOf(monthDisplay.textContent) + 1); 
+    const selectedYear = yearDisplay.textContent;
     if (selectedMonth.length == 1) {
         selectedMonth = `0${selectedMonth}`;
     }
@@ -198,5 +229,6 @@ async function populateCalendar() {
                 }
             })
         }
-    })
+    });
 }
+

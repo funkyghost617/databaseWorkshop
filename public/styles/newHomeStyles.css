@@ -3,7 +3,9 @@
 * {
     box-sizing: border-box;
     /*font-family: "Rubik", sans-serif;*/
-    font-family: 'Arial Narrow', Arial, sans-serif;
+    /*font-family: 'Arial Narrow', Arial, sans-serif;*/
+    /*font-family: "Open Sans", Arial, sans-serif;*/
+    font-family: "Roboto", Arial, sans-serif;
     font-optical-sizing: auto;
 }
 
@@ -115,8 +117,8 @@ main {
 #navlinks > div:not(:first-child):hover {
     background-color: lightsteelblue;
     cursor: pointer;
-    transform: translateY(-8px);
-    box-shadow: 0 12px black;
+    transform: translateY(-5px);
+    box-shadow: 0 9px black;
 }
 
 #navlinks > div:not(:first-child):active {
@@ -127,7 +129,7 @@ main {
 #calendar {
     width: 70%;
     height: 100%;
-    background-color: var(--secondary-color);
+    background-color: lightgray;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -136,16 +138,73 @@ main {
 #calendar-labels {
     display: flex;
     flex-flow: row wrap;
-    border: solid 2px black;
     width: 95%;
     justify-content: space-between;
+    row-gap: 20px;
+    margin-top: 20px;
+}
+
+#create-an-event {
+    background-color: paleturquoise;
+    border-radius: 20%;
+    border: 6px outset black;
+    width: 250px;
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: bold;
+    box-shadow: 2px 4px black;
+    user-select: none;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+#create-an-event:hover {
+    transform: translateY(-4px);
+    box-shadow: 2px 8px black;
+    background-color: skyblue;
+    cursor: pointer;
+}
+
+#create-an-event:active {
+    transform: translateY(1px);
+    box-shadow: 2px 3px black;
+}
+
+#scroll-options {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 200px;
+    height: 30px;
+    font-size: 5rem;
+    text-align: center;
+    align-items: center;
+    margin-top: 30px;
+    user-select: none;
+}
+
+#scroll-options div p {
+    background-color: peachpuff;
+    transition: transform 0.1s ease-in-out;
+}
+
+#scroll-options div p:hover {
+    background-color: white;
+    cursor: pointer;
+    transform: translateY(-4px);
+}
+
+#scroll-options div p:active {
+    transform: translateY(2px);
 }
 
 #day-names {
     display: flex;
     flex-flow: row nowrap;
     width: 100%;
-    justify-content: space-around;
+}
+
+#day-names div {
+    width: 100%;
+    text-align: center;
 }
 
 #active-calendar {
@@ -175,6 +234,7 @@ main {
     border-radius: 5px;
     margin: 2px;
     transition: transform 0.1s ease-in-out;
+    user-select: none;
 }
 
 .monthCell > div:hover {
@@ -200,4 +260,10 @@ main {
 
 #today > div:first-child {
     font-size: 2rem;
+}
+
+#loading-msg {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
