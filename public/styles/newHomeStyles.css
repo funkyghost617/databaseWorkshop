@@ -5,7 +5,8 @@
     /*font-family: "Rubik", sans-serif;*/
     /*font-family: 'Arial Narrow', Arial, sans-serif;*/
     /*font-family: "Open Sans", Arial, sans-serif;*/
-    font-family: "Roboto", Arial, sans-serif;
+    /*font-family: "Roboto", Arial, sans-serif;*/
+    font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
 }
 
@@ -18,7 +19,7 @@ body {
 }
 
 nav {
-    height: 15vh;
+    height: 10vh;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -71,11 +72,11 @@ main {
     display: flex;
     flex-flow: row nowrap;
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
 }
 
 #navlinks {
-    width: 15%;
+    width: 12%;
     height: 100%;
     /*background-color: var(--primary-color); */
     background-color: white;
@@ -86,48 +87,33 @@ main {
 }
 
 #navlinks > div {
-    width: 90%;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
 }
 
-#navlinks > div:first-child {
-    height: 60%;
-    font-size: 1.5rem;
+#today {
+    height: 80%;
+    width: 100%;
+    font-size: 1.2rem;
+    border: 2px solid black;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 #navlinks > div:not(:first-child) {
-    height: 10%;
-    font-size: 2rem;
-    font-weight: bold;
-    border-radius: 25%;
+    width: 90%;
+    height: 5%;
     margin-top: 15px;
-    background-color: var(--secondary-color);
-    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
-    user-select: none;
-    box-shadow: 0 4px black;
 }
 
 #navlinks > div:last-child {
     margin-bottom: 15px;
 }
 
-#navlinks > div:not(:first-child):hover {
-    background-color: lightsteelblue;
-    cursor: pointer;
-    transform: translateY(-5px);
-    box-shadow: 0 9px black;
-}
-
-#navlinks > div:not(:first-child):active {
-    transform: translateY(2px);
-    box-shadow: 0 2px black;
-}
-
 #calendar {
-    width: 70%;
+    width: 88%;
     height: 100%;
     background-color: lightgray;
     display: flex;
@@ -140,60 +126,140 @@ main {
     flex-flow: row wrap;
     width: 95%;
     justify-content: space-between;
+    align-items: center;
     row-gap: 20px;
     margin-top: 20px;
+    height: 15%;
 }
 
 #create-an-event {
-    background-color: paleturquoise;
-    border-radius: 20%;
-    border: 6px outset black;
-    width: 250px;
-    text-align: center;
-    font-size: 1.7rem;
-    font-weight: bold;
-    box-shadow: 2px 4px black;
+    height: 40px;
+}
+
+.simpleBtn { 
+    appearance: none;
+    align-items: center; 
+    background-color: #fff; 
+    border-radius: 12px; 
+    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px; 
+    color: #121212; 
+    cursor: pointer; 
+    display: inline-flex;
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    justify-content: center; 
+    margin: 0; 
+    outline: none; 
+    padding: 1rem 1.2rem; 
+    text-align: center; 
+    text-decoration: none; 
+    transition: box-shadow .2s,-webkit-box-shadow .2s; 
+    white-space: nowrap; 
+    border: 0; 
     user-select: none;
-    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
-#create-an-event:hover {
-    transform: translateY(-4px);
-    box-shadow: 2px 8px black;
-    background-color: skyblue;
+.simpleBtn:hover {
+    box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+}
+
+.simpleBtn:active {
+    transform: translateY(4px);
+}
+
+.simpleBtn[disabled],
+.simpleBtn:hover[disabled],
+.simpleBtn:active[disabled] {
+    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px; 
+    transform: translateY(0px);
+    color: lightgray;
+}
+
+.borderBtn {
     cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    user-select: none;
+    color: #6f00ff;
+    background-color: #f8f8fd;
+    padding: 0.2em 2.2em;
+    border-radius: 50em;
+    border: 6px solid #c585fa;
+    box-shadow: 0px 8px #9a1fff;
+    align-items: center;
+    justify-content: center;
 }
 
-#create-an-event:active {
-    transform: translateY(1px);
-    box-shadow: 2px 3px black;
+.borderBtn:active {
+    position: relative;
+    top: 8px;
+    border: 6px solid #d364ff;
+    box-shadow: 0px 0px;
 }
+
+.dateBtn {
+    appearance: none;
+    background-color: #fff;
+    border: 0 solid #e2e8f0;
+    border-radius: 1.5rem;
+    color: #0d172a;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1rem 1.6rem;
+    text-align: center;
+    user-select: none;
+}
+
+.dateBtn:hover {
+    background-color: #1e293b;
+    color: #fff;
+}
+
+/*.dateBtn {
+    font-size: 1.3rem;
+    text-align: right;
+    padding: 1rem;
+    background: #FFF;
+    color: blueviolet;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 0.5rem;
+    border-bottom: 2px solid blueviolet;
+    border-right: 2px solid blueviolet;
+    border-top: 2px solid white;
+    border-top: 2px solid white;
+    transition-duration: 0.2s;
+    transition-property: border-top, border-left, border-bottom, border-right, box-shadow;
+}
+
+.dateBtn:hover {
+    border-top: 2px solid blueviolet;
+    border-left: 2px solid blueviolet;
+    border-bottom: 2px solid rgb(238, 103, 238);
+    border-right: 2px solid rgb(238, 103, 238);
+    box-shadow: rgba(240, 46, 170, 0.4) 3px 3px, rgba(240, 46, 170, 0.3) 6px 6px, rgba(240, 46, 170, 0.2) 9px 9px;
+}*/
 
 #scroll-options {
     display: flex;
     flex-flow: row nowrap;
-    width: 200px;
-    height: 30px;
-    font-size: 5rem;
-    text-align: center;
-    align-items: center;
-    margin-top: 30px;
-    user-select: none;
+    height: 40px;
+    gap: 5px;
 }
 
-#scroll-options div p {
-    background-color: peachpuff;
-    transition: transform 0.1s ease-in-out;
+#precise-display {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    gap: 5px;
+    width: 10%;
 }
 
-#scroll-options div p:hover {
-    background-color: white;
-    cursor: pointer;
-    transform: translateY(-4px);
-}
-
-#scroll-options div p:active {
-    transform: translateY(2px);
+#month-display {
+    appearance: none;
+    border: none;
 }
 
 #day-names {
@@ -210,8 +276,9 @@ main {
 #active-calendar {
     display: flex;
     flex-flow: row wrap;
+    align-content: flex-start;
     width: 95%;
-    height: 60%;
+    height: 80%;
     z-index: 1;
 }
 
@@ -249,17 +316,6 @@ main {
 
 .selectedDay {
     z-index: 3;
-}
-
-
-#today {
-    width: 15%;
-    height: 100%;
-    background-color: white;
-}
-
-#today > div:first-child {
-    font-size: 2rem;
 }
 
 #loading-msg {

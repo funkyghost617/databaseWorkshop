@@ -13,6 +13,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
     </head>
     <body>
@@ -20,38 +21,53 @@
         <nav id="navbar"></nav>
         <main>
             <div id="navlinks">
-                <div id="welcome">
-                    <p>Welcome, <span id="username"></span>!</p>
-                    <img />
+                <div id="today">
+                    <div id="welcome">
+                        <p>Welcome, <span id="username"></span>!</p>
+                        <img />
+                    </div>
+                    <div id="current-date"><p></p></div>
+                    <ul id="todays-events"><li>loading today's events...</li></ul>
                 </div>
-                <div id="messaging"><p>Messaging</p></div>
-                <div id="query-mode"><p>Query mode</p></div>
-                <div id="admin"><p>Admin</p></div>
-                <div id="my-account"><p>My account</p></div>
+                <div id="messaging" class="simpleBtn"><p>Messaging</p></div>
+                <div id="query-mode" class="simpleBtn"><p>Query mode</p></div>
+                <div id="admin" class="simpleBtn"><p>Admin</p></div>
+                <div id="my-account" class="simpleBtn"><p>My account</p></div>
             </div>
             <div id="calendar">
                 <div id="calendar-labels">
-                    <div id="create-an-event"><p>create an event +</p></div>
+                    <div id="create-an-event" class="borderBtn"><p>create an event +</p></div>
                     <div id="timeframe-options">
                         <div id="week">week</div>
                         <div id="month">month</div>
                     </div>
                     <div id="scroll-options">
-                        <div id="backward"><p>←</p></div>
-                        <div id="forward"><p>→</p></div>
+                        <div id="backward" class="simpleBtn"><p>←</p></div>
+                        <div id="forward" class="simpleBtn"><p>→</p></div>
+                        <div id="jump-to-today" class="simpleBtn" disabled="disabled"><p>today</p></div>
                     </div>
                     <div id="precise-display">
-                        <div id="month-display"></div>
-                        <div id="year-display"></div>
+                        <select id="month-display" class="simpleBtn">
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                        </select>
+                        <select id="year-display" class="simpleBtn"></select>
                     </div>
                     <div id="day-names"></div>
                 </div>
                 <div id="active-calendar"></div>
             </div>
-            <div id="today">
-                <div id="current-date"><p></p></div>
-                <ul id="todays-events"><li>loading today's events...</li></ul>
-            </div>
+            
         </main>
         <script src="../scripts/navbarNEWHOMEScript.js" type="module"></script>
     </body>

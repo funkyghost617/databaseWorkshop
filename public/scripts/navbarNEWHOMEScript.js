@@ -124,27 +124,73 @@ weekdays.forEach(day => {
 
 const monthDisplay = document.querySelector("#month-display");
 const yearDisplay = document.querySelector("#year-display");
-monthDisplay.textContent = months[currentDate.getMonth()];
-yearDisplay.textContent = currentDate.getFullYear();
+for (let i = currentDate.getFullYear() - 2; i < currentDate.getFullYear() + 3; i++) {
+    const yearOption = document.createElement("option");
+    yearOption.value = i;
+    yearOption.textContent = i;
+    yearDisplay.appendChild(yearOption);
+}
+monthDisplay.value = currentDate.getMonth();
+yearDisplay.value = currentDate.getFullYear();
 
 const backwardScroll = document.querySelector("#backward");
 const forwardScroll = document.querySelector("#forward");
+const jumpToToday = document.querySelector("#jump-to-today");
 backwardScroll.addEventListener("click", (e) => {
-    if (months.indexOf(monthDisplay.textContent) > 0) {
-        monthDisplay.textContent = months[(months.indexOf(monthDisplay.textContent) - 1)];
+    if (monthDisplay.value > 0) {
+        monthDisplay.value--;
     } else {
-        monthDisplay.textContent = "December";
-        yearDisplay.textContent = Number(yearDisplay.textContent) - 1;
+        monthDisplay.value = 11;
+        yearDisplay.value--;
+    }
+    if (monthDisplay.value == currentDate.getMonth() && Number(yearDisplay.value) == currentDate.getFullYear()) {
+        jumpToToday.setAttribute("disabled", "disabled");
+    } else {
+        jumpToToday.removeAttribute("disabled");
     }
     drawCalendar();
     populateCalendar();
 })
 forwardScroll.addEventListener("click", (e) => {
-    if (months.indexOf(monthDisplay.textContent) < 11) {
-        monthDisplay.textContent = months[(months.indexOf(monthDisplay.textContent) + 1)];
+    if (monthDisplay.value < 11) {
+        monthDisplay.value++;
     } else {
-        monthDisplay.textContent = "January";
-        yearDisplay.textContent = Number(yearDisplay.textContent) + 1;
+        monthDisplay.value = 0;
+        yearDisplay.value++;
+    }
+    if (monthDisplay.value  == currentDate.getMonth() && Number(yearDisplay.value) == currentDate.getFullYear()) {
+        jumpToToday.setAttribute("disabled", "disabled");
+    } else {
+        jumpToToday.removeAttribute("disabled");
+    }
+    drawCalendar();
+    populateCalendar();
+})
+jumpToToday.addEventListener("click", (e) => {
+    if (jumpToToday.getAttribute("disabled") == "disabled") {
+        return;
+    } else {
+        monthDisplay.value = currentDate.getMonth();
+        yearDisplay.value = currentDate.getFullYear();
+        jumpToToday.setAttribute("disabled", "disabled");
+        drawCalendar();
+        populateCalendar();
+    }
+})
+monthDisplay.addEventListener("change", (e) => {
+    if (monthDisplay.value  == currentDate.getMonth() && Number(yearDisplay.value) == currentDate.getFullYear()) {
+        jumpToToday.setAttribute("disabled", "disabled");
+    } else {
+        jumpToToday.removeAttribute("disabled");
+    }
+    drawCalendar();
+    populateCalendar();
+})
+yearDisplay.addEventListener("change", (e) => {
+    if (monthDisplay.value  == currentDate.getMonth() && yearDisplay.value == currentDate.getFullYear()) {
+        jumpToToday.setAttribute("disabled", "disabled");
+    } else {
+        jumpToToday.removeAttribute("disabled");
     }
     drawCalendar();
     populateCalendar();
@@ -154,14 +200,14 @@ const activeCalendar = document.querySelector("#active-calendar");
 drawCalendar();
 populateCalendar();
 
-// month must be one-indexed in function call
+// month must be zero-indexed in function call
 function getNumDays(year, month) {
-    return new Date(year, month, 0).getDate();
+    return new Date(year, month + 1, 0).getDate();
 }
 async function drawCalendar() {
     activeCalendar.innerHTML = "";
-    const selectedMonth = months.indexOf(monthDisplay.textContent);
-    const selectedYear = yearDisplay.textContent;
+    const selectedMonth = Number(monthDisplay.value);
+    const selectedYear = Number(yearDisplay.value);
     const startingDay = new Date(selectedYear, selectedMonth, 1).getDay();
     for (let i = 0; i < startingDay; i++) {
         const monthCell = document.createElement("div");
@@ -170,7 +216,7 @@ async function drawCalendar() {
         activeCalendar.appendChild(monthCell);
     }
 
-    for (let i = 0; i < getNumDays(selectedYear, selectedMonth + 1); i++) {
+    for (let i = 0; i < getNumDays(selectedYear, selectedMonth); i++) {
         const monthCell = document.createElement("div");
         monthCell.textContent = (i + 1).toString();
         monthCell.setAttribute("day", (i + 1).toString());
@@ -179,14 +225,17 @@ async function drawCalendar() {
     };
 }
 async function populateCalendar() {
-    let selectedMonth = String(months.indexOf(monthDisplay.textContent) + 1); 
-    const selectedYear = yearDisplay.textContent;
+    let selectedMonth = String(Number(monthDisplay.value) + 1);
+    const selectedYear = Number(yearDisplay.value);
     if (selectedMonth.length == 1) {
         selectedMonth = `0${selectedMonth}`;
     }
     const monthCells = document.querySelectorAll(".monthCell");
     monthCells.forEach(async (cell) => {
         let day = cell.getAttribute("day");
+        if (day == null) {
+            return;
+        }
         if (day.length == 1) {
             day = `0${day}`;
         }
