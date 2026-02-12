@@ -281,3 +281,41 @@ async function populateCalendar() {
     });
 }
 
+const createEventBtn = document.querySelector("#create-an-event");
+const createEventModal = document.querySelector("#create-event-modal");
+const closeModalBtn = document.querySelector("#close-create-event-btn");
+const createEventInputs = document.querySelectorAll("#create-event-modal input"); // need to add , #create-event-modal select to selector
+createEventInputs.forEach(input => {
+        input.value = "";
+    })
+const submitEventBtn = document.querySelector("#submit-event-btn");
+createEventBtn.addEventListener("click", (e) => {
+    createEventModal.showModal();
+})
+closeModalBtn.addEventListener("click", (e) => {
+    createEventModal.close();
+    createEventInputs.forEach(input => {
+        input.value = "";
+    })
+})
+submitEventBtn.addEventListener("click", async (e) => {
+    let existsUnfilledInput = false;
+    createEventInputs.forEach(input => {
+        if (input.value == "") {
+            console.log(`${input.id} has not been filled`);
+            existsUnfilledInput = true;
+        }
+    })
+    if (existsUnfilledInput) {
+        return;
+    }
+    let newEventObj = { "created_by": String(navbar.getAttribute("data-uid")) };
+    createEventInputs.forEach(input => {
+        input.disabled = true;
+        newEventObj[`${input.id}`] = input.value;
+    })
+    const newEventDoc = await addDoc(collection(db, "events"), newEventObj);
+    console.log("event added!");
+    window.location.href = `/pages/events/${newEventDoc.id}`;
+})
+

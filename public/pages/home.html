@@ -67,7 +67,30 @@
                 </div>
                 <div id="active-calendar"></div>
             </div>
-            
+            <dialog id="create-event-modal">
+                <div id="create-event-div">
+                    <h2><span>New event</span><button type="button" id="close-create-event-btn">cancel</button></h2>
+                    <label for="event_name">Event name: 
+                        <input id="event_name" type="text" />
+                    </label>
+                    <label for="event_date">Event date: 
+                        <input id="event_date" type="date" />
+                    </label>
+                    <label for="event_time_start">Start time: 
+                        <input id="event_time_start" type="time" />
+                    </label>
+                    <label for="event_time_end">End time: 
+                        <input id="event_time_end" type="time" />
+                    </label>
+                    <label for="event_location">Location: 
+                        <input id="event_location" type="text" />
+                    </label>
+                    <label for="event_type">Event type: 
+                        <select id="event_type"></select>
+                    </label>
+                </div>
+                <div id="submit-event-btn" class="borderBtn"><p>create</p></div>
+            </dialog>
         </main>
         <script src="../scripts/navbarNEWHOMEScript.js" type="module"></script>
     </body>

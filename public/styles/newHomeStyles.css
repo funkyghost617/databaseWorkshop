@@ -323,3 +323,30 @@ main {
     right: 0;
     bottom: 0;
 }
+
+#create-event-modal {
+    width: 700px;
+    height: 500px;
+}
+
+#create-event-div {
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: scroll;
+}
+
+#create-event-div h2 {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+#create-event-div input {
+    display: block;
+}
+
+#submit-event-btn {
+    height: 2.5rem;
+    width: 5rem;
+    font-size: 1.2rem;
+}
