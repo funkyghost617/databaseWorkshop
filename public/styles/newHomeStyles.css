@@ -2,10 +2,6 @@
 
 * {
     box-sizing: border-box;
-    /*font-family: "Rubik", sans-serif;*/
-    /*font-family: 'Arial Narrow', Arial, sans-serif;*/
-    /*font-family: "Open Sans", Arial, sans-serif;*/
-    /*font-family: "Roboto", Arial, sans-serif;*/
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
 }
@@ -22,11 +18,26 @@ nav {
     height: 10vh;
     display: flex;
     flex-flow: row nowrap;
-    align-items: center;
+    overflow: hidden;
 }
 
 nav header {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    margin-top: 10px;
+}
+
+nav header a {
+    text-decoration: none;
+    color: #e02828;
+    font-weight: bold;
+}
+
+nav header a:hover {
+    color: #7c1212;
+}
+
+nav img {
+    height: 110%;
 }
 
 nav button {
@@ -78,7 +89,6 @@ main {
 #navlinks {
     width: 12%;
     height: 100%;
-    /*background-color: var(--primary-color); */
     background-color: white;
     display: flex;
     flex-flow: column nowrap;
@@ -97,7 +107,6 @@ main {
     height: 80%;
     width: 100%;
     font-size: 1.2rem;
-    border: 2px solid black;
     display: flex;
     flex-flow: column nowrap;
 }
@@ -115,7 +124,6 @@ main {
 #calendar {
     width: 88%;
     height: 100%;
-    background-color: lightgray;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -185,14 +193,14 @@ main {
     padding: 0.2em 2.2em;
     border-radius: 50em;
     border: 6px solid #c585fa;
-    box-shadow: 0px 8px #9a1fff;
+    box-shadow: 0px 4px #9a1fff;
     align-items: center;
     justify-content: center;
 }
 
 .borderBtn:active {
     position: relative;
-    top: 8px;
+    top: 4px;
     border: 6px solid #d364ff;
     box-shadow: 0px 0px;
 }
@@ -324,21 +332,18 @@ main {
     bottom: 0;
 }
 
-#create-event-modal {
+#create-event-modal:modal {
     width: 700px;
     height: 500px;
+    display: flex;
+    flex-flow: row nowrap;
 }
 
 #create-event-div {
     display: flex;
     flex-flow: column nowrap;
-    overflow: scroll;
-}
-
-#create-event-div h2 {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    overflow: none;
+    width: 50%;
 }
 
 #create-event-div input {
@@ -349,4 +354,19 @@ main {
     height: 2.5rem;
     width: 5rem;
     font-size: 1.2rem;
+}
+
+#event-preview {
+    width: 50%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+}
+
+#event-preview > button {
+    width: 4rem;
+}
+
+#event-preview > div {
+    width: 100%;
 }

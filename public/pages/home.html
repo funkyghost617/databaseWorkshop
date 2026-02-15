@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />
+        <!--<link rel="icon" type="image/x-icon" href="../icons/smilingOpenMouthPurple.svg" />-->
+        <link rel="icon" type="image/gif" href="https://img.itch.zone/aW1hZ2UvMTE4OTE5My82OTM2MTMzLmdpZg==/original/yE2vk1.gif" />
         <title>Home | Database Workshop</title>
         <link rel="stylesheet" href="../styles/newHomeStyles.css" />
 
@@ -69,7 +70,7 @@
             </div>
             <dialog id="create-event-modal">
                 <div id="create-event-div">
-                    <h2><span>New event</span><button type="button" id="close-create-event-btn">cancel</button></h2>
+                    <h2>New event</h2>
                     <label for="event_name">Event name: 
                         <input id="event_name" type="text" />
                     </label>
@@ -85,11 +86,18 @@
                     <label for="event_location">Location: 
                         <input id="event_location" type="text" />
                     </label>
-                    <label for="event_type">Event type: 
-                        <select id="event_type"></select>
+                    <label for="event_type"><s>Event type: </s>
+                        <select id="event_type" disabled></select>
                     </label>
+                    <div id="submit-event-btn" class="borderBtn"><p>create</p></div>
                 </div>
-                <div id="submit-event-btn" class="borderBtn"><p>create</p></div>
+                <div id="event-preview">
+                    <button type="button" id="close-create-event-btn">cancel</button>
+                    <div id="event-preview-subdiv">
+                        <h3 id="preview-date"></h3>
+                        <ul id="preview-list"></ul>
+                    </div>
+                </div>
             </dialog>
         </main>
         <script src="../scripts/navbarNEWHOMEScript.js" type="module"></script>

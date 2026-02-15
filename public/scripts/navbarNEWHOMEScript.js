@@ -24,7 +24,8 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-navbar.innerHTML = `<header><a href="/pages/home.html">EVENTINEL</a></header>
+navbar.innerHTML = `<img src="https://img.itch.zone/aW1hZ2UvMTE4OTE5My82OTM2MTMzLmdpZg==/original/yE2vk1.gif" />
+    <header><a href="/pages/home.html">eventricle</a></header>
     <button type="button" id="old-navlinks-btn">show old navlinks</button>
     <div id="old-navlinks">
         <p><a href="/pages/students.html">students</a></p>
@@ -285,6 +286,9 @@ const createEventBtn = document.querySelector("#create-an-event");
 const createEventModal = document.querySelector("#create-event-modal");
 const closeModalBtn = document.querySelector("#close-create-event-btn");
 const createEventInputs = document.querySelectorAll("#create-event-modal input"); // need to add , #create-event-modal select to selector
+const createEventDate = document.querySelector("#event_date");
+const createEventPreview = document.querySelector("#preview-date");
+const createEventList = document.querySelector("#preview-list");
 createEventInputs.forEach(input => {
         input.value = "";
     })
@@ -297,6 +301,8 @@ closeModalBtn.addEventListener("click", (e) => {
     createEventInputs.forEach(input => {
         input.value = "";
     })
+    createEventPreview.textContent = "";
+    createEventList.innerHTML = "";
 })
 submitEventBtn.addEventListener("click", async (e) => {
     let existsUnfilledInput = false;
@@ -318,4 +324,20 @@ submitEventBtn.addEventListener("click", async (e) => {
     console.log("event added!");
     window.location.href = `/pages/events/${newEventDoc.id}`;
 })
-
+createEventDate.addEventListener("change", async (e) => {
+    createEventPreview.textContent = createEventDate.value;
+    createEventList.innerHTML = "";
+    if (createEventDate.value == "") {
+        return;
+    }
+    const previewEventDocs = await getDocs(query(collection(db, "events"), where("event_date", "==", createEventDate.value), orderBy("event_time_start", "asc")));
+    if (previewEventDocs.size == 0) {
+        createEventList.innerHTML = "<li>No other events currently scheduled for this date</li>";
+    } else {
+        previewEventDocs.forEach((previewEventDoc) => {
+            const previewItem = document.createElement("li");
+            previewItem.textContent = `${previewEventDoc.data()["event_name"]} ${previewEventDoc.data()["event_time_start"]}-${previewEventDoc.data()["event_time_end"]}`;
+            createEventList.appendChild(previewItem);
+        })
+    }
+})
