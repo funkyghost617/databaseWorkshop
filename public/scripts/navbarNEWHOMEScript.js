@@ -26,7 +26,7 @@ auth.onAuthStateChanged((user) => {
 
 navbar.innerHTML = `<img src="https://img.itch.zone/aW1hZ2UvMTE4OTE5My82OTM2MTMzLmdpZg==/original/yE2vk1.gif" />
     <header><a href="/pages/home.html">eventricle</a></header>
-    <button type="button" id="old-navlinks-btn">show old navlinks</button>
+    <button type="button" id="old-navlinks-btn">show navlinks (out of date)</button>
     <div id="old-navlinks">
         <p><a href="/pages/students.html">students</a></p>
         <p><a href="/pages/events.html">events</a></p>

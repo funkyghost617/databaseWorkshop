@@ -188,12 +188,12 @@ main {
     font-weight: bold;
     display: inline-flex;
     user-select: none;
-    color: #6f00ff;
+    color: #e02828;
     background-color: #f8f8fd;
     padding: 0.2em 2.2em;
     border-radius: 50em;
-    border: 6px solid #c585fa;
-    box-shadow: 0px 4px #9a1fff;
+    border: 6px solid #f17c95;
+    box-shadow: 0px 4px #7c1212;
     align-items: center;
     justify-content: center;
 }
@@ -201,7 +201,7 @@ main {
 .borderBtn:active {
     position: relative;
     top: 4px;
-    border: 6px solid #d364ff;
+    border: 6px solid #ff6486;
     box-shadow: 0px 0px;
 }
 
@@ -304,16 +304,21 @@ main {
 }
 
 .monthCell > div {
-    background-color: var(--tertiary-color);
+    background-color: #f38484;
     height: 25%;
     border-radius: 5px;
     margin: 2px;
     transition: transform 0.1s ease-in-out;
     user-select: none;
+    flex-shrink: 0;
+}
+
+.monthCell > div:not(:last-child) {
+    box-shadow: 0 5px 0 0 white;
 }
 
 .monthCell > div:hover {
-    background-color: white;
+    background-color: #ff6486;
     cursor: pointer;
     transform: translateY(-2px);
 }
