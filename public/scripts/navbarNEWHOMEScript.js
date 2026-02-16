@@ -223,6 +223,16 @@ async function drawCalendar() {
         monthCell.setAttribute("day", (i + 1).toString());
         monthCell.classList.add("monthCell");
         activeCalendar.appendChild(monthCell);
+        monthCell.addEventListener("click", (e) => {
+            if (monthCell.classList.contains("selectedDay")) {
+                return;
+            } else {
+                const selectedBtn = document.querySelector(".selectedDay > div:last-child");
+                if (selectedBtn != null) {
+                    selectedBtn.click();
+                }
+            }
+        })
     };
 }
 async function populateCalendar() {
@@ -271,6 +281,10 @@ async function populateCalendar() {
                         cell.hidden = true;
                     })
                 } else {
+                    const selectedBtn = document.querySelector(".selectedDay > div:last-child");
+                    if (selectedBtn != null) {
+                        selectedBtn.click();
+                    }
                     showMoreBlock.textContent = "show less"
                     cell.classList.add("selectedDay");
                     overflowCells.forEach((cell) => {
