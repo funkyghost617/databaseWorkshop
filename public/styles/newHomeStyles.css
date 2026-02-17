@@ -42,11 +42,13 @@ nav img {
 
 nav button {
     height: 50%;
+    color: white;
+    background-color: white;
+    border: none;
 }
 
 #old-navlinks {
     display: absolute;
-
 }
 
 #old-navlinks p {
@@ -96,19 +98,30 @@ main {
     justify-content: flex-end;
 }
 
-#navlinks > div {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-}
-
 #today {
     height: 80%;
     width: 100%;
     font-size: 1.2rem;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#today > * {
+    width: 95%;
+}
+
+#welcome {
+    width: 80%;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow 0.1s ease-in-out;
+    border-radius: 10%;
+}
+
+#welcome:hover {
+    box-shadow: 0 0 0 3px #f17c95;
 }
 
 #navlinks > div:not(:first-child) {

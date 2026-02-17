@@ -53,10 +53,19 @@
 }*/
 
 /*https://www.color-hex.com/color-palette/5361*/
-:root {
+/*:root {
     --primary-color: #bae1ff;
     --secondary-color: #ffdfba;
     --tertiary-color: #ffffba;
     --quaternary-color: #baffc9;
     --quintenary-color: #ffb3ba;
+}*/
+
+/*heart colors from calendar styles*/
+:root {
+    --primary-color: #7c1212;
+    --secondary-color: #e02828;
+    --tertiary-color: #f17c95;
+    --quaternary-color: #ff6486;
+    --quintenary-color: white;
 }

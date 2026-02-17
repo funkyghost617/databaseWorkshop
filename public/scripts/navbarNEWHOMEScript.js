@@ -55,7 +55,7 @@ signoutBtn.addEventListener("click", (e) => {
 });
 
 /* navlinks anchors */
-/*const messagingBtn = document.querySelector("#messaging");
+const messagingBtn = document.querySelector("#messaging");
 messagingBtn.addEventListener("click", (e) => {
     window.location.href = "/pages/messaging.html";
 })
@@ -70,7 +70,7 @@ adminBtn.addEventListener("click", (e) => {
 const myAccountBtn = document.querySelector("#my-account");
 myAccountBtn.addEventListener("click", (e) => {
     window.location.href = "/pages/account.html";
-})*/
+})
 
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -260,9 +260,9 @@ async function populateCalendar() {
             let displayTime = `${displayHour}${displayMin}${Number(eventTimeArray[0]) > 11 ? "pm" : "am"}`;
             eventBlock.textContent = `${displayTime}, ${event.data()["event_name"]}`;
             cell.appendChild(eventBlock);
-            /*eventBlock.addEventListener("click", (e) => {
+            eventBlock.addEventListener("click", (e) => {
                 window.location.href = `/pages/events/${event.id}`;
-            })*/
+            })
         })
         if (cellEvents.size > 3) {
             const overflowCells = document.querySelectorAll(`.monthCell[day="${cell.getAttribute("day")}"] > div:nth-child(n + 3)`);
@@ -354,4 +354,9 @@ createEventDate.addEventListener("change", async (e) => {
             createEventList.appendChild(previewItem);
         })
     }
+})
+
+const bigAccountBtn = document.querySelector("#welcome");
+bigAccountBtn.addEventListener("click", (e) => {
+    window.location.href = "/pages/account.html";
 })
